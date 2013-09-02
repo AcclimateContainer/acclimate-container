@@ -1,0 +1,25 @@
+{
+    "name": "jeremeamia/acclimate",
+    "description": "Provides adapters for various frameworks' service containers.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jeremy Lindblom",
+            "email": "jeremeamia@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "require-dev": {
+        "pimple/pimple": "1.*"
+    },
+    "suggest": {
+        "pimple/pimple": "Install Pimple in order to use the Pimple container adapter."
+    },
+    "autoload": {
+        "psr-0": {
+            "Jeremeamia\\Acclimate": "src/"
+        }
+    }
+}
