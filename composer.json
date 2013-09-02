@@ -11,11 +11,12 @@
     "require": {
         "php": ">=5.3.0"
     },
-    "require-dev": {
-        "pimple/pimple": "1.*"
-    },
     "suggest": {
         "pimple/pimple": "Install Pimple in order to use the Pimple container adapter."
+    },
+    "require-dev": {
+        "pimple/pimple": "1.*",
+        "phpunit/phpunit": "3.7.24"
     },
     "autoload": {
         "psr-0": {
