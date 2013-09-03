@@ -53,5 +53,9 @@ So, use the service container from your favorite framework and acclimate it into
 
 ## Supported Containers
 
+* Acclimate Array Container
+* Aura.Di Container
+* Guzzle Service Builder
 * Pimple
-* Acclimate's own simple `ArrayContainer`
+* Symfony Dependency Injection Container
+* ZF2 Service Manager
