@@ -13,6 +13,11 @@ abstract class AbstractContainerAdapter implements ContainerInterface
     protected $container;
 
     /**
+     * @var string|callable
+     */
+    protected $missingItemHandler;
+
+    /**
      * @param string     $name
      * @param \Exception $e
      *
@@ -29,11 +34,6 @@ abstract class AbstractContainerAdapter implements ContainerInterface
             return call_user_func($this->missingItemHandler, $name);
         }
     }
-
-    /**
-     * @var string|callable
-     */
-    protected $missingItemHandler;
 
     /**
      * @param mixed           $container

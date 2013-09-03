@@ -12,11 +12,15 @@
         "php": ">=5.3.0"
     },
     "suggest": {
-        "pimple/pimple": "Install Pimple in order to use the Pimple container adapter."
+        "pimple/pimple": "Install Pimple to use with the PimpleContainerAdapter.",
+        "symfony/dependency-injection": "Install Symfony DI to use with the SymfonyContainerAdapter.",
+        "zendframework/zend-servicemanager": "Install ZF2 Service Manager to use with the Zf2ServiceManagerContainerAdapter."
     },
     "require-dev": {
         "pimple/pimple": "1.*",
-        "phpunit/phpunit": "3.7.24"
+        "symfony/dependency-injection": "2.*",
+        "zendframework/zend-servicemanager": "2.*",
+        "phpunit/phpunit": "3.7.*"
     },
     "autoload": {
         "psr-0": {

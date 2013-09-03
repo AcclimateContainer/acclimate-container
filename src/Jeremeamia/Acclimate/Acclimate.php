@@ -11,7 +11,9 @@ class Acclimate
      * @var array
      */
     private static $adapterMap = array(
-        'Pimple'                              => 'PimpleContainerAdapter',
+        'Pimple' => 'PimpleContainerAdapter',
+        'Symfony\Component\DependencyInjection\Container' => 'SymfonyContainerAdapter',
+        'Zend\ServiceManager\ServiceManager' => 'Zf2ServiceManagerContainerAdapter',
         'Jeremeamia\Acclimate\ArrayContainer' => 'ArrayContainerAdapter',
     );
 
