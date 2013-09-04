@@ -17,9 +17,4 @@ class PimpleContainerAdapter extends AbstractContainerAdapter
     {
         return isset($this->container[$name]);
     }
-
-    protected function getExpectedContainerFqcn()
-    {
-        return 'Pimple';
-    }
 }

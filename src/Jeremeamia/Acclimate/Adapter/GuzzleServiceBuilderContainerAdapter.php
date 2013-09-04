@@ -19,9 +19,4 @@ class GuzzleServiceBuilderContainerAdapter extends AbstractContainerAdapter
     {
         return isset($this->container[$name]);
     }
-
-    protected function getExpectedContainerFqcn()
-    {
-        return 'Guzzle\Service\Builder\ServiceBuilder';
-    }
 }

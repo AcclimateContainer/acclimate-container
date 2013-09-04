@@ -2,25 +2,72 @@
 
 namespace Jeremeamia\Acclimate;
 
+/**
+ * The Acclimate class is used to acclimate a container into your code. It is essentially a factory class for the
+ * container adapters in the Acclimate package.
+ */
 class Acclimate
 {
+    const ADAPTER_NAMESPACE = 'Jeremeamia\\Acclimate\\Adapter\\';
+
+    /**
+     * @var string Use RETURN_NULL to have the adapter return null for non-existent items
+     */
     const RETURN_NULL = 'RETURN_NULL';
+
+    /**
+     * @var string Use THROW_EXCEPTION to have the adapter throw an exception for non-existent items
+     */
     const THROW_EXCEPTION = 'THROW_EXCEPTION';
 
     /**
-     * @var array
+     * @var array Map of adapter classes to base container classes/interfaces
      */
     private static $adapterMap = array(
-        'Pimple' => 'PimpleContainerAdapter',
-        'Symfony\Component\DependencyInjection\Container' => 'SymfonyContainerAdapter',
-        'Zend\ServiceManager\ServiceManager' => 'Zf2ServiceManagerContainerAdapter',
-        'Jeremeamia\Acclimate\ArrayContainer' => 'ArrayContainerAdapter',
+        'AuraContainerAdapter'                 => 'Aura\Di\ContainerInterface',
+        'GuzzleServiceBuilderContainerAdapter' => 'Guzzle\Service\Builder\ServiceBuilderInterface',
+        'PimpleContainerAdapter'               => 'Pimple',
+        'SymfonyContainerAdapter'              => 'Symfony\Component\DependencyInjection\ContainerInterface',
+        'Zf2ServiceLocatorContainerAdapter'    => 'Zend\ServiceManager\ServiceLocatorInterface',
     );
 
     /**
      * @var string|callback
      */
     private $missingItemHandler;
+
+    /**
+     * @param string $adapterFqcn
+     *
+     * @return string
+     * @throws \UnexpectedValueException
+     */
+    public static function determineContainerFqcn($adapterFqcn)
+    {
+        $adapterName = substr($adapterFqcn, strlen(self::ADAPTER_NAMESPACE));
+        if (isset(self::$adapterMap[$adapterName])) {
+            return self::$adapterMap[$adapterName];
+        } else {
+            throw new \UnexpectedValueException("There is no container associated with the adapter \"{$adapterFqcn}\".");
+        }
+    }
+
+    /**
+     * @param object $container
+     *
+     * @return string
+     * @throws \UnexpectedValueException
+     */
+    public static function determineAdapterFqcn($container)
+    {
+        foreach (self::$adapterMap as $adapterName => $containerFqcn) {
+            if ($container instanceof $containerFqcn) {
+                return self::ADAPTER_NAMESPACE . $adapterName;
+            }
+        }
+
+        throw new \UnexpectedValueException("There is no adapter associated with the provided container.");
+    }
 
     /**
      * @param string|callback $missingItemHandler
@@ -31,43 +78,17 @@ class Acclimate
     }
 
     /**
-     * @param mixed $container
+     * @param object $container
      *
      * @return ContainerInterface
-     * @throws \RuntimeException
      */
     public function getContainerAdapter($container)
     {
-        if ($class = $this->determineAdapterClass($container)) {
-            return new $class($container, $this->missingItemHandler);
+        if ($container instanceof ContainerInterface) {
+            return $container;
         } else {
-            throw new \RuntimeException('The container did not have an associated adapter and could be acclimated.');
+            $class = Acclimate::determineAdapterFqcn($container);
+            return new $class($container, $this->missingItemHandler);
         }
-    }
-
-    /**
-     * @param mixed $container
-     *
-     * @return null|string
-     */
-    private function determineAdapterClass(&$container)
-    {
-        $namespace = __NAMESPACE__ . '\\Adapter\\';
-
-        if (is_object($container)) {
-            $containerClass = get_class($container);
-            if (isset(self::$adapterMap[$containerClass])) {
-                return $namespace . self::$adapterMap[$containerClass];
-            } elseif ($container instanceof \Traversable) {
-                $container = iterator_to_array($container, true);
-            }
-        }
-
-        if (is_array($container)) {
-            $container = new ArrayContainer($container);
-            return "{$namespace}ArrayContainerAdapter";
-        }
-
-        return null;
     }
 }

@@ -19,9 +19,4 @@ class AuraContainerAdapter extends AbstractContainerAdapter
     {
         return $this->container->has($name);
     }
-
-    protected function getExpectedContainerFqcn()
-    {
-        return 'Aura\Di\Container';
-    }
 }

@@ -18,8 +18,8 @@ abstract class AbstractContainerAdapter implements ContainerInterface
     protected $missingItemHandler;
 
     /**
-     * @param string     $name
-     * @param \Exception $e
+     * @param string          $name
+     * @param \Exception|null $e
      *
      * @return mixed
      * @throws \OutOfBoundsException
@@ -36,14 +36,14 @@ abstract class AbstractContainerAdapter implements ContainerInterface
     }
 
     /**
-     * @param mixed           $container
-     * @param string|callback $missingItemHandler
+     * @param object          $container
+     * @param callable|string $missingItemHandler
      *
      * @throws \InvalidArgumentException
      */
     public function __construct($container, $missingItemHandler = Acclimate::RETURN_NULL)
     {
-        $expectedContainerFqcn = $this->getExpectedContainerFqcn();
+        $expectedContainerFqcn = Acclimate::determineContainerFqcn(get_called_class());
         if ($container instanceof $expectedContainerFqcn) {
             $this->container = $container;
         } else {
@@ -59,9 +59,4 @@ abstract class AbstractContainerAdapter implements ContainerInterface
             throw new \InvalidArgumentException('The handler must be "RETURN_NULL", "THROW_EXCEPTION", or a callback.');
         }
     }
-
-    /**
-     * @return string
-     */
-    abstract protected function getExpectedContainerFqcn();
 }

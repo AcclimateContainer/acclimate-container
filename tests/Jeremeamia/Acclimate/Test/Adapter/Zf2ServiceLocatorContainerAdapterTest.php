@@ -2,13 +2,13 @@
 
 namespace Jeremeamia\Acclimate\Test\Adapter;
 
-use Jeremeamia\Acclimate\Adapter\Zf2ServiceManagerContainerAdapter;
+use Jeremeamia\Acclimate\Adapter\Zf2ServiceLocatorContainerAdapter;
 use Zend\ServiceManager\ServiceManager;
 
 /**
- * @covers \Jeremeamia\Acclimate\Adapter\Zf2ServiceManagerContainerAdapter
+ * @covers \Jeremeamia\Acclimate\Adapter\Zf2ServiceLocatorContainerAdapter
  */
-class Zf2ServiceManagerContainerAdapterTest extends \PHPUnit_Framework_TestCase
+class Zf2ServiceLocatorContainerAdapterTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var ServiceManager
@@ -23,7 +23,7 @@ class Zf2ServiceManagerContainerAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testCanCreateAdapter()
     {
-        $adapter = new Zf2ServiceManagerContainerAdapter($this->zf2Container);
+        $adapter = new Zf2ServiceLocatorContainerAdapter($this->zf2Container);
 
         $this->assertTrue($adapter->has('array_iterator'));
         $arrayIterator = $adapter->get('array_iterator');

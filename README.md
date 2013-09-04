@@ -26,7 +26,7 @@ interface ContainerInterface
 }
 ```
 
-The `Acclimate` object is used to adapt the provided container to the Acclimate interface.
+The `Acclimate` object is used to adapt the provided container to the Acclimate container interface.
 
 ```php
 <?php

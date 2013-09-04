@@ -4,7 +4,7 @@ namespace Jeremeamia\Acclimate\Adapter;
 
 use Zend\ServiceManager\Exception\ServiceNotFoundException;
 
-class Zf2ServiceManagerContainerAdapter extends AbstractContainerAdapter
+class Zf2ServiceLocatorContainerAdapter extends AbstractContainerAdapter
 {
     public function get($name)
     {
@@ -18,10 +18,5 @@ class Zf2ServiceManagerContainerAdapter extends AbstractContainerAdapter
     public function has($name)
     {
         return $this->container->has($name);
-    }
-
-    protected function getExpectedContainerFqcn()
-    {
-        return 'Zend\ServiceManager\ServiceManager';
     }
 }

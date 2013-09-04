@@ -19,9 +19,4 @@ class SymfonyContainerAdapter extends AbstractContainerAdapter
     {
         return $this->container->has($name);
     }
-
-    protected function getExpectedContainerFqcn()
-    {
-        return 'Symfony\Component\DependencyInjection\Container';
-    }
 }
