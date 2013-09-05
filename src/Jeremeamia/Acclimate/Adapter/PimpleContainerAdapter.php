@@ -9,7 +9,7 @@ class PimpleContainerAdapter extends AbstractContainerAdapter
         try {
             return $this->container[$name];
         } catch (\InvalidArgumentException $e) {
-            return $this->handleMissingItem($name, $e);
+            $this->handleMissingItem($name, $e);
         }
     }
 

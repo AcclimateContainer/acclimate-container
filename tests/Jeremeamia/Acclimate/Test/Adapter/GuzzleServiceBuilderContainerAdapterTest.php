@@ -25,15 +25,22 @@ class GuzzleServiceBuilderContainerAdapterTest extends \PHPUnit_Framework_TestCa
         ));
     }
 
-    public function testCanCreateAdapter()
+    public function testAdapterSupportsContainerInterface()
     {
         $adapter = new GuzzleServiceBuilderContainerAdapter($this->guzzleContainer);
 
         $this->assertTrue($adapter->has('test_service'));
         $service = $adapter->get('test_service');
         $this->assertInstanceOf('Jeremeamia\Acclimate\Test\Adapter\Fixture\MockService', $service);
+    }
+
+    public function testAdapterThrowsExceptionOnNonExistentItem()
+    {
+        $adapter = new GuzzleServiceBuilderContainerAdapter($this->guzzleContainer);
 
         $this->assertFalse($adapter->has('foo'));
-        $this->assertNull($adapter->get('foo'));
+
+        $this->setExpectedException('Jeremeamia\Acclimate\ServiceNotFoundException');
+        $adapter->get('foo');
     }
 }

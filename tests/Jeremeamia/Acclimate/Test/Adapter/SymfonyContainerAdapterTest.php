@@ -21,15 +21,22 @@ class SymfonyContainerAdapterTest extends \PHPUnit_Framework_TestCase
         $this->symfonyContainer->set('array_iterator', new \ArrayIterator(range(1, 5)));
     }
 
-    public function testCanCreateAdapter()
+    public function testAdapterSupportsContainerInterface()
     {
         $adapter = new SymfonyContainerAdapter($this->symfonyContainer);
 
         $this->assertTrue($adapter->has('array_iterator'));
         $arrayIterator = $adapter->get('array_iterator');
         $this->assertEquals(array(1, 2, 3, 4, 5), iterator_to_array($arrayIterator));
+    }
+
+    public function testAdapterThrowsExceptionOnNonExistentItem()
+    {
+        $adapter = new SymfonyContainerAdapter($this->symfonyContainer);
 
         $this->assertFalse($adapter->has('foo'));
-        $this->assertNull($adapter->get('foo'));
+
+        $this->setExpectedException('Jeremeamia\Acclimate\ServiceNotFoundException');
+        $adapter->get('foo');
     }
 }

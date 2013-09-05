@@ -5,74 +5,61 @@ namespace Jeremeamia\Acclimate;
 class ArrayContainer implements ContainerInterface, \ArrayAccess
 {
     /**
-     * @var array
+     * @var array|\ArrayAccess
      */
     protected $data;
 
     /**
      * @param array $data
+     *
+     * @throws \InvalidArgumentException
      */
-    public function __construct(array $data = array())
+    public function __construct($data = array())
     {
-        $this->data = $data;
+        if (is_array($data) || $data instanceof \ArrayAccess) {
+            $this->data = $data;
+        } elseif ($data instanceof \Traversable) {
+            $this->data = iterator_to_array($data, true);
+        } else {
+            throw new \InvalidArgumentException('The ArrayContainer requires either an array or an array-like object');
+        }
     }
 
     public function get($name)
     {
-        if (array_key_exists($name, $this->data)) {
-            return $this->data[$name];
-        } else {
-            throw new \OutOfBoundsException("No item in the container for name \"{$name}\".");
-        }
+        return $this[$name];
     }
 
     public function has($name)
     {
-        return array_key_exists($name, $this->data);
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return $this
-     */
-    public function remove($name)
-    {
-        unset($this->data[$name]);
-
-        return $this;
-    }
-
-    /**
-     * @param string $name
-     * @param mixed $value
-     *
-     * @return $this
-     */
-    public function set($name, $value)
-    {
-        $this->data[$name] = $value;
-
-        return $this;
+        return isset($this[$name]);
     }
 
     public function offsetExists($offset)
     {
-        return $this->has($offset);
+        return isset($this->data[$offset]);
     }
 
     public function offsetGet($offset)
     {
-        return $this->get($offset);
+        if (isset($this->data[$offset])) {
+            if ($this->data[$offset] instanceof \Closure) {
+                return call_user_func($this->data[$offset], $this);
+            } else {
+                return $this->data[$offset];
+            }
+        } else {
+            throw ServiceNotFoundException::fromName($offset);
+        }
     }
 
     public function offsetSet($offset, $value)
     {
-        $this->set($offset, $value);
+        $this->data[$offset] = $value;
     }
 
     public function offsetUnset($offset)
     {
-        $this->remove($offset);
+        unset($this->data[$offset]);
     }
 }

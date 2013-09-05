@@ -40,7 +40,7 @@ class CompositeContainer implements ContainerInterface
             }
         }
 
-        return null;
+        throw ServiceNotFoundException::fromName($name);
     }
 
     public function has($name)

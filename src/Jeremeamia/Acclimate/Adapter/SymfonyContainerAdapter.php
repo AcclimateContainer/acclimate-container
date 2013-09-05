@@ -11,7 +11,7 @@ class SymfonyContainerAdapter extends AbstractContainerAdapter
         try {
             return $this->container->get($name);
         } catch (ServiceNotFoundException $e) {
-            return $this->handleMissingItem($name, $e);
+            $this->handleMissingItem($name, $e);
         }
     }
 

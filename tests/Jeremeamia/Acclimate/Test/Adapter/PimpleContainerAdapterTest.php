@@ -26,15 +26,22 @@ class PimpleContainerAdapterTest extends \PHPUnit_Framework_TestCase
         };
     }
 
-    public function testCanCreateAdapter()
+    public function testAdapterSupportsContainerInterface()
     {
         $adapter = new PimpleContainerAdapter($this->pimpleContainer);
 
         $this->assertTrue($adapter->has('limit_iterator'));
         $limitIterator = $adapter->get('limit_iterator');
         $this->assertEquals(array(1, 2, 3), iterator_to_array($limitIterator));
+    }
+
+    public function testAdapterThrowsExceptionOnNonExistentItem()
+    {
+        $adapter = new PimpleContainerAdapter($this->pimpleContainer);
 
         $this->assertFalse($adapter->has('foo'));
-        $this->assertNull($adapter->get('foo'));
+
+        $this->setExpectedException('Jeremeamia\Acclimate\ServiceNotFoundException');
+        $adapter->get('foo');
     }
 }

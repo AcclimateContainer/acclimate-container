@@ -1,6 +1,6 @@
 # Acclimate
 
-* Tagline: Acclimating service containers to your code.
+* Tagline: Get Acclimated! Adapt service containers to your code.
 * Author: [Jeremy Lindblom](https://twitter.com/jeremeamia)
 * Version 0.1.0
 
@@ -54,8 +54,13 @@ So, use the service container from your favorite framework and acclimate it into
 ## Supported Containers
 
 * Acclimate Array Container
-* Aura.Di Container
-* Guzzle Service Builder
-* Pimple
-* Symfony Dependency Injection Container
-* ZF2 Service Manager
+* [Aura.Di Container](https://github.com/auraphp/Aura.Di/blob/develop/src/Aura/Di/ContainerInterface.php)
+* [Guzzle Service Builder](https://github.com/guzzle/service/blob/master/Builder/ServiceBuilderInterface.php)
+* [Pimple](https://github.com/fabpot/Pimple/blob/master/lib/Pimple.php)
+* [Symfony Dependency Injection Container](https://github.com/symfony/symfony/blob/master/src/Symfony/Component/DependencyInjection/ContainerInterface.php)
+* [ZF2 Service Locator](https://github.com/zendframework/zf2/blob/master/library/Zend/Di/ServiceLocator.php)
+* Any object that implements `ArrayAccess`
+
+## Resources
+
+* [Service container usage comparison](https://gist.github.com/mnapoli/6159681)

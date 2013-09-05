@@ -8,6 +8,7 @@ interface ContainerInterface
      * @param string $name
      *
      * @return mixed
+     * @throws ServiceNotFoundException If there is no item in the container that matches the provided name
      */
     public function get($name);
 

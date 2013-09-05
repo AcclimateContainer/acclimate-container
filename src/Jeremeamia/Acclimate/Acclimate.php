@@ -11,30 +11,16 @@ class Acclimate
     const ADAPTER_NAMESPACE = 'Jeremeamia\\Acclimate\\Adapter\\';
 
     /**
-     * @var string Use RETURN_NULL to have the adapter return null for non-existent items
-     */
-    const RETURN_NULL = 'RETURN_NULL';
-
-    /**
-     * @var string Use THROW_EXCEPTION to have the adapter throw an exception for non-existent items
-     */
-    const THROW_EXCEPTION = 'THROW_EXCEPTION';
-
-    /**
      * @var array Map of adapter classes to base container classes/interfaces
      */
     private static $adapterMap = array(
+        'ArrayContainerAdapter'                => 'Jeremeamia\Acclimate\ArrayContainer',
         'AuraContainerAdapter'                 => 'Aura\Di\ContainerInterface',
         'GuzzleServiceBuilderContainerAdapter' => 'Guzzle\Service\Builder\ServiceBuilderInterface',
         'PimpleContainerAdapter'               => 'Pimple',
         'SymfonyContainerAdapter'              => 'Symfony\Component\DependencyInjection\ContainerInterface',
         'Zf2ServiceLocatorContainerAdapter'    => 'Zend\ServiceManager\ServiceLocatorInterface',
     );
-
-    /**
-     * @var string|callback
-     */
-    private $missingItemHandler;
 
     /**
      * @param string $adapterFqcn
@@ -66,15 +52,11 @@ class Acclimate
             }
         }
 
-        throw new \UnexpectedValueException("There is no adapter associated with the provided container.");
-    }
-
-    /**
-     * @param string|callback $missingItemHandler
-     */
-    public function __construct($missingItemHandler = Acclimate::RETURN_NULL)
-    {
-        $this->missingItemHandler = $missingItemHandler;
+        if ($container instanceof \ArrayAccess) {
+            return self::ADAPTER_NAMESPACE . 'ArrayContainerAdapter';
+        } else {
+            throw new \UnexpectedValueException("There is no adapter associated with the provided container.");
+        }
     }
 
     /**
@@ -87,8 +69,8 @@ class Acclimate
         if ($container instanceof ContainerInterface) {
             return $container;
         } else {
-            $class = Acclimate::determineAdapterFqcn($container);
-            return new $class($container, $this->missingItemHandler);
+            $class = self::determineAdapterFqcn($container);
+            return new $class($container);
         }
     }
 }
