@@ -13,7 +13,8 @@
     },
     "suggest": {
         "aura/di": "Install Aura.Di to use with the AuraContainerAdapter.",
-        "guzzle/service": "Install Guzzle to use with the GuzzleServiceBuilderContainerAdapter",
+        "guzzle/service": "Install Guzzle to use with the GuzzleServiceBuilderContainerAdapter.",
+        "illuminate/container": "Install the Laravel Container to use with LaravelContainerAdapter.",
         "pimple/pimple": "Install Pimple to use with the PimpleContainerAdapter.",
         "symfony/dependency-injection": "Install Symfony DI to use with the SymfonyContainerAdapter.",
         "zendframework/zend-servicemanager": "Install ZF2 Service Manager to use with the Zf2ServiceManagerContainerAdapter."
@@ -22,6 +23,7 @@
         "php": ">=5.4.0",
         "aura/di": "1.*",
         "guzzle/service": "3.*",
+        "illuminate/container": "4.*",
         "phpunit/phpunit": "3.7.*",
         "pimple/pimple": "1.*",
         "symfony/dependency-injection": "2.*",

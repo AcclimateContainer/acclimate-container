@@ -17,6 +17,7 @@ class Acclimate
         'ArrayContainerAdapter'                => 'Jeremeamia\Acclimate\ArrayContainer',
         'AuraContainerAdapter'                 => 'Aura\Di\ContainerInterface',
         'GuzzleServiceBuilderContainerAdapter' => 'Guzzle\Service\Builder\ServiceBuilderInterface',
+        'LaravelContainerAdapter'              => 'Illuminate\Container\Container',
         'PimpleContainerAdapter'               => 'Pimple',
         'SymfonyContainerAdapter'              => 'Symfony\Component\DependencyInjection\ContainerInterface',
         'Zf2ServiceLocatorContainerAdapter'    => 'Zend\ServiceManager\ServiceLocatorInterface',
