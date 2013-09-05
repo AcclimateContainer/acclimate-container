@@ -7,6 +7,7 @@ use Jeremeamia\Acclimate\ArrayContainer;
 
 /**
  * @covers \Jeremeamia\Acclimate\Adapter\ArrayContainerAdapter
+ * @covers \Jeremeamia\Acclimate\Adapter\AbstractContainerAdapter
  */
 class ArrayContainerAdapterTest extends \PHPUnit_Framework_TestCase
 {
@@ -38,5 +39,11 @@ class ArrayContainerAdapterTest extends \PHPUnit_Framework_TestCase
 
         $this->setExpectedException('Jeremeamia\Acclimate\ServiceNotFoundException');
         $adapter->get('foo');
+    }
+
+    public function testThrowsExceptionWhenInvalidContainerProvided()
+    {
+        $this->setExpectedException('InvalidArgumentException');
+        $adapter = new ArrayContainerAdapter(new \SplQueue);
     }
 }
