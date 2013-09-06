@@ -2,17 +2,17 @@
 
 namespace Jeremeamia\Acclimate\Test\Decorator;
 
-use Jeremeamia\Acclimate\Decorator\CallbackContainerDecorator;
+use Jeremeamia\Acclimate\Decorator\CallbackOnMissContainerDecorator;
 use Jeremeamia\Acclimate\ArrayContainer;
 
 /**
- * @covers \Jeremeamia\Acclimate\Decorator\CallbackContainerDecorator
+ * @covers \Jeremeamia\Acclimate\Decorator\CallbackOnMissContainerDecorator
  */
-class CallbackContainerDecoratorTest extends \PHPUnit_Framework_TestCase
+class CallbackOnMissContainerDecoratorTest extends \PHPUnit_Framework_TestCase
 {
     public function testDecoratorExecutesCallbackForMissingItems()
     {
-        $container = new CallbackContainerDecorator(new ArrayContainer, function ($name) {
+        $container = new CallbackOnMissContainerDecorator(new ArrayContainer, function ($name) {
             return 'CALLBACK!';
         });
         $this->assertFalse($container->has('foo'));
@@ -22,6 +22,6 @@ class CallbackContainerDecoratorTest extends \PHPUnit_Framework_TestCase
     public function testDecoratorThrowsExceptionIfCallbackIsInvalid()
     {
         $this->setExpectedException('InvalidArgumentException');
-        $container = new CallbackContainerDecorator(new ArrayContainer, 'foo');
+        $container = new CallbackOnMissContainerDecorator(new ArrayContainer, 'foo');
     }
 }

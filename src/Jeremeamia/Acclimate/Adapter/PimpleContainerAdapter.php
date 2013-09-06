@@ -2,14 +2,31 @@
 
 namespace Jeremeamia\Acclimate\Adapter;
 
-class PimpleContainerAdapter extends AbstractContainerAdapter
+use Jeremeamia\Acclimate\ContainerInterface as AcclimateContainerInterface;
+use Jeremeamia\Acclimate\ServiceNotFoundException as AcclimateException;
+use Pimple;
+
+class PimpleContainerAdapter implements AcclimateContainerInterface
 {
+    /**
+     * @var Pimple
+     */
+    private $container;
+
+    /**
+     * @param Pimple $container
+     */
+    public function __construct(Pimple $container)
+    {
+        $this->container = $container;
+    }
+
     public function get($name)
     {
         try {
             return $this->container[$name];
-        } catch (\InvalidArgumentException $e) {
-            $this->handleMissingItem($name, $e);
+        } catch (\InvalidArgumentException $prev) {
+            throw AcclimateException::fromName($name, $prev);
         }
     }
 

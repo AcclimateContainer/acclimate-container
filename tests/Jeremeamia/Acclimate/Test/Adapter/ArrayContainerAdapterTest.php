@@ -7,7 +7,6 @@ use Jeremeamia\Acclimate\ArrayContainer;
 
 /**
  * @covers \Jeremeamia\Acclimate\Adapter\ArrayContainerAdapter
- * @covers \Jeremeamia\Acclimate\Adapter\AbstractContainerAdapter
  */
 class ArrayContainerAdapterTest extends \PHPUnit_Framework_TestCase
 {
@@ -43,7 +42,7 @@ class ArrayContainerAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testThrowsExceptionWhenInvalidContainerProvided()
     {
-        $this->setExpectedException('InvalidArgumentException');
-        $adapter = new ArrayContainerAdapter(new \SplQueue);
+        $this->setExpectedException('PHPUnit_Framework_Error');
+        $adapter = new ArrayContainerAdapter('foo'); // Should trigger error
     }
 }

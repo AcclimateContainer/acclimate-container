@@ -2,14 +2,31 @@
 
 namespace Jeremeamia\Acclimate\Adapter;
 
-class LaravelContainerAdapter extends AbstractContainerAdapter
+use Illuminate\Container\Container;
+use Jeremeamia\Acclimate\ContainerInterface as AcclimateContainerInterface;
+use Jeremeamia\Acclimate\ServiceNotFoundException as AcclimateException;
+
+class LaravelContainerAdapter implements AcclimateContainerInterface
 {
+    /**
+     * @var Container
+     */
+    private $container;
+
+    /**
+     * @param Container $container
+     */
+    public function __construct(Container $container)
+    {
+        $this->container = $container;
+    }
+
     public function get($name)
     {
         try {
             return $this->container->make($name);
-        } catch (\Exception $e) {
-            $this->handleMissingItem($name, $e);
+        } catch (\Exception $prev) {
+            throw AcclimateException::fromName($name, $prev);
         }
     }
 

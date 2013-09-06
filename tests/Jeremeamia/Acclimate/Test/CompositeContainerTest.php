@@ -14,10 +14,9 @@ class CompositeContainerTest extends \PHPUnit_Framework_TestCase
 {
     public function testContainerSupportsContainerInterface()
     {
-        $container = new CompositeContainer();
-        $container->addContainer(new ArrayContainer(array(
-            'array_iterator' => new \ArrayIterator(range(1, 5))
-        )));
+        $container = new CompositeContainer(array(
+            new ArrayContainer(array('array_iterator' => new \ArrayIterator(range(1, 5))))
+        ));
 
         $this->assertTrue($container->has('array_iterator'));
         $arrayIterator = $container->get('array_iterator');

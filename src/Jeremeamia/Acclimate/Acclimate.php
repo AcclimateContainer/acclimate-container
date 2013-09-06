@@ -2,76 +2,69 @@
 
 namespace Jeremeamia\Acclimate;
 
+use Jeremeamia\Acclimate\Adapter\ArrayContainerAdapter;
+
 /**
  * The Acclimate class is used to acclimate a container into your code. It is essentially a factory class for the
  * container adapters in the Acclimate package.
  */
 class Acclimate
 {
-    const ADAPTER_NAMESPACE = 'Jeremeamia\\Acclimate\\Adapter\\';
-
     /**
-     * @var array Map of adapter classes to base container classes/interfaces
+     * @var array Map of container classes to container adapter class
      */
-    private static $adapterMap = array(
-        'ArrayContainerAdapter'                => 'Jeremeamia\Acclimate\ArrayContainer',
-        'AuraContainerAdapter'                 => 'Aura\Di\ContainerInterface',
-        'GuzzleServiceBuilderContainerAdapter' => 'Guzzle\Service\Builder\ServiceBuilderInterface',
-        'LaravelContainerAdapter'              => 'Illuminate\Container\Container',
-        'PimpleContainerAdapter'               => 'Pimple',
-        'SymfonyContainerAdapter'              => 'Symfony\Component\DependencyInjection\ContainerInterface',
-        'Zf2ServiceLocatorContainerAdapter'    => 'Zend\ServiceManager\ServiceLocatorInterface',
+    private $adapterMap = array(
+        'Aura\Di\ContainerInterface' => 'Jeremeamia\Acclimate\Adapter\AuraContainerAdapter',
+        'Guzzle\Service\Builder\ServiceBuilderInterface' => 'Jeremeamia\Acclimate\Adapter\GuzzleServiceBuilderContainerAdapter',
+        'Illuminate\Container\Container' => 'Jeremeamia\Acclimate\Adapter\LaravelContainerAdapter',
+        'Pimple' => 'Jeremeamia\Acclimate\Adapter\PimpleContainerAdapter',
+        'Symfony\Component\DependencyInjection\ContainerInterface' => 'Jeremeamia\Acclimate\Adapter\SymfonyContainerAdapter',
+        'Zend\ServiceManager\ServiceLocatorInterface' => 'Jeremeamia\Acclimate\Adapter\Zf2ServiceLocatorContainerAdapter',
     );
 
     /**
-     * @param string $adapterFqcn
-     *
-     * @return string
-     * @throws \UnexpectedValueException
+     * @param array $adapterMap
      */
-    public static function determineContainerFqcn($adapterFqcn)
+    public function __construct(array $adapterMap = array())
     {
-        $adapterName = substr($adapterFqcn, strlen(self::ADAPTER_NAMESPACE));
-        if (isset(self::$adapterMap[$adapterName])) {
-            return self::$adapterMap[$adapterName];
-        } else {
-            throw new \UnexpectedValueException("There is no container associated with the adapter \"{$adapterFqcn}\".");
-        }
+        $this->adapterMap = $adapterMap + $this->adapterMap;
     }
 
     /**
-     * @param object $container
+     * @param string $adapterFqcn   The fully qualified class name of the container adapter
+     * @param string $containerFqcn The fully qualified class name of the container
      *
-     * @return string
-     * @throws \UnexpectedValueException
+     * @return self
      */
-    public static function determineAdapterFqcn($container)
+    public function registerAdapter($adapterFqcn, $containerFqcn)
     {
-        foreach (self::$adapterMap as $adapterName => $containerFqcn) {
-            if ($container instanceof $containerFqcn) {
-                return self::ADAPTER_NAMESPACE . $adapterName;
-            }
-        }
+        $this->adapterMap[$containerFqcn] = $adapterFqcn;
 
-        if ($container instanceof \ArrayAccess) {
-            return self::ADAPTER_NAMESPACE . 'ArrayContainerAdapter';
-        } else {
-            throw new \UnexpectedValueException("There is no adapter associated with the provided container.");
-        }
+        return $this;
     }
 
     /**
      * @param object $container
      *
      * @return ContainerInterface
+     * @throws AdapterNotFoundException
      */
-    public function getContainerAdapter($container)
+    public function adaptContainer($container)
     {
         if ($container instanceof ContainerInterface) {
             return $container;
         } else {
-            $class = self::determineAdapterFqcn($container);
-            return new $class($container);
+            foreach ($this->adapterMap as $containerFqcn => $adapterFqcn) {
+                if ($container instanceof $containerFqcn) {
+                    return new $adapterFqcn($container);
+                }
+            }
+            if ($container instanceof \ArrayAccess) {
+                return new ArrayContainerAdapter($container);
+            } else {
+                throw AdapterNotFoundException::fromContainer($container);
+            }
+
         }
     }
 }

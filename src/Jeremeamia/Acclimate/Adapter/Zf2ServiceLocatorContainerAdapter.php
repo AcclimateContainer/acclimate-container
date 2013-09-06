@@ -2,16 +2,32 @@
 
 namespace Jeremeamia\Acclimate\Adapter;
 
+use Jeremeamia\Acclimate\ContainerInterface as AcclimateContainerInterface;
+use Jeremeamia\Acclimate\ServiceNotFoundException as AcclimateException;
 use Zend\ServiceManager\Exception\ServiceNotFoundException;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
-class Zf2ServiceLocatorContainerAdapter extends AbstractContainerAdapter
+class Zf2ServiceLocatorContainerAdapter implements AcclimateContainerInterface
 {
+    /**
+     * @var ServiceLocatorInterface
+     */
+    private $container;
+
+    /**
+     * @param ServiceLocatorInterface $container
+     */
+    public function __construct(ServiceLocatorInterface $container)
+    {
+        $this->container = $container;
+    }
+
     public function get($name)
     {
         try {
             return $this->container->get($name);
-        } catch (ServiceNotFoundException $e) {
-            $this->handleMissingItem($name, $e);
+        } catch (ServiceNotFoundException $prev) {
+            throw AcclimateException::fromName($name, $prev);
         }
     }
 

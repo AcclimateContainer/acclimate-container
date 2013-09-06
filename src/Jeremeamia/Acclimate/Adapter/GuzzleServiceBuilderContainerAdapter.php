@@ -2,16 +2,32 @@
 
 namespace Jeremeamia\Acclimate\Adapter;
 
+use Guzzle\Service\Builder\ServiceBuilderInterface;
 use Guzzle\Service\Exception\ServiceNotFoundException;
+use Jeremeamia\Acclimate\ContainerInterface as AcclimateContainerInterface;
+use Jeremeamia\Acclimate\ServiceNotFoundException as AcclimateException;
 
-class GuzzleServiceBuilderContainerAdapter extends AbstractContainerAdapter
+class GuzzleServiceBuilderContainerAdapter implements AcclimateContainerInterface
 {
+    /**
+     * @var ServiceBuilderInterface
+     */
+    private $container;
+
+    /**
+     * @param ServiceBuilderInterface $container
+     */
+    public function __construct(ServiceBuilderInterface $container)
+    {
+        $this->container = $container;
+    }
+
     public function get($name)
     {
         try {
             return $this->container->get($name);
-        } catch (ServiceNotFoundException $e) {
-            $this->handleMissingItem($name, $e);
+        } catch (ServiceNotFoundException $prev) {
+            throw AcclimateException::fromName($name, $prev);
         }
     }
 

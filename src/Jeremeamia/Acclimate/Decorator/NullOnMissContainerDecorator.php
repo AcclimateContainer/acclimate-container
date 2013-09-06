@@ -3,14 +3,18 @@
 namespace Jeremeamia\Acclimate\Decorator;
 
 use Jeremeamia\Acclimate\ContainerInterface;
+use Jeremeamia\Acclimate\ServiceNotFoundException;
 
-abstract class AbstractContainerDecorator implements ContainerInterface
+class NullOnMissContainerDecorator implements ContainerInterface
 {
     /**
      * @var ContainerInterface
      */
     protected $container;
 
+    /**
+     * @param ContainerInterface $container
+     */
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
@@ -18,7 +22,11 @@ abstract class AbstractContainerDecorator implements ContainerInterface
 
     public function get($name)
     {
-        return $this->container->get($name);
+        try {
+            return $this->container->get($name);
+        } catch (ServiceNotFoundException $e) {
+            return null;
+        }
     }
 
     public function has($name)

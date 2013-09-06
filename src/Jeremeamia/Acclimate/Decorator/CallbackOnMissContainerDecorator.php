@@ -5,13 +5,19 @@ namespace Jeremeamia\Acclimate\Decorator;
 use Jeremeamia\Acclimate\ContainerInterface;
 use Jeremeamia\Acclimate\ServiceNotFoundException;
 
-class CallbackContainerDecorator extends AbstractContainerDecorator
+class CallbackOnMissContainerDecorator implements ContainerInterface
 {
     /**
      * @var callback
      */
     private $callback;
 
+    /**
+     * @param ContainerInterface $container
+     * @param callable           $callback
+     *
+     * @throws \InvalidArgumentException
+     */
     public function __construct(ContainerInterface $container, $callback)
     {
         $this->container = $container;
@@ -29,5 +35,10 @@ class CallbackContainerDecorator extends AbstractContainerDecorator
         } catch (ServiceNotFoundException $e) {
             return call_user_func($this->callback, $name);
         }
+    }
+
+    public function has($name)
+    {
+        return $this->container->has($name);
     }
 }
