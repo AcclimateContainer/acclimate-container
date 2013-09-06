@@ -18,48 +18,43 @@ container objects of multiple frameworks.
 The Acclimate container interface aims to normalize the various implementations of container interfaces to a concise,
 readonly interface, that will allow users to consume data from a variety of different containers in a consistent way.
 
-```php
-interface ContainerInterface
-{
-    public function get($name);
-    public function has($name);
-}
-```
+    interface ContainerInterface
+    {
+        public function get($name);
+        public function has($name);
+    }
 
 The `Acclimate` object is used to adapt the provided container to the Acclimate container interface.
 
-```php
-<?php
+    <?php
 
-require 'vendor/autoload.php';
+    require 'vendor/autoload.php';
 
-$acclimate = new Jeremeamia\Acclimate\Acclimate();
+    $pimple = new Pimple();
+    $pimple['queue'] = function() {
+        $queue = new SplQueue();
+        $queue->enqueue('Hello!');
+        return $queue;
+    };
 
-$pimple = new Pimple();
-$pimple['queue'] = function() {
-    $queue = new SplQueue();
-    $queue->enqueue('Hello!');
-    return $queue;
-};
+    $acclimate = new Jeremeamia\Acclimate\Acclimate();
+    $container = $acclimate->adaptContainer($pimple);
 
-$container = $acclimate->getContainerAdapter($pimple);
-
-$queue = $container->get('queue');
-echo $queue->dequeue();
-//> Hello!
-```
+    $queue = $container->get('queue');
+    echo $queue->dequeue();
+    #> Hello!
 
 So, use the service container from your favorite framework and acclimate it into your other code. :-)
 
 ## Supported Containers
 
-* Acclimate Array Container
 * [Aura.Di Container](https://github.com/auraphp/Aura.Di/blob/develop/src/Aura/Di/ContainerInterface.php)
 * [Guzzle Service Builder](https://github.com/guzzle/service/blob/master/Builder/ServiceBuilderInterface.php)
+* [Laravel Container](https://github.com/laravel/framework/blob/master/src/Illuminate/Container/Container.php)
 * [Pimple](https://github.com/fabpot/Pimple/blob/master/lib/Pimple.php)
 * [Symfony Dependency Injection Container](https://github.com/symfony/symfony/blob/master/src/Symfony/Component/DependencyInjection/ContainerInterface.php)
 * [ZF2 Service Locator](https://github.com/zendframework/zf2/blob/master/library/Zend/Di/ServiceLocator.php)
-* Any object that implements `ArrayAccess`
+* Any other object that implements `ArrayAccess`
 
 ## Resources
 
