@@ -44,10 +44,9 @@ class ArrayContainer implements ContainerInterface, \ArrayAccess
     {
         if (isset($this->data[$offset])) {
             if ($this->data[$offset] instanceof \Closure) {
-                return call_user_func($this->data[$offset], $this);
-            } else {
-                return $this->data[$offset];
+                $this->data[$offset] = call_user_func($this->data[$offset], $this);
             }
+            return $this->data[$offset];
         } else {
             throw ServiceNotFoundException::fromName($offset);
         }

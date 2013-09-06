@@ -59,11 +59,16 @@ class ArrayContainerTest extends \PHPUnit_Framework_TestCase
     public function testClosuresAreExecutedOnGet()
     {
         $container = new ArrayContainer();
-        $container['name'] = 'Jeremy';
-        $container['echo'] = function ($c) {
-            return "Hello, {$c['name']}!";
+        $container['foo'] = 'bar';
+        $container['baz'] = function ($c) {
+            $obj = new \stdClass;
+            $obj->foo = $c['foo'];
+            return $obj;
         };
 
-        $this->assertEquals('Hello, Jeremy!', $container['echo']);
+        $baz = $container['baz'];
+        $this->assertInstanceOf('stdClass', $baz);
+        $this->assertEquals('bar', $baz->foo);
+        $this->assertSame($baz, $container['baz']);
     }
 }
