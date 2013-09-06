@@ -15,11 +15,12 @@ class Acclimate
      */
     private $adapterMap = array(
         'Aura\Di\ContainerInterface' => 'Jeremeamia\Acclimate\Adapter\AuraContainerAdapter',
-        'Guzzle\Service\Builder\ServiceBuilderInterface' => 'Jeremeamia\Acclimate\Adapter\GuzzleServiceBuilderContainerAdapter',
+        'Guzzle\Service\Builder\ServiceBuilderInterface' => 'Jeremeamia\Acclimate\Adapter\GuzzleContainerAdapter',
         'Illuminate\Container\Container' => 'Jeremeamia\Acclimate\Adapter\LaravelContainerAdapter',
         'Pimple' => 'Jeremeamia\Acclimate\Adapter\PimpleContainerAdapter',
         'Symfony\Component\DependencyInjection\ContainerInterface' => 'Jeremeamia\Acclimate\Adapter\SymfonyContainerAdapter',
-        'Zend\ServiceManager\ServiceLocatorInterface' => 'Jeremeamia\Acclimate\Adapter\Zf2ServiceLocatorContainerAdapter',
+        'Zend\Di\LocatorInterface' => 'Jeremeamia\Acclimate\Adapter\ZendDiContainerAdapter',
+        'Zend\ServiceManager\ServiceLocatorInterface' => 'Jeremeamia\Acclimate\Adapter\ZendServiceManagerContainerAdapter',
     );
 
     /**

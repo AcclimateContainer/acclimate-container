@@ -2,28 +2,28 @@
 
 namespace Jeremeamia\Acclimate\Test\Adapter;
 
-use Jeremeamia\Acclimate\Adapter\Zf2ServiceLocatorContainerAdapter;
-use Zend\ServiceManager\ServiceManager;
+use Jeremeamia\Acclimate\Adapter\ZendDiContainerAdapter;
+use Zend\Di\ServiceLocator;
 
 /**
- * @covers \Jeremeamia\Acclimate\Adapter\Zf2ServiceLocatorContainerAdapter
+ * @covers \Jeremeamia\Acclimate\Adapter\ZendDiContainerAdapter
  */
-class Zf2ServiceLocatorContainerAdapterTest extends \PHPUnit_Framework_TestCase
+class ZendDiContainerAdapterTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var ServiceManager
+     * @var ServiceLocator
      */
-    private $zf2Container;
+    private $container;
 
     public function setUp()
     {
-        $this->zf2Container = new ServiceManager();
-        $this->zf2Container->setService('array_iterator', new \ArrayIterator(range(1, 5)));
+        $this->container = new ServiceLocator();
+        $this->container->set('array_iterator', new \ArrayIterator(range(1, 5)));
     }
 
     public function testAdapterSupportsContainerInterface()
     {
-        $adapter = new Zf2ServiceLocatorContainerAdapter($this->zf2Container);
+        $adapter = new ZendDiContainerAdapter($this->container);
 
         $this->assertTrue($adapter->has('array_iterator'));
         $arrayIterator = $adapter->get('array_iterator');
@@ -32,7 +32,7 @@ class Zf2ServiceLocatorContainerAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testAdapterThrowsExceptionOnNonExistentItem()
     {
-        $adapter = new Zf2ServiceLocatorContainerAdapter($this->zf2Container);
+        $adapter = new ZendDiContainerAdapter($this->container);
 
         $this->assertFalse($adapter->has('foo'));
 

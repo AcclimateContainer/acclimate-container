@@ -13,22 +13,22 @@ class PimpleContainerAdapterTest extends \PHPUnit_Framework_TestCase
     /**
      * @var \Pimple
      */
-    private $pimpleContainer;
+    private $container;
 
     public function setUp()
     {
-        $this->pimpleContainer = new Pimple();
-        $this->pimpleContainer['array_iterator'] = function() {
+        $this->container = new Pimple();
+        $this->container['array_iterator'] = function() {
             return new \ArrayIterator(range(1, 10));
         };
-        $this->pimpleContainer['limit_iterator'] = function($c) {
+        $this->container['limit_iterator'] = function($c) {
             return new \LimitIterator($c['array_iterator'], 0, 3);
         };
     }
 
     public function testAdapterSupportsContainerInterface()
     {
-        $adapter = new PimpleContainerAdapter($this->pimpleContainer);
+        $adapter = new PimpleContainerAdapter($this->container);
 
         $this->assertTrue($adapter->has('limit_iterator'));
         $limitIterator = $adapter->get('limit_iterator');
@@ -37,7 +37,7 @@ class PimpleContainerAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testAdapterThrowsExceptionOnNonExistentItem()
     {
-        $adapter = new PimpleContainerAdapter($this->pimpleContainer);
+        $adapter = new PimpleContainerAdapter($this->container);
 
         $this->assertFalse($adapter->has('foo'));
 

@@ -15,17 +15,17 @@ class AuraContainerAdapterTest extends \PHPUnit_Framework_TestCase
     /**
      * @var Container
      */
-    private $auraContainer;
+    private $container;
 
     public function setUp()
     {
-        $this->auraContainer = new Container(new Forge(new Config()));
-        $this->auraContainer->set('array_iterator', new \ArrayIterator(range(1, 5)));
+        $this->container = new Container(new Forge(new Config()));
+        $this->container->set('array_iterator', new \ArrayIterator(range(1, 5)));
     }
 
     public function testAdapterSupportsContainerInterface()
     {
-        $adapter = new AuraContainerAdapter($this->auraContainer);
+        $adapter = new AuraContainerAdapter($this->container);
 
         $this->assertTrue($adapter->has('array_iterator'));
         $arrayIterator = $adapter->get('array_iterator');
@@ -34,7 +34,7 @@ class AuraContainerAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testAdapterThrowsExceptionOnNonExistentItem()
     {
-        $adapter = new AuraContainerAdapter($this->auraContainer);
+        $adapter = new AuraContainerAdapter($this->container);
 
         $this->assertFalse($adapter->has('foo'));
 

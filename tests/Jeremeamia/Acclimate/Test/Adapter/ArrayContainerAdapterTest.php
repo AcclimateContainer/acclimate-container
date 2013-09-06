@@ -13,17 +13,17 @@ class ArrayContainerAdapterTest extends \PHPUnit_Framework_TestCase
     /**
      * @var ArrayContainer
      */
-    private $arrayContainer;
+    private $container;
 
     public function setUp()
     {
-        $this->arrayContainer = new ArrayContainer();
-        $this->arrayContainer['array_iterator'] = new \ArrayIterator(range(1, 5));
+        $this->container = new ArrayContainer();
+        $this->container['array_iterator'] = new \ArrayIterator(range(1, 5));
     }
 
     public function testAdapterSupportsContainerInterface()
     {
-        $adapter = new ArrayContainerAdapter($this->arrayContainer);
+        $adapter = new ArrayContainerAdapter($this->container);
 
         $this->assertTrue($adapter->has('array_iterator'));
         $arrayIterator = $adapter->get('array_iterator');
@@ -32,7 +32,7 @@ class ArrayContainerAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testAdapterThrowsExceptionOnNonExistentItem()
     {
-        $adapter = new ArrayContainerAdapter($this->arrayContainer);
+        $adapter = new ArrayContainerAdapter($this->container);
 
         $this->assertFalse($adapter->has('foo'));
 

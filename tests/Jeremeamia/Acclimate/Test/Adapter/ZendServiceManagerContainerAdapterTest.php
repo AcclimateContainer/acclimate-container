@@ -2,28 +2,28 @@
 
 namespace Jeremeamia\Acclimate\Test\Adapter;
 
-use Jeremeamia\Acclimate\Adapter\LaravelContainerAdapter;
-use Illuminate\Container\Container;
+use Jeremeamia\Acclimate\Adapter\ZendServiceManagerContainerAdapter;
+use Zend\ServiceManager\ServiceManager;
 
 /**
- * @covers \Jeremeamia\Acclimate\Adapter\LaravelContainerAdapter
+ * @covers \Jeremeamia\Acclimate\Adapter\ZendServiceManagerContainerAdapter
  */
-class LaravelContainerAdapterTest extends \PHPUnit_Framework_TestCase
+class ZendServiceManagerContainerAdapterTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Container
+     * @var ServiceManager
      */
     private $container;
 
     public function setUp()
     {
-        $this->container = new Container();
-        $this->container->instance('array_iterator', new \ArrayIterator(range(1, 5)));
+        $this->container = new ServiceManager();
+        $this->container->setService('array_iterator', new \ArrayIterator(range(1, 5)));
     }
 
     public function testAdapterSupportsContainerInterface()
     {
-        $adapter = new LaravelContainerAdapter($this->container);
+        $adapter = new ZendServiceManagerContainerAdapter($this->container);
 
         $this->assertTrue($adapter->has('array_iterator'));
         $arrayIterator = $adapter->get('array_iterator');
@@ -32,7 +32,7 @@ class LaravelContainerAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testAdapterThrowsExceptionOnNonExistentItem()
     {
-        $adapter = new LaravelContainerAdapter($this->container);
+        $adapter = new ZendServiceManagerContainerAdapter($this->container);
 
         $this->assertFalse($adapter->has('foo'));
 
