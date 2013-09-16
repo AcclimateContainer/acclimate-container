@@ -9,13 +9,8 @@ use Jeremeamia\Acclimate\ServiceNotFoundException;
  * A container decorator that changes the default behavior of throwing an exception when an item doesn't exist in the
  * container to instead execute a callback function
  */
-class CallbackOnMissContainerDecorator implements ContainerInterface
+class CallbackOnMissContainerDecorator extends AbstractContainerDecorator
 {
-    /**
-     * @var ContainerInterface The decorated container
-     */
-    protected $container;
-
     /**
      * @var callback A callback function
      */
@@ -44,10 +39,5 @@ class CallbackOnMissContainerDecorator implements ContainerInterface
         } catch (ServiceNotFoundException $e) {
             return call_user_func($this->callback, $name);
         }
-    }
-
-    public function has($name)
-    {
-        return $this->container->has($name);
     }
 }
