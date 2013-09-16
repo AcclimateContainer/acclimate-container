@@ -24,11 +24,13 @@ consistent way.
 
 The interface supports two methods:
 
-    interface ContainerInterface
-    {
-        public function get($name);
-        public function has($name);
-    }
+```php
+interface ContainerInterface
+{
+    public function get($name);
+    public function has($name);
+}
+```
 
 The interface also dictates that a `Jeremeamia\Acclimate\ServiceNotFoundException` should be thrown when using `get()`
 to retrieve an item that does not actually exist in the container.
@@ -40,29 +42,31 @@ In terms of design patterns, it's a factory for container adapters.
 
 Here is an example of how to use Acclimate:
 
-    <?php
+```php
+<?php
 
-    // Require the Composer autoloader
-    require 'vendor/autoload.php';
+// Require the Composer autoloader
+require 'vendor/autoload.php';
 
-    use Jeremeamia\Acclimate\Acclimate;
+use Jeremeamia\Acclimate\Acclimate;
 
-    // Create a Pimple container and store an SplQueue object
-    $pimple = new Pimple();
-    $pimple['queue'] = function() {
-        $queue = new SplQueue();
-        $queue->enqueue('Hello!');
-        return $queue;
-    };
+// Create a Pimple container and store an SplQueue object
+$pimple = new Pimple();
+$pimple['queue'] = function() {
+    $queue = new SplQueue();
+    $queue->enqueue('Hello!');
+    return $queue;
+};
 
-    // Create an instance of Acclimate and use it to adapt the Pimple container to the Acclimate ContainerInterface
-    $acclimate = new Acclimate();
-    $container = $acclimate->adaptContainer($pimple);
+// Create an instance of Acclimate and use it to adapt the Pimple container to the Acclimate ContainerInterface
+$acclimate = new Acclimate();
+$container = $acclimate->adaptContainer($pimple);
 
-    // Use the adapted container via the unified interface to fetch the queue object
-    $queue = $container->get('queue');
-    echo $queue->dequeue(); // Look! The queue object still works!
-    #> Hello!
+// Use the adapted container via the unified interface to fetch the queue object
+$queue = $container->get('queue');
+echo $queue->dequeue(); // Look! The queue object still works!
+#> Hello!
+```
 
 Now you can use the service container from your favorite framework and acclimate it into your other code. :-)
 
@@ -76,30 +80,32 @@ own by extending `Jeremeamia\Acclimate\Decorator\AbstractContainerDecorator`.
 
 Here is an example of how to use the `NullOnMissContainerDecorator`:
 
-    <?php
+```php
+<?php
 
-    // Require the Composer autoloader
-    require 'vendor/autoload.php';
+// Require the Composer autoloader
+require 'vendor/autoload.php';
 
-    use Jeremeamia\Acclimate\ArrayContainer;
-    use Jeremeamia\Acclimate\Decorator\NullOnMissContainerDecorator;
-    use Jeremeamia\Acclimate\ServiceNotFoundException;
+use Jeremeamia\Acclimate\ArrayContainer;
+use Jeremeamia\Acclimate\Decorator\NullOnMissContainerDecorator;
+use Jeremeamia\Acclimate\ServiceNotFoundException;
 
-    // Create an empty container following the Acclimate ContainerInterface
-    $container = new ArrayContainer();
+// Create an empty container following the Acclimate ContainerInterface
+$container = new ArrayContainer();
 
-    // Normally, this container will throw an exception on missing items
-    try {
-        $item = $container->get('foo');
-    } catch (ServiceNotFoundException $e) {
-        echo $e->getMessage() . "\n";
-    }
-
-    // Decorate the container so that null is returned instead of throwing an exception
-    $container = new NullOnMissContainerDecorator($container);
+// Normally, this container will throw an exception on missing items
+try {
     $item = $container->get('foo');
-    var_dump($item);
-    #> NULL
+} catch (ServiceNotFoundException $e) {
+    echo $e->getMessage() . "\n";
+}
+
+// Decorate the container so that null is returned instead of throwing an exception
+$container = new NullOnMissContainerDecorator($container);
+$item = $container->get('foo');
+var_dump($item);
+#> NULL
+```
 
 ## Composite Container
 
@@ -107,20 +113,22 @@ You create composite containers if your use case requires that you need to fetch
 objects. For the sake of the following example we will say the you have a Symfony `Container` stored in the variable
 `$sfContainer` and a Zend `ServiceManager` stored in the variable `$zfContainer`.
 
-    use Jeremeamia\Acclimate\Acclimate;
-    use Jeremeamia\Acclimate\CompositeContainer;
+```php
+use Jeremeamia\Acclimate\Acclimate;
+use Jeremeamia\Acclimate\CompositeContainer;
 
-    // First, let's acclimate these containers
-    $acclimate = new Acclimate();
-    $sfContainer = $acclimate->adaptContainer($sfContainer);
-    $zfContainer = $acclimate->adaptContainer($zfContainer);
+// First, let's acclimate these containers
+$acclimate = new Acclimate();
+$sfContainer = $acclimate->adaptContainer($sfContainer);
+$zfContainer = $acclimate->adaptContainer($zfContainer);
 
-    // Now, we will put these two container together
-    $container = new CompositeContainer([$sfContainer, $zfContainer]);
+// Now, we will put these two container together
+$container = new CompositeContainer([$sfContainer, $zfContainer]);
 
-    // When we execute the has() method of the container, it will return true
-    // if at least one of these containers contains the item
-    $exists = $container->has('foo');
+// When we execute the has() method of the container, it will return true
+// if at least one of these containers contains the item
+$exists = $container->has('foo');
+```
 
 ## Supported Containers
 
@@ -129,13 +137,13 @@ objects. For the sake of the following example we will say the you have a Symfon
 * [Laravel Container](https://github.com/laravel/framework/blob/master/src/Illuminate/Container/Container.php)
 * [Pimple](https://github.com/fabpot/Pimple/blob/master/lib/Pimple.php)
 * [Symfony Dependency Injection Container](https://github.com/symfony/symfony/blob/master/src/Symfony/Component/DependencyInjection/ContainerInterface.php)
-* [ZF2 Service Manager](https://github.com/zendframework/zf2/blob/master/library/Zend/ServiceManager/ServiceLocator.php)
-* [ZF2 Dependency Injection](https://github.com/zendframework/zf2/blob/master/library/Zend/Di/ServiceLocator.php)
-* Any other object that implements `ArrayAccess` ([see PHP Manual](#))
+* [ZF2 Service Manager](https://github.com/zendframework/zf2/blob/master/library/Zend/ServiceManager/ServiceLocatorInterface.php)
+* [ZF2 Dependency Injection](https://github.com/zendframework/zf2/blob/master/library/Zend/Di/ServiceLocatorInterface.php)
+* Any other object that implements `ArrayAccess` ([see PHP Manual](http://php.net/manual/en/class.arrayaccess.php))
 
-## What if the Container You Use is Not Supported?
+## What if the Container I Use is Not Supported?
 
-Please consider submitting a Pull Request with an adapter for your container and corresponding test.
+*Please consider submitting a Pull Request with an adapter for your container and corresponding test.*
 
 Before you get that point though, you create the adapter yourself (which is *really* easy to do, just look at the
 included ones), and use the `Acclimate::registerAdapter` method to wire up your adapter to Acclimate. You will need to
@@ -145,14 +153,16 @@ you want to be able to adapt.
 Assuming that you have a `$container` object that implements `Your\Favorite\ContainerInterface`, and you have written an
 adapter class named `Your\Favorite\ContainerAdapter`, here is an example of how you can make these work in Acclimate:
 
-    use Jeremeamia\Acclimate\Acclimate;
+```php
+use Jeremeamia\Acclimate\Acclimate;
 
-    // Instantiate Acclimate and register your custom adapter
-    $acclimate = new Acclimate();
-    $acclimate->registerAdapter('Your\Favorite\ContainerAdapter', 'Your\Favorite\ContainerInterface');
+// Instantiate Acclimate and register your custom adapter
+$acclimate = new Acclimate();
+$acclimate->registerAdapter('Your\Favorite\ContainerAdapter', 'Your\Favorite\ContainerInterface');
 
-    // Use Acclimate to adapt your container
-    $adaptedContainer = $acclimate->adaptContainer($container);
+// Use Acclimate to adapt your container
+$adaptedContainer = $acclimate->adaptContainer($container);
+```
 
 ## Resources
 
