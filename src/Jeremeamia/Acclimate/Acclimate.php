@@ -24,7 +24,7 @@ class Acclimate
     );
 
     /**
-     * @param array $adapterMap
+     * @param array $adapterMap Additional adapters to register
      */
     public function __construct(array $adapterMap = array())
     {
@@ -32,10 +32,12 @@ class Acclimate
     }
 
     /**
+     * Registers a custom adapter class for a container using their FQCNs
+     *
      * @param string $adapterFqcn   The fully qualified class name of the container adapter
      * @param string $containerFqcn The fully qualified class name of the container
      *
-     * @return self
+     * @return $this
      */
     public function registerAdapter($adapterFqcn, $containerFqcn)
     {
@@ -45,10 +47,12 @@ class Acclimate
     }
 
     /**
-     * @param object $container
+     * Adapts a container object by wrapping it with an adapter class that implements ContainerInterface
+     *
+     * @param mixed $container A third-party service container object
      *
      * @return ContainerInterface
-     * @throws AdapterNotFoundException
+     * @throws AdapterNotFoundException if an adapter for the provided container isn't found
      */
     public function adaptContainer($container)
     {

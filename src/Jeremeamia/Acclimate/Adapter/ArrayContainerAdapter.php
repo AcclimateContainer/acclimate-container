@@ -6,15 +6,18 @@ use ArrayAccess;
 use Jeremeamia\Acclimate\ContainerInterface as AcclimateContainerInterface;
 use Jeremeamia\Acclimate\ServiceNotFoundException as AcclimateException;
 
+/**
+ * An adapter from an object implementing ArrayAccess to the standardized ContainerInterface
+ */
 class ArrayContainerAdapter implements AcclimateContainerInterface
 {
     /**
-     * @var ArrayAccess
+     * @var ArrayAccess A service container object that implements ArrayAccess
      */
     private $container;
 
     /**
-     * @param ArrayAccess $container
+     * @param ArrayAccess $container A service container object that implements ArrayAccess
      */
     public function __construct(ArrayAccess $container)
     {

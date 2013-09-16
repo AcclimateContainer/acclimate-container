@@ -6,15 +6,18 @@ use Jeremeamia\Acclimate\ContainerInterface as AcclimateContainerInterface;
 use Jeremeamia\Acclimate\ServiceNotFoundException as AcclimateException;
 use Zend\Di\LocatorInterface;
 
+/**
+ * An adapter from a Zend DIC to the standardized ContainerInterface
+ */
 class ZendDiContainerAdapter implements AcclimateContainerInterface
 {
     /**
-     * @var LocatorInterface
+     * @var LocatorInterface A Zend DIC/ServiceLocator
      */
     private $container;
 
     /**
-     * @param LocatorInterface $container
+     * @param LocatorInterface $container A Zend DIC/ServiceLocator
      */
     public function __construct(LocatorInterface $container)
     {

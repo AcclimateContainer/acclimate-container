@@ -7,15 +7,18 @@ use Guzzle\Service\Exception\ServiceNotFoundException;
 use Jeremeamia\Acclimate\ContainerInterface as AcclimateContainerInterface;
 use Jeremeamia\Acclimate\ServiceNotFoundException as AcclimateException;
 
+/**
+ * An adapter from a Guzzle ServiceBuilder to the standardized ContainerInterface
+ */
 class GuzzleContainerAdapter implements AcclimateContainerInterface
 {
     /**
-     * @var ServiceBuilderInterface
+     * @var ServiceBuilderInterface A Guzzle ServiceBuilder
      */
     private $container;
 
     /**
-     * @param ServiceBuilderInterface $container
+     * @param ServiceBuilderInterface $container A Guzzle ServiceBuilder
      */
     public function __construct(ServiceBuilderInterface $container)
     {

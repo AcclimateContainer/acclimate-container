@@ -5,16 +5,25 @@ namespace Jeremeamia\Acclimate\Decorator;
 use Jeremeamia\Acclimate\ContainerInterface;
 use Jeremeamia\Acclimate\ServiceNotFoundException;
 
+/**
+ * A container decorator that changes the default behavior of throwing an exception when an item doesn't exist in the
+ * container to instead execute a callback function
+ */
 class CallbackOnMissContainerDecorator implements ContainerInterface
 {
     /**
-     * @var callback
+     * @var ContainerInterface The decorated container
+     */
+    protected $container;
+
+    /**
+     * @var callback A callback function
      */
     private $callback;
 
     /**
-     * @param ContainerInterface $container
-     * @param callable           $callback
+     * @param ContainerInterface $container The container being decorated
+     * @param callable           $callback  A callback function to be executed if an item in the container doesn't exist
      *
      * @throws \InvalidArgumentException
      */

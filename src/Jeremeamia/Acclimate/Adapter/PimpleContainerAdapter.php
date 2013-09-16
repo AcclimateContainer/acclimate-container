@@ -6,15 +6,18 @@ use Jeremeamia\Acclimate\ContainerInterface as AcclimateContainerInterface;
 use Jeremeamia\Acclimate\ServiceNotFoundException as AcclimateException;
 use Pimple;
 
+/**
+ * An adapter from a Pimple Container to the standardized ContainerInterface
+ */
 class PimpleContainerAdapter implements AcclimateContainerInterface
 {
     /**
-     * @var Pimple
+     * @var Pimple A Pimple Container
      */
     private $container;
 
     /**
-     * @param Pimple $container
+     * @param Pimple $container A Pimple Container
      */
     public function __construct(Pimple $container)
     {

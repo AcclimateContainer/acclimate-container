@@ -7,15 +7,18 @@ use Aura\Di\ContainerInterface;
 use Jeremeamia\Acclimate\ContainerInterface as AcclimateContainerInterface;
 use Jeremeamia\Acclimate\ServiceNotFoundException as AcclimateException;
 
+/**
+ * An adapter from an Aura DIC to the standardized ContainerInterface
+ */
 class AuraContainerAdapter implements AcclimateContainerInterface
 {
     /**
-     * @var \Aura\Di\ContainerInterface
+     * @var ContainerInterface An Aura DIC
      */
     private $container;
 
     /**
-     * @param ContainerInterface $container
+     * @param ContainerInterface $container An Aura DIC
      */
     public function __construct(ContainerInterface $container)
     {

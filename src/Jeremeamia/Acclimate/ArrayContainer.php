@@ -2,15 +2,20 @@
 
 namespace Jeremeamia\Acclimate;
 
+/**
+ * The Array Container is a simple service container that follows both the ContainerInterface and ArrayAccess interface.
+ * The container can be seeded with and array or any array-like object. The "get" functionality will evaluate closures
+ * and cache results.
+ */
 class ArrayContainer implements ContainerInterface, \ArrayAccess
 {
     /**
-     * @var array|\ArrayAccess
+     * @var array|\ArrayAccess The service container data
      */
     protected $data;
 
     /**
-     * @param array $data
+     * @param array $data service container data
      *
      * @throws \InvalidArgumentException
      */
@@ -25,11 +30,25 @@ class ArrayContainer implements ContainerInterface, \ArrayAccess
         }
     }
 
+    /**
+     * Gets an item from the container
+     *
+     * @param string $name The name of an item in the container
+     *
+     * @return mixed
+     */
     public function get($name)
     {
         return $this[$name];
     }
 
+    /**
+     * Checks if an item is in the container
+     *
+     * @param string $name The name of an item in the container
+     *
+     * @return bool
+     */
     public function has($name)
     {
         return isset($this[$name]);
