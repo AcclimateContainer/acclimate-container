@@ -1,7 +1,8 @@
 {
     "name": "jeremeamia/acclimate",
-    "description": "Provides adapters for various frameworks' service containers.",
+    "description": "Provides adapters for various third-party service containers.",
     "license": "MIT",
+    "keywords": ["container", "service locator", "dependency injection", "adapter", "decorator"],
     "authors": [
         {
             "name": "Jeremy Lindblom",
