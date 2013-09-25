@@ -168,3 +168,7 @@ $adaptedContainer = $acclimate->adaptContainer($container);
 ## Resources
 
 * [Service container usage comparison](https://gist.github.com/mnapoli/6159681)
+
+## Projects Using Acclimate
+
+* [XStatic](https://github.com/jeremeamia/xstatic) (jeremeamia/xstatic) - *Static interfaces without the static pitfalls*
