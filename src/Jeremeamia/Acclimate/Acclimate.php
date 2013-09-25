@@ -20,6 +20,7 @@ class Acclimate
         'Guzzle\Service\Builder\ServiceBuilderInterface' => 'Jeremeamia\Acclimate\Adapter\GuzzleContainerAdapter',
         'Illuminate\Container\Container' => 'Jeremeamia\Acclimate\Adapter\LaravelContainerAdapter',
         'Pimple' => 'Jeremeamia\Acclimate\Adapter\PimpleContainerAdapter',
+        'DI\Container' => 'Jeremeamia\Acclimate\Adapter\PHPDIContainerAdapter',
         'Symfony\Component\DependencyInjection\ContainerInterface' => 'Jeremeamia\Acclimate\Adapter\SymfonyContainerAdapter',
         'Zend\Di\LocatorInterface' => 'Jeremeamia\Acclimate\Adapter\ZendDiContainerAdapter',
         'Zend\ServiceManager\ServiceLocatorInterface' => 'Jeremeamia\Acclimate\Adapter\ZendServiceManagerContainerAdapter',
