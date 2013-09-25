@@ -10,6 +10,8 @@ use Jeremeamia\Acclimate\Adapter\ArrayContainerAdapter;
  */
 class Acclimate
 {
+    const VERSION = '0.1.0';
+
     /**
      * @var array Map of container classes to container adapter class
      */

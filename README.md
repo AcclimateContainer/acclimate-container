@@ -136,6 +136,7 @@ $exists = $container->has('foo');
 * [Guzzle Service Builder](https://github.com/guzzle/service/blob/master/Builder/ServiceBuilderInterface.php)
 * [Laravel Container](https://github.com/laravel/framework/blob/master/src/Illuminate/Container/Container.php)
 * [Pimple](https://github.com/fabpot/Pimple/blob/master/lib/Pimple.php)
+* [Silex Application](https://github.com/fabpot/Silex/blob/master/src/Silex/Application.php)
 * [Symfony Dependency Injection Container](https://github.com/symfony/symfony/blob/master/src/Symfony/Component/DependencyInjection/ContainerInterface.php)
 * [ZF2 Service Manager](https://github.com/zendframework/zf2/blob/master/library/Zend/ServiceManager/ServiceLocatorInterface.php)
 * [ZF2 Dependency Injection](https://github.com/zendframework/zf2/blob/master/library/Zend/Di/ServiceLocatorInterface.php)
@@ -143,9 +144,9 @@ $exists = $container->has('foo');
 
 ## What if the Container I Use is Not Supported?
 
-*Please consider submitting a Pull Request with an adapter for your container and corresponding test.*
+*Please consider submitting a Pull Request with an adapter for your container and a corresponding test.*
 
-Before you get that point though, you create the adapter yourself (which is *really* easy to do, just look at the
+Before you get that point though, you can create the adapter yourself (which is *really* easy to do, just look at the
 included ones), and use the `Acclimate::registerAdapter` method to wire up your adapter to Acclimate. You will need to
 provide the fully qualified class name (FQCN) of both the adapter class and the base class/interface of the container
 you want to be able to adapt.
