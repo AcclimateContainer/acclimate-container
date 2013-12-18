@@ -1,9 +1,9 @@
 <?php
 
-namespace Jeremeamia\Acclimate\Adapter;
+namespace Acclimate\Container\Adapter;
 
-use Jeremeamia\Acclimate\ContainerInterface as AcclimateContainerInterface;
-use Jeremeamia\Acclimate\ServiceNotFoundException as AcclimateException;
+use Acclimate\Api\Container\ContainerInterface as AcclimateContainerInterface;
+use Acclimate\Api\Container\NotFoundException as AcclimateException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 
@@ -25,17 +25,17 @@ class SymfonyContainerAdapter implements AcclimateContainerInterface
         $this->container = $container;
     }
 
-    public function get($name)
+    public function get($identifier)
     {
         try {
-            return $this->container->get($name);
+            return $this->container->get($identifier);
         } catch (ServiceNotFoundException $prev) {
-            throw AcclimateException::fromName($name, $prev);
+            throw new AcclimateException("There is no item in the container for \"{$identifier}\".", 0, $prev);
         }
     }
 
-    public function has($name)
+    public function has($identifier)
     {
-        return $this->container->has($name);
+        return $this->container->has($identifier);
     }
 }

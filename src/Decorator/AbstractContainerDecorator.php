@@ -1,9 +1,8 @@
 <?php
 
-namespace Jeremeamia\Acclimate\Decorator;
+namespace Acclimate\Container\Decorator;
 
-use Jeremeamia\Acclimate\ContainerInterface;
-use Jeremeamia\Acclimate\ServiceNotFoundException;
+use Acclimate\Api\Container\ContainerInterface;
 
 /**
  * An abstract ContainerDecorator that allows you to decorate a container and proxy to the decorated container

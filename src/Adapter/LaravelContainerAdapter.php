@@ -1,10 +1,10 @@
 <?php
 
-namespace Jeremeamia\Acclimate\Adapter;
+namespace Acclimate\Container\Adapter;
 
 use Illuminate\Container\Container;
-use Jeremeamia\Acclimate\ContainerInterface as AcclimateContainerInterface;
-use Jeremeamia\Acclimate\ServiceNotFoundException as AcclimateException;
+use Acclimate\Api\Container\ContainerInterface as AcclimateContainerInterface;
+use Acclimate\Api\Container\NotFoundException as AcclimateException;
 
 /**
  * An adapter from a Laravel Container to the standardized ContainerInterface
@@ -24,17 +24,17 @@ class LaravelContainerAdapter implements AcclimateContainerInterface
         $this->container = $container;
     }
 
-    public function get($name)
+    public function get($identifier)
     {
         try {
-            return $this->container->make($name);
+            return $this->container->make($identifier);
         } catch (\Exception $prev) {
-            throw AcclimateException::fromName($name, $prev);
+            throw new AcclimateException("There is no item in the container for \"{$identifier}\".", 0, $prev);
         }
     }
 
-    public function has($name)
+    public function has($identifier)
     {
-        return $this->container->bound($name);
+        return $this->container->bound($identifier);
     }
 }

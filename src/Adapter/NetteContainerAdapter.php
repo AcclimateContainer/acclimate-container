@@ -1,9 +1,9 @@
 <?php
 
-namespace Jeremeamia\Acclimate\Adapter;
+namespace Acclimate\Container\Adapter;
 
-use Jeremeamia\Acclimate\ContainerInterface as AcclimateContainerInterface;
-use Jeremeamia\Acclimate\ServiceNotFoundException as AcclimateException;
+use Acclimate\Api\Container\ContainerInterface as AcclimateContainerInterface;
+use Acclimate\Api\Container\NotFoundException as AcclimateException;
 use Nette\DI\Container;
 use Nette\DI\MissingServiceException;
 
@@ -25,17 +25,17 @@ class NetteContainerAdapter implements AcclimateContainerInterface
         $this->container = $container;
     }
 
-    public function get($name)
+    public function get($identifier)
     {
         try {
-            return $this->container->getService($name);
+            return $this->container->getService($identifier);
         } catch (MissingServiceException $prev) {
-            throw AcclimateException::fromName($name, $prev);
+            throw new AcclimateException("There is no item in the container for \"{$identifier}\".", 0, $prev);
         }
     }
 
-    public function has($name)
+    public function has($identifier)
     {
-        return $this->container->hasService($name);
+        return $this->container->hasService($identifier);
     }
 }

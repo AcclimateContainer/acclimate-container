@@ -1,9 +1,9 @@
 <?php
 
-namespace Jeremeamia\Acclimate\Adapter;
+namespace Acclimate\Container\Adapter;
 
-use Jeremeamia\Acclimate\ContainerInterface as AcclimateContainerInterface;
-use Jeremeamia\Acclimate\ServiceNotFoundException as AcclimateException;
+use Acclimate\Api\Container\ContainerInterface as AcclimateContainerInterface;
+use Acclimate\Api\Container\NotFoundException as AcclimateException;
 use Zend\Di\LocatorInterface;
 
 /**
@@ -24,22 +24,24 @@ class ZendDiContainerAdapter implements AcclimateContainerInterface
         $this->container = $container;
     }
 
-    public function get($name)
+    public function get($identifier)
     {
         try {
-            $result = $this->container->get($name);
+            $result = $this->container->get($identifier);
             if ($result === null) {
-                throw AcclimateException::fromName($name);
+                $prev = null;
             } else {
                 return $result;
             }
         } catch (\Exception $prev) {
-            throw AcclimateException::fromName($name, $prev);
+            // Do nothing, and allow the AcclimateException to be thrown
         }
+
+        throw new AcclimateException("There is no item in the container for \"{$identifier}\".", 0, $prev);
     }
 
-    public function has($name)
+    public function has($identifier)
     {
-        return ($this->container->get($name) !== null);
+        return ($this->container->get($identifier) !== null);
     }
 }

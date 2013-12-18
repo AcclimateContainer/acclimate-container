@@ -1,9 +1,9 @@
 <?php
 
-namespace Jeremeamia\Acclimate\Adapter;
+namespace Acclimate\Container\Adapter;
 
-use Jeremeamia\Acclimate\ContainerInterface as AcclimateContainerInterface;
-use Jeremeamia\Acclimate\ServiceNotFoundException as AcclimateException;
+use Acclimate\Api\Container\ContainerInterface as AcclimateContainerInterface;
+use Acclimate\Api\Container\NotFoundException as AcclimateException;
 use Pimple;
 
 /**
@@ -24,17 +24,17 @@ class PimpleContainerAdapter implements AcclimateContainerInterface
         $this->container = $container;
     }
 
-    public function get($name)
+    public function get($identifier)
     {
         try {
-            return $this->container[$name];
+            return $this->container[$identifier];
         } catch (\InvalidArgumentException $prev) {
-            throw AcclimateException::fromName($name, $prev);
+            throw new AcclimateException("There is no item in the container for \"{$identifier}\".", 0, $prev);
         }
     }
 
-    public function has($name)
+    public function has($identifier)
     {
-        return isset($this->container[$name]);
+        return isset($this->container[$identifier]);
     }
 }

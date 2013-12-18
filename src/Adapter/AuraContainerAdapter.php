@@ -1,11 +1,11 @@
 <?php
 
-namespace Jeremeamia\Acclimate\Adapter;
+namespace Acclimate\Container\Adapter;
 
 use Aura\Di\Exception\ServiceNotFound;
 use Aura\Di\ContainerInterface;
-use Jeremeamia\Acclimate\ContainerInterface as AcclimateContainerInterface;
-use Jeremeamia\Acclimate\ServiceNotFoundException as AcclimateException;
+use Acclimate\Api\Container\ContainerInterface as AcclimateContainerInterface;
+use Acclimate\Api\Container\NotFoundException as AcclimateException;
 
 /**
  * An adapter from an Aura DIC to the standardized ContainerInterface
@@ -25,17 +25,17 @@ class AuraContainerAdapter implements AcclimateContainerInterface
         $this->container = $container;
     }
 
-    public function get($name)
+    public function get($identifier)
     {
         try {
-            return $this->container->get($name);
+            return $this->container->get($identifier);
         } catch (ServiceNotFound $prev) {
-            throw AcclimateException::fromName($name, $prev);
+            throw new AcclimateException("There is no item in the container for \"{$identifier}\".", 0, $prev);
         }
     }
 
-    public function has($name)
+    public function has($identifier)
     {
-        return $this->container->has($name);
+        return $this->container->has($identifier);
     }
 }

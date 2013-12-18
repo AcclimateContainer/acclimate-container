@@ -1,9 +1,8 @@
 <?php
 
-namespace Jeremeamia\Acclimate\Decorator;
+namespace Acclimate\Container\Decorator;
 
-use Jeremeamia\Acclimate\ContainerInterface;
-use Jeremeamia\Acclimate\ServiceNotFoundException;
+use Acclimate\Api\Container\NotFoundException;
 
 /**
  * A container decorator that changes the default behavior of throwing an exception when an item doesn't exist in the
@@ -11,11 +10,11 @@ use Jeremeamia\Acclimate\ServiceNotFoundException;
  */
 class NullOnMissContainerDecorator extends AbstractContainerDecorator
 {
-    public function get($name)
+    public function get($identifier)
     {
         try {
-            return $this->container->get($name);
-        } catch (ServiceNotFoundException $e) {
+            return $this->container->get($identifier);
+        } catch (NotFoundException $e) {
             return null;
         }
     }

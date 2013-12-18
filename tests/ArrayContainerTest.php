@@ -1,12 +1,11 @@
 <?php
 
-namespace Jeremeamia\Acclimate\Test;
+namespace Acclimate\Container\Test;
 
-use Jeremeamia\Acclimate\ArrayContainer;
+use Acclimate\Container\ArrayContainer;
 
 /**
- * @covers \Jeremeamia\Acclimate\ArrayContainer
- * @covers \Jeremeamia\Acclimate\ServiceNotFoundException
+ * @covers \Acclimate\Container\ArrayContainer
  */
 class ArrayContainerTest extends \PHPUnit_Framework_TestCase
 {
@@ -17,9 +16,9 @@ class ArrayContainerTest extends \PHPUnit_Framework_TestCase
         $a3 = new \LimitIterator(new \ArrayIterator($a1), 0, 1);
         $a4 = 'foo';
 
-        $this->assertInstanceOf('Jeremeamia\Acclimate\ArrayContainer', new ArrayContainer($a1));
-        $this->assertInstanceOf('Jeremeamia\Acclimate\ArrayContainer', new ArrayContainer($a2));
-        $this->assertInstanceOf('Jeremeamia\Acclimate\ArrayContainer', new ArrayContainer($a3));
+        $this->assertInstanceOf('Acclimate\Container\ArrayContainer', new ArrayContainer($a1));
+        $this->assertInstanceOf('Acclimate\Container\ArrayContainer', new ArrayContainer($a2));
+        $this->assertInstanceOf('Acclimate\Container\ArrayContainer', new ArrayContainer($a3));
 
         $this->setExpectedException('InvalidArgumentException');
         new ArrayContainer($a4);
@@ -40,7 +39,7 @@ class ArrayContainerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($container->has('foo'));
 
-        $this->setExpectedException('Jeremeamia\Acclimate\ServiceNotFoundException');
+        $this->setExpectedException('Acclimate\Api\Container\NotFoundException');
         $container->get('foo');
     }
 

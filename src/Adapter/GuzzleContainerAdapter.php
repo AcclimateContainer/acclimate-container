@@ -1,11 +1,11 @@
 <?php
 
-namespace Jeremeamia\Acclimate\Adapter;
+namespace Acclimate\Container\Adapter;
 
 use Guzzle\Service\Builder\ServiceBuilderInterface;
 use Guzzle\Service\Exception\ServiceNotFoundException;
-use Jeremeamia\Acclimate\ContainerInterface as AcclimateContainerInterface;
-use Jeremeamia\Acclimate\ServiceNotFoundException as AcclimateException;
+use Acclimate\Api\Container\ContainerInterface as AcclimateContainerInterface;
+use Acclimate\Api\Container\NotFoundException as AcclimateException;
 
 /**
  * An adapter from a Guzzle ServiceBuilder to the standardized ContainerInterface
@@ -25,17 +25,17 @@ class GuzzleContainerAdapter implements AcclimateContainerInterface
         $this->container = $container;
     }
 
-    public function get($name)
+    public function get($identifier)
     {
         try {
-            return $this->container->get($name);
+            return $this->container->get($identifier);
         } catch (ServiceNotFoundException $prev) {
-            throw AcclimateException::fromName($name, $prev);
+            throw new AcclimateException("There is no item in the container for \"{$identifier}\".", 0, $prev);
         }
     }
 
-    public function has($name)
+    public function has($identifier)
     {
-        return isset($this->container[$name]);
+        return isset($this->container[$identifier]);
     }
 }

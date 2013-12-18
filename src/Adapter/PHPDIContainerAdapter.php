@@ -1,11 +1,11 @@
 <?php
 
-namespace Jeremeamia\Acclimate\Adapter;
+namespace Acclimate\Container\Adapter;
 
 use DI\Container;
 use DI\NotFoundException;
-use Jeremeamia\Acclimate\ContainerInterface as AcclimateContainerInterface;
-use Jeremeamia\Acclimate\ServiceNotFoundException as AcclimateException;
+use Acclimate\Api\Container\ContainerInterface as AcclimateContainerInterface;
+use Acclimate\Api\Container\NotFoundException as AcclimateException;
 
 /**
  * An adapter from a PHP-DI Container to the standardized ContainerInterface
@@ -25,19 +25,19 @@ class PHPDIContainerAdapter implements AcclimateContainerInterface
         $this->container = $container;
     }
 
-    public function get($name)
+    public function get($identifier)
     {
         try {
-            return $this->container->get($name);
+            return $this->container->get($identifier);
         } catch (NotFoundException $prev) {
-            throw AcclimateException::fromName($name, $prev);
+            throw new AcclimateException("There is no item in the container for \"{$identifier}\".", 0, $prev);
         }
     }
 
-    public function has($name)
+    public function has($identifier)
     {
         try {
-            $this->container->get($name);
+            $this->container->get($identifier);
             return true;
         } catch (NotFoundException $prev) {
             return false;
