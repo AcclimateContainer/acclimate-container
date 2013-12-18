@@ -2,11 +2,13 @@
     "name": "acclimate/container",
     "description": "Provides adapters for various third-party service containers.",
     "license": "MIT",
-    "keywords": ["container", "service locator", "dependency injection", "adapter", "decorator"],
+    "keywords": ["container", "service locator", "dependency injection", "adapter", "decorator", "interoperability"],
     "authors": [
         {
             "name": "Jeremy Lindblom",
-            "email": "jeremeamia@gmail.com"
+            "email": "jeremeamia@gmail.com",
+            "homepage": "http://webjeremy.com",
+            "role": "Developer"
         }
     ],
     "require": {
