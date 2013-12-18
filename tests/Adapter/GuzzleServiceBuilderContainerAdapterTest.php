@@ -1,12 +1,12 @@
 <?php
 
-namespace Jeremeamia\Acclimate\Test\Adapter;
+namespace Acclimate\Container\Test\Adapter;
 
 use Guzzle\Service\Builder\ServiceBuilder;
-use Jeremeamia\Acclimate\Adapter\GuzzleContainerAdapter;
+use Acclimate\Container\Adapter\GuzzleContainerAdapter;
 
 /**
- * @covers \Jeremeamia\Acclimate\Adapter\GuzzleContainerAdapter
+ * @covers \Acclimate\Container\Adapter\GuzzleContainerAdapter
  */
 class GuzzleContainerAdapterTest extends \PHPUnit_Framework_TestCase
 {
@@ -19,7 +19,7 @@ class GuzzleContainerAdapterTest extends \PHPUnit_Framework_TestCase
     {
         $this->container = new ServiceBuilder(array(
             'test_service' => array(
-                'class'  => 'Jeremeamia\Acclimate\Test\Adapter\Fixture\MockService',
+                'class'  => 'Acclimate\Container\Test\Adapter\Fixture\MockService',
                 'params' => array()
             )
         ));
@@ -31,7 +31,7 @@ class GuzzleContainerAdapterTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($adapter->has('test_service'));
         $service = $adapter->get('test_service');
-        $this->assertInstanceOf('Jeremeamia\Acclimate\Test\Adapter\Fixture\MockService', $service);
+        $this->assertInstanceOf('Acclimate\Container\Test\Adapter\Fixture\MockService', $service);
     }
 
     public function testAdapterThrowsExceptionOnNonExistentItem()
@@ -40,7 +40,7 @@ class GuzzleContainerAdapterTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($adapter->has('foo'));
 
-        $this->setExpectedException('Jeremeamia\Acclimate\ServiceNotFoundException');
+        $this->setExpectedException('Acclimate\Api\Container\NotFoundException');
         $adapter->get('foo');
     }
 }

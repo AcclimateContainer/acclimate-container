@@ -1,12 +1,12 @@
 <?php
 
-namespace Jeremeamia\Acclimate\Test\Adapter;
+namespace Acclimate\Container\Test\Adapter;
 
-use Jeremeamia\Acclimate\Adapter\ArrayContainerAdapter;
-use Jeremeamia\Acclimate\ArrayContainer;
+use Acclimate\Container\Adapter\ArrayContainerAdapter;
+use Acclimate\Container\ArrayContainer;
 
 /**
- * @covers \Jeremeamia\Acclimate\Adapter\ArrayContainerAdapter
+ * @covers \Acclimate\Container\Adapter\ArrayContainerAdapter
  */
 class ArrayContainerAdapterTest extends \PHPUnit_Framework_TestCase
 {
@@ -36,7 +36,7 @@ class ArrayContainerAdapterTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($adapter->has('foo'));
 
-        $this->setExpectedException('Jeremeamia\Acclimate\ServiceNotFoundException');
+        $this->setExpectedException('Acclimate\Api\Container\NotFoundException');
         $adapter->get('foo');
     }
 

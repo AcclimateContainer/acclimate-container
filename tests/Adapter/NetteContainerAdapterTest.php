@@ -1,12 +1,12 @@
 <?php
 
-namespace Jeremeamia\Acclimate\Test\Adapter;
+namespace Acclimate\Container\Test\Adapter;
 
-use Jeremeamia\Acclimate\Adapter\NetteContainerAdapter;
+use Acclimate\Container\Adapter\NetteContainerAdapter;
 use Nette\DI\Container;
 
 /**
- * @covers \Jeremeamia\Acclimate\Adapter\NetteContainerAdapter
+ * @covers \Acclimate\Container\Adapter\NetteContainerAdapter
  */
 class NetteContainerAdapterTest extends \PHPUnit_Framework_TestCase
 {
@@ -36,7 +36,7 @@ class NetteContainerAdapterTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($adapter->has('foo'));
 
-        $this->setExpectedException('Jeremeamia\Acclimate\ServiceNotFoundException');
+        $this->setExpectedException('Acclimate\Api\Container\NotFoundException');
         $adapter->get('foo');
     }
 }

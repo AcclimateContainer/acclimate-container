@@ -1,14 +1,14 @@
 <?php
 
-namespace Jeremeamia\Acclimate\Test\Adapter;
+namespace Acclimate\Container\Test\Adapter;
 
 use Aura\Di\Config;
 use Aura\Di\Forge;
-use Jeremeamia\Acclimate\Adapter\AuraContainerAdapter;
+use Acclimate\Container\Adapter\AuraContainerAdapter;
 use Aura\Di\Container;
 
 /**
- * @covers \Jeremeamia\Acclimate\Adapter\AuraContainerAdapter
+ * @covers \Acclimate\Container\Adapter\AuraContainerAdapter
  */
 class AuraContainerAdapterTest extends \PHPUnit_Framework_TestCase
 {
@@ -38,7 +38,7 @@ class AuraContainerAdapterTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($adapter->has('foo'));
 
-        $this->setExpectedException('Jeremeamia\Acclimate\ServiceNotFoundException');
+        $this->setExpectedException('Acclimate\Api\Container\NotFoundException');
         $adapter->get('foo');
     }
 }

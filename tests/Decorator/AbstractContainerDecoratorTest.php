@@ -1,21 +1,21 @@
 <?php
 
-namespace Jeremeamia\Acclimate\Test\Decorator;
+namespace Acclimate\Container\Test\Decorator;
 
-use Jeremeamia\Acclimate\Decorator\AbstractContainerDecorator;
-use Jeremeamia\Acclimate\ArrayContainer;
+use Acclimate\Container\Decorator\AbstractContainerDecorator;
+use Acclimate\Container\ArrayContainer;
 
-class DummyContainerDecorator extends AbstractContainerDecorator {}
+class EnhancedContainer extends AbstractContainerDecorator {}
 
 /**
- * @covers \Jeremeamia\Acclimate\Decorator\AbstractContainerDecorator
+ * @covers \Acclimate\Container\Decorator\AbstractContainerDecorator
  */
 class AbstractContainerDecoratorTest extends \PHPUnit_Framework_TestCase
 {
     public function testDecoratorProxiesToContainer()
     {
         $container = new ArrayContainer(['foo' => 'bar']);
-        $decorator = new DummyContainerDecorator($container);
+        $decorator = new EnhancedContainer($container);
 
         $this->assertTrue($decorator->has('foo'));
         $this->assertEquals('bar', $decorator->get('foo'));

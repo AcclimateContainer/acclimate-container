@@ -1,12 +1,12 @@
 <?php
 
-namespace Jeremeamia\Acclimate\Test\Adapter;
+namespace Acclimate\Container\Test\Adapter;
 
 use DI\Container;
-use Jeremeamia\Acclimate\Adapter\PHPDIContainerAdapter;
+use Acclimate\Container\Adapter\PHPDIContainerAdapter;
 
 /**
- * @covers \Jeremeamia\Acclimate\Adapter\PHPDIContainerAdapter
+ * @covers \Acclimate\Container\Adapter\PHPDIContainerAdapter
  */
 class PHPDIContainerAdapterTest extends \PHPUnit_Framework_TestCase
 {
@@ -36,7 +36,7 @@ class PHPDIContainerAdapterTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($adapter->has('foo'));
 
-        $this->setExpectedException('Jeremeamia\Acclimate\ServiceNotFoundException');
+        $this->setExpectedException('Acclimate\Api\Container\NotFoundException');
         $adapter->get('foo');
     }
 }

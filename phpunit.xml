@@ -3,23 +3,17 @@
     <testsuites>
         <testsuite name="Acclimate Container Test Suite">
             <directory>./tests/</directory>
-            <exclude>./tests/Adapter</exclude>
-            <exclude>./tests/Decorator</exclude>
         </testsuite>
     </testsuites>
 
     <logging>
-        <log type="coverage-html" target=".build/coverage" charset="UTF-8"
+        <log type="coverage-html" target="./.build/coverage" charset="UTF-8"
              highlight="false" lowUpperBound="50" highLowerBound="80" />
     </logging>
 
     <filter>
         <whitelist addUncoveredFilesFromWhitelist="false">
             <directory suffix=".php">src</directory>
-            <exclude>
-                <directory suffix="Interface.php">./src/</directory>
-                <directory suffix="Exception.php">./src/</directory>
-            </exclude>
         </whitelist>
     </filter>
 </phpunit>

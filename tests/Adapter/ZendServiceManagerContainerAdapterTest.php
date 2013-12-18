@@ -1,12 +1,12 @@
 <?php
 
-namespace Jeremeamia\Acclimate\Test\Adapter;
+namespace Acclimate\Container\Test\Adapter;
 
-use Jeremeamia\Acclimate\Adapter\ZendServiceManagerContainerAdapter;
+use Acclimate\Container\Adapter\ZendServiceManagerContainerAdapter;
 use Zend\ServiceManager\ServiceManager;
 
 /**
- * @covers \Jeremeamia\Acclimate\Adapter\ZendServiceManagerContainerAdapter
+ * @covers \Acclimate\Container\Adapter\ZendServiceManagerContainerAdapter
  */
 class ZendServiceManagerContainerAdapterTest extends \PHPUnit_Framework_TestCase
 {
@@ -36,7 +36,7 @@ class ZendServiceManagerContainerAdapterTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($adapter->has('foo'));
 
-        $this->setExpectedException('Jeremeamia\Acclimate\ServiceNotFoundException');
+        $this->setExpectedException('Acclimate\Api\Container\NotFoundException');
         $adapter->get('foo');
     }
 }

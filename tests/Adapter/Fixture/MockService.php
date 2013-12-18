@@ -1,6 +1,6 @@
 <?php
 
-namespace Jeremeamia\Acclimate\Test\Adapter\Fixture;
+namespace Acclimate\Container\Test\Adapter\Fixture;
 
 class MockService
 {

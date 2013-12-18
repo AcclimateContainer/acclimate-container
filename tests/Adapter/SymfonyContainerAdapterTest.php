@@ -1,12 +1,12 @@
 <?php
 
-namespace Jeremeamia\Acclimate\Test\Adapter;
+namespace Acclimate\Container\Test\Adapter;
 
-use Jeremeamia\Acclimate\Adapter\SymfonyContainerAdapter;
+use Acclimate\Container\Adapter\SymfonyContainerAdapter;
 use Symfony\Component\DependencyInjection\Container;
 
 /**
- * @covers \Jeremeamia\Acclimate\Adapter\SymfonyContainerAdapter
+ * @covers \Acclimate\Container\Adapter\SymfonyContainerAdapter
  */
 class SymfonyContainerAdapterTest extends \PHPUnit_Framework_TestCase
 {
@@ -36,7 +36,7 @@ class SymfonyContainerAdapterTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($adapter->has('foo'));
 
-        $this->setExpectedException('Jeremeamia\Acclimate\ServiceNotFoundException');
+        $this->setExpectedException('Acclimate\Api\Container\NotFoundException');
         $adapter->get('foo');
     }
 }

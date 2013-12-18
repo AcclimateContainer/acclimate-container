@@ -1,10 +1,10 @@
 # Acclimate
 
-**Get Acclimated!** Adapt third-party service containers to your code.
+**Get Acclimated!** Adapt third-party containers (e.g., service locators, DICs) to your code using a common interface.
 
 by [Jeremy Lindblom](https://twitter.com/jeremeamia)
 
-Version 0.1.0
+Version 0.3.0
 
 ## Introduction
 

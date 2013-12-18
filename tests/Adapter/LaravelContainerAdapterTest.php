@@ -1,12 +1,12 @@
 <?php
 
-namespace Jeremeamia\Acclimate\Test\Adapter;
+namespace Acclimate\Container\Test\Adapter;
 
-use Jeremeamia\Acclimate\Adapter\LaravelContainerAdapter;
+use Acclimate\Container\Adapter\LaravelContainerAdapter;
 use Illuminate\Container\Container;
 
 /**
- * @covers \Jeremeamia\Acclimate\Adapter\LaravelContainerAdapter
+ * @covers \Acclimate\Container\Adapter\LaravelContainerAdapter
  */
 class LaravelContainerAdapterTest extends \PHPUnit_Framework_TestCase
 {
@@ -36,7 +36,7 @@ class LaravelContainerAdapterTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($adapter->has('foo'));
 
-        $this->setExpectedException('Jeremeamia\Acclimate\ServiceNotFoundException');
+        $this->setExpectedException('Acclimate\Api\Container\NotFoundException');
         $adapter->get('foo');
     }
 }

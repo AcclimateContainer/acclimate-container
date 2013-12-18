@@ -1,18 +1,18 @@
 <?php
 
-namespace Jeremeamia\Acclimate\Test\Decorator;
+namespace Acclimate\Container\Test\Decorator;
 
-use Jeremeamia\Acclimate\Decorator\NullOnMissContainerDecorator;
-use Jeremeamia\Acclimate\ArrayContainer;
+use Acclimate\Container\Decorator\NullOnMissContainer;
+use Acclimate\Container\ArrayContainer;
 
 /**
- * @covers \Jeremeamia\Acclimate\Decorator\NullOnMissContainerDecorator
+ * @covers \Acclimate\Container\Decorator\NullOnMissContainer
  */
-class NullOnMissContainerDecoratorTest extends \PHPUnit_Framework_TestCase
+class NullOnMissContainerTest extends \PHPUnit_Framework_TestCase
 {
     public function testDecoratorReturnsNullForMissingItems()
     {
-        $container = new NullOnMissContainerDecorator(new ArrayContainer);
+        $container = new NullOnMissContainer(new ArrayContainer);
         $this->assertFalse($container->has('foo'));
         $this->assertNull($container->get('foo'));
     }

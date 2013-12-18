@@ -1,12 +1,12 @@
 <?php
 
-namespace Jeremeamia\Acclimate\Test\Adapter;
+namespace Acclimate\Container\Test\Adapter;
 
-use Jeremeamia\Acclimate\Adapter\PimpleContainerAdapter;
+use Acclimate\Container\Adapter\PimpleContainerAdapter;
 use Pimple;
 
 /**
- * @covers \Jeremeamia\Acclimate\Adapter\PimpleContainerAdapter
+ * @covers \Acclimate\Container\Adapter\PimpleContainerAdapter
  */
 class PimpleContainerAdapterTest extends \PHPUnit_Framework_TestCase
 {
@@ -41,7 +41,7 @@ class PimpleContainerAdapterTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($adapter->has('foo'));
 
-        $this->setExpectedException('Jeremeamia\Acclimate\ServiceNotFoundException');
+        $this->setExpectedException('Acclimate\Api\Container\NotFoundException');
         $adapter->get('foo');
     }
 }

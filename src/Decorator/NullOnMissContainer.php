@@ -8,7 +8,7 @@ use Acclimate\Api\Container\NotFoundException;
  * A container decorator that changes the default behavior of throwing an exception when an item doesn't exist in the
  * container to instead return NULL
  */
-class NullOnMissContainerDecorator extends AbstractContainerDecorator
+class NullOnMissContainer extends AbstractContainerDecorator
 {
     public function get($identifier)
     {
