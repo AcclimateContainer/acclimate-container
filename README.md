@@ -1,34 +1,36 @@
-# Acclimate Containers
+# Acclimate: Container
 
-**Get Acclimated!**
-
-Acclimate allows you to third-party containers (e.g., service locators, DICs) in your code by adapting them to a
-common interface.
+**Get Acclimated!** Use third-party containers (e.g., service locators) in your code by adapting them to a common interface.
 
 by [Jeremy Lindblom](https://twitter.com/jeremeamia)
 
 Version 0.3.0
 
------
-
 ## Introduction
 
-It seems like every framework has its own service container, service locator, service manager, dependency injection (DI)
-container, etc. Unfortunately, this makes it hard for third-party, framework-agnostic libraries or apps to take
-advantage of the benefits of using inversion of control (IoC) systems, because they either need to depend on a
-particular container implementation or build in an abstraction layer to support multiple containers. **Acclimate** is a
-package that implements the aforementioned abstraction layer, by using the adapter pattern to adapt, or "acclimate" the
-interfaces of the various container implementations to a common, normalized interface. Using Acclimate allows your
-framework, library, or application to retrieve items from the container objects of third-party frameworks.
+It seems like every framework has its own container object. They come in many shapes and sizes (service locator, service
+manager, service container, dependency injection (DI) container, registry, etc.), but are all generally used in a
+similar way.
 
-## The `ContainerInterface`
+Unfortunately, this makes it hard for other frameworks, framework-agnostic libraries, or some applications to get the
+benefits of using an inversion of control (IoC) system, because they either need to:
+
+1. Write their own container implementation (NIH Syndrome)
+2. Depend (and force their users to depend) on a particular, third-party container implementation
+3. Implement an abstraction layer to support one or more third-party containers
+
+**Acclimate: Container** is a library that does \#3 for you. It provides a set of adapters for the most popular
+container implementations. This allows you to adapt, _or "acclimate"_, instances of these containers to a common,
+normalized, and **interoperable** interface. Using Acclimate allows your framework, library, or application to retrieve
+items from the container objects of third-party libraries. That's interoperability!
+
+## The container interface
 
 The Acclimate `ContainerInterface` attempts to normalize the various implementations of container interfaces (whether
 they be for service locators, dependency injection containers, or something else similar) to a simple, readonly
-interface, that allows users to retrieve items from a any third-party container in a consistent way.
+interface, that allows users to retrieve/create items from any third-party container in a consistent way.
 
-The `ContainerInterface` is declared in [jeremeamia/acclimate-api](https://github.com/jeremeamia/acclimate-container),
-and looks like this:
+The `ContainerInterface` is declared in [acclimate/api](https://github.com/jeremeamia/acclimate-api), and looks like this:
 
 ```php
 namespace Acclimate\Api\Container;
@@ -36,14 +38,14 @@ namespace Acclimate\Api\Container;
 interface ContainerInterface
 {
     /**
-     * @param string $identifier The identifier or name of the item in the container
+     * @param string $identifier
      * @return mixed
-     * @throws NotFoundException If there is no item in the container that matches the provided name
+     * @throws NotFoundException
      */
     public function get($identifier);
 
     /**
-     * @param string $identifier The identifier or name of the item in the container
+     * @param string $identifier
      * @return bool
      */
     public function has($identifier);
@@ -52,8 +54,8 @@ interface ContainerInterface
 
 ## Basic usage
 
-The `ContainerAcclimator` object is used to adapt a container object to the standardized Acclimate `ContainerInterface`.
-In terms of design patterns, it's essentially a factory for container adapters.
+**Acclimate: Container** provides a `ContainerAcclimator` object that is used to adapt a container object to the
+normalized Acclimate `ContainerInterface`. In terms of design patterns, it's essentially a factory for container adapters.
 
 Here is an example of how to use the `ContainerAcclimator`:
 
@@ -145,6 +147,9 @@ $container = new CompositeContainer([$sfContainer, $zfContainer]);
 $exists = $container->has('foo');
 ```
 
+This is essentially a way to support container chaining, but uses the Composite design pattern instead of the Chain of
+Command design pattern.
+
 ## Supported containers
 
 * [Aura.Di Container](https://github.com/auraphp/Aura.Di/blob/develop/src/Aura/Di/ContainerInterface.php)
@@ -163,10 +168,10 @@ $exists = $container->has('foo');
 
 *Please consider submitting a Pull Request with an adapter for your container and a corresponding test.*
 
-Before you get that point though, you can create the adapter yourself (which is *really* easy to do, just look at the
-included ones), and use the `ContainerAcclimator::registerAdapter` method to wire up your adapter to Acclimate. You
-will need to provide the fully qualified class name (FQCN) of both the adapter class and the base class/interface of the
-container you want to be able to adapt (adaptee).
+Before you get to that point though, you can create the adapter yourself (which is *really* easy to do actually, just
+look at the included ones), and use the `ContainerAcclimator::registerAdapter()` method to wire up your adapter to
+Acclimate. You will need to provide the fully qualified class name (FQCN) of both the adapter class and the base class
+or interface of the container you want to be able to adapt (the "adaptee").
 
 Assuming that you have a `$container` object that implements `Your\Favorite\ContainerInterface`, and you have written an
 adapter class named `Your\Favorite\ContainerAdapter`, here is an example of how you can make these work in Acclimate:
