@@ -3,6 +3,7 @@
 namespace Acclimate\Container\Test;
 
 use Acclimate\Container\ArrayContainer;
+use Acclimate\Container\Test\Adapter\AbstractContainerAdapterTest;
 
 /**
  * @covers \Acclimate\Container\ArrayContainer
@@ -11,8 +12,8 @@ class ArrayContainerTest extends \PHPUnit_Framework_TestCase
 {
     public function testCanInstantiateWithArrayOrArrayLikeObject()
     {
-        $a1 = array('foo' => 'bar');
-        $a2 = new \ArrayObject(array('foo' => 'bar'));
+        $a1 = ['foo' => 'bar'];
+        $a2 = new \ArrayObject(['foo' => 'bar']);
         $a3 = new \LimitIterator(new \ArrayIterator($a1), 0, 1);
         $a4 = 'foo';
 
@@ -24,23 +25,34 @@ class ArrayContainerTest extends \PHPUnit_Framework_TestCase
         new ArrayContainer($a4);
     }
 
-    public function testContainerSupportsContainerInterface()
+    public function testSupportsContainerInterface()
     {
-        $container = new ArrayContainer(array('array_iterator' => new \ArrayIterator(range(1, 5))));
+        $container = new ArrayContainer(['array_iterator' => new \ArrayIterator(range(1, 5))]);
 
         $this->assertTrue($container->has('array_iterator'));
         $arrayIterator = $container->get('array_iterator');
-        $this->assertEquals(array(1, 2, 3, 4, 5), iterator_to_array($arrayIterator));
+        $this->assertEquals([1, 2, 3, 4, 5], iterator_to_array($arrayIterator));
     }
 
-    public function testContainerThrowsExceptionOnNonExistentItem()
+    public function testThrowsExceptionOnNonExistentItem()
     {
         $container = new ArrayContainer();
 
         $this->assertFalse($container->has('foo'));
 
-        $this->setExpectedException('Acclimate\Api\Container\NotFoundException');
+        $this->setExpectedException('Interop\Container\Exception\NotFoundException');
         $container->get('foo');
+    }
+
+    public function testAdapterWrapsOtherExceptions()
+    {
+        $container = new ArrayContainer();
+        $container['error'] = function ($c) {
+            throw new \RuntimeException;
+        };
+
+        $this->setExpectedException('Interop\Container\Exception\ContainerException');
+        $container->get('error');
     }
 
     public function testContainerSupportsArrayAccessInterface()

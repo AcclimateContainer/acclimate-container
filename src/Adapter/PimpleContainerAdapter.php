@@ -2,8 +2,9 @@
 
 namespace Acclimate\Container\Adapter;
 
-use Acclimate\Api\Container\ContainerInterface as AcclimateContainerInterface;
-use Acclimate\Api\Container\NotFoundException as AcclimateException;
+use Acclimate\Container\Exception\ContainerException as AcclimateContainerException;
+use Acclimate\Container\Exception\NotFoundException as AcclimateNotFoundException;
+use Interop\Container\ContainerInterface as AcclimateContainerInterface;
 use Pimple;
 
 /**
@@ -24,17 +25,19 @@ class PimpleContainerAdapter implements AcclimateContainerInterface
         $this->container = $container;
     }
 
-    public function get($identifier)
+    public function get($id)
     {
         try {
-            return $this->container[$identifier];
+            return $this->container[$id];
         } catch (\InvalidArgumentException $prev) {
-            throw new AcclimateException("There is no item in the container for \"{$identifier}\".", 0, $prev);
+            throw AcclimateNotFoundException::fromPrevious($id, $prev);
+        } catch (\Exception $prev) {
+            throw AcclimateContainerException::fromPrevious($id, $prev);
         }
     }
 
-    public function has($identifier)
+    public function has($id)
     {
-        return isset($this->container[$identifier]);
+        return isset($this->container[$id]);
     }
 }

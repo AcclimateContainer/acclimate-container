@@ -22,7 +22,7 @@ class ContainerAcclimatorTest extends \PHPUnit_Framework_TestCase
     {
         $acclimator = new ContainerAcclimator();
         $container = $acclimator->acclimate($this->getMock('Pimple'));
-        $this->assertInstanceOf('Acclimate\Api\Container\ContainerInterface', $container);
+        $this->assertInstanceOf('Interop\Container\ContainerInterface', $container);
     }
 
     public function testCanRegisterOtherAdapters()
@@ -38,13 +38,13 @@ class ContainerAcclimatorTest extends \PHPUnit_Framework_TestCase
     {
         $acclimator = new ContainerAcclimator();
         $container = $acclimator->acclimate(new \ArrayObject);
-        $this->assertInstanceOf('Acclimate\Api\Container\ContainerInterface', $container);
+        $this->assertInstanceOf('Interop\Container\ContainerInterface', $container);
     }
 
     public function testThrowsExceptionOnContainersThatCannotBeAdpated()
     {
         $acclimator = new ContainerAcclimator();
-        $this->setExpectedException('Acclimate\Api\Acclimator\AdapterMissingException');
+        $this->setExpectedException('Acclimate\Container\Exception\InvalidAdapterException');
         $container = $acclimator->acclimate('foo');
     }
 }

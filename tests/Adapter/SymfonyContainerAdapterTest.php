@@ -4,39 +4,33 @@ namespace Acclimate\Container\Test\Adapter;
 
 use Acclimate\Container\Adapter\SymfonyContainerAdapter;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * @covers \Acclimate\Container\Adapter\SymfonyContainerAdapter
  */
-class SymfonyContainerAdapterTest extends \PHPUnit_Framework_TestCase
+class SymfonyContainerAdapterTest extends AbstractContainerAdapterTest
 {
-    /**
-     * @var Container
-     */
-    private $container;
-
-    public function setUp()
+    protected function createContainer()
     {
-        $this->container = new Container();
-        $this->container->set('array_iterator', new \ArrayIterator(range(1, 5)));
+        $container = new ContainerBuilder();
+        $container->set('array_iterator', new \ArrayIterator(range(1, 5)));
+
+        $definition = new Definition();
+        $definition->setClass(__NAMESPACE__ . '\\Fixture\\Circular');
+        $definition->addArgument(new Reference('error'));
+        $container->setDefinition('error', $definition);
+
+        return new SymfonyContainerAdapter($container);
     }
 
-    public function testAdapterSupportsContainerInterface()
+    public function testHandlesNotFoundExceptionOnNonExistentItem()
     {
-        $adapter = new SymfonyContainerAdapter($this->container);
+        $container = new SymfonyContainerAdapter(new Container());
 
-        $this->assertTrue($adapter->has('array_iterator'));
-        $arrayIterator = $adapter->get('array_iterator');
-        $this->assertEquals(array(1, 2, 3, 4, 5), iterator_to_array($arrayIterator));
-    }
-
-    public function testAdapterThrowsExceptionOnNonExistentItem()
-    {
-        $adapter = new SymfonyContainerAdapter($this->container);
-
-        $this->assertFalse($adapter->has('foo'));
-
-        $this->setExpectedException('Acclimate\Api\Container\NotFoundException');
-        $adapter->get('foo');
+        $this->setExpectedException('Interop\Container\Exception\NotFoundException');
+        $container->get('foo');
     }
 }

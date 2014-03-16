@@ -2,9 +2,10 @@
 
 namespace Acclimate\Container\Adapter;
 
-use Illuminate\Container\Container;
-use Acclimate\Api\Container\ContainerInterface as AcclimateContainerInterface;
-use Acclimate\Api\Container\NotFoundException as AcclimateException;
+use Acclimate\Container\Exception\ContainerException as AcclimateContainerException;
+use Acclimate\Container\Exception\NotFoundException as AcclimateNotFoundException;
+use Illuminate\Container\Container as LaravelContainerInterface;
+use Interop\Container\ContainerInterface as AcclimateContainerInterface;
 
 /**
  * An adapter from a Laravel Container to the standardized ContainerInterface
@@ -12,29 +13,33 @@ use Acclimate\Api\Container\NotFoundException as AcclimateException;
 class LaravelContainerAdapter implements AcclimateContainerInterface
 {
     /**
-     * @var Container A Laravel Container
+     * @var LaravelContainerInterface A Laravel Container
      */
     private $container;
 
     /**
-     * @param Container $container A Laravel Container
+     * @param LaravelContainerInterface $container A Laravel Container
      */
-    public function __construct(Container $container)
+    public function __construct(LaravelContainerInterface $container)
     {
         $this->container = $container;
     }
 
-    public function get($identifier)
+    public function get($id)
     {
-        try {
-            return $this->container->make($identifier);
-        } catch (\Exception $prev) {
-            throw new AcclimateException("There is no item in the container for \"{$identifier}\".", 0, $prev);
+        if ($this->container->bound($id)) {
+            try {
+                return $this->container->make($id);
+            } catch (\Exception $prev) {
+                throw AcclimateContainerException::fromPrevious($id, $prev);
+            }
+        } else {
+            throw AcclimateNotFoundException::fromPrevious($id, null);
         }
     }
 
-    public function has($identifier)
+    public function has($id)
     {
-        return $this->container->bound($identifier);
+        return $this->container->bound($id);
     }
 }

@@ -2,30 +2,31 @@
 
 namespace Acclimate\Container;
 
-use Acclimate\Api\Acclimator\AcclimatorInterface;
-use Acclimate\Api\Acclimator\AdapterMissingException;
-use Acclimate\Api\Container\ContainerInterface;
+use Acclimate\Container\Exception\InvalidAdapterException;
+use Interop\Container\ContainerInterface;
 
 /**
- * This Acclimator class is used to acclimate a container object to the common ContainerInterface. It is essentially a
- * factory class for the container adapters in the Acclimate package.
+ * This class is used to "acclimate", or adapt, a container object (e.g., DIC, SL) to a common ContainerInterface. In
+ * terms of design patterns, it's essentially a `factory` for `adapter`s
  */
-class ContainerAcclimator implements AcclimatorInterface
+class ContainerAcclimator
 {
     /**
-     * @var array Default map of container classes to container adapter classes
+     * @var array Default map of container classes to container adapter classes. These are in order of perceived
+     *            popularity. `ArrayAccess` is last in the list since it is used as a fallback if there is no adapter
+     *            that is more specific
      */
     private static $predefinedAdapterMap = array(
+        'Symfony\Component\DependencyInjection\ContainerInterface' => 'Acclimate\Container\Adapter\SymfonyContainerAdapter',
+        'Pimple' => 'Acclimate\Container\Adapter\PimpleContainerAdapter',
+        'Zend\ServiceManager\ServiceLocatorInterface' => 'Acclimate\Container\Adapter\ZendServiceManagerContainerAdapter',
+        'Zend\Di\LocatorInterface' => 'Acclimate\Container\Adapter\ZendDiContainerAdapter',
+        'Illuminate\Container\Container' => 'Acclimate\Container\Adapter\LaravelContainerAdapter',
         'Aura\Di\ContainerInterface' => 'Acclimate\Container\Adapter\AuraContainerAdapter',
         'Guzzle\Service\Builder\ServiceBuilderInterface' => 'Acclimate\Container\Adapter\GuzzleContainerAdapter',
-        'Illuminate\Container\Container' => 'Acclimate\Container\Adapter\LaravelContainerAdapter',
-        'Nette\DI\Container' => 'Acclimate\Container\Adapter\NetteContainerAdapter',
-        'Pimple' => 'Acclimate\Container\Adapter\PimpleContainerAdapter',
         'DI\Container' => 'Acclimate\Container\Adapter\PHPDIContainerAdapter',
-        'Symfony\Component\DependencyInjection\ContainerInterface' => 'Acclimate\Container\Adapter\SymfonyContainerAdapter',
-        'Zend\Di\LocatorInterface' => 'Acclimate\Container\Adapter\ZendDiContainerAdapter',
-        'Zend\ServiceManager\ServiceLocatorInterface' => 'Acclimate\Container\Adapter\ZendServiceManagerContainerAdapter',
-        'ArrayAccess' => 'Acclimate\Container\Adapter\ArrayContainerAdapter'
+        'Nette\DI\Container' => 'Acclimate\Container\Adapter\NetteContainerAdapter',
+        'ArrayAccess' => 'Acclimate\Container\Adapter\ArrayAccessContainerAdapter'
     );
 
     /**
@@ -42,7 +43,11 @@ class ContainerAcclimator implements AcclimatorInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Registers a custom adapter for a class by mapping the fully qualified class name (FQCN) of one to the other
+     *
+     * @param string $adapterFqcn The FQCN of the adapter class
+     * @param string $adapteeFqcn The FQCN of the class being adapted
+     *
      * @return ContainerAcclimator
      */
     public function registerAdapter($adapterFqcn, $adapteeFqcn)
@@ -53,23 +58,28 @@ class ContainerAcclimator implements AcclimatorInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Adapts an object by wrapping it with a registered adapter class that implements an Acclimate interface
+     *
+     * @param mixed $adaptee A third-party object to be acclimated
+     *
      * @return ContainerInterface
+     * @throws InvalidAdapterException if there is no adapter found for the provided object
      */
-    public function acclimate($object)
+    public function acclimate($adaptee)
     {
-        if ($object instanceof ContainerInterface) {
-            return $object;
+        if ($adaptee instanceof ContainerInterface) {
+            // If the adaptee already implements the ContainerInterface, just return it
+            return $adaptee;
         } else {
+            // Otherwise, check the adapter map to see if there is an appropriate adapter registered
             foreach ($this->adapterMap as $adapteeFqcn => $adapterFqcn) {
-                if ($object instanceof $adapteeFqcn) {
-                    return new $adapterFqcn($object);
+                if ($adaptee instanceof $adapteeFqcn) {
+                    return new $adapterFqcn($adaptee);
                 }
             }
         }
 
         // If no adapter matches the provided container object, throw an exception
-        $type = is_object($object) ? get_class($object) . ' objects' : gettype($object) . ' variables';
-        throw new AdapterMissingException("There is no container adapter registered to handle \"{$type}\".");
+        throw InvalidAdapterException::fromAdaptee($adaptee);
     }
 }

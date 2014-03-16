@@ -13,7 +13,7 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "acclimate/api": "~0.1"
+        "container-interop/container-interop": "~1.0"
     },
     "suggest": {
         "aura/di": "Install Aura.Di to use with the AuraContainerAdapter.",
@@ -40,8 +40,8 @@
         "zendframework/zend-servicemanager": "2.*"
     },
     "autoload": {
-        "files": [
-            "autoload.php"
-        ]
+        "psr-4": {
+            "Acclimate\\Container\\": "src/"
+        }
     }
 }
