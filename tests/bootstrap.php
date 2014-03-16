@@ -7,21 +7,4 @@ if (PHP_VERSION_ID < 50400) {
 
 // Include Composer autoloader
 $loader = require __DIR__ . '/../vendor/autoload.php';
-
-// Register another PSR-4-compliant autoloader for loading test classes
-spl_autoload_register(function ($fqcn) {
-    $prefix = 'Acclimate\\Container\\Test\\';
-    $baseDir = __DIR__ . '/';
-
-    $prefixLength = strlen($prefix);
-    if (strncmp($prefix, $fqcn, $prefixLength) !== 0) {
-        // Class doesn't match prefix
-        return;
-    }
-
-    $className = substr($fqcn, $prefixLength);
-    $filePath = $baseDir . str_replace('\\', '/', $className) . '.php';
-    if (is_readable($filePath)) {
-        require $filePath;
-    }
-});
+$loader->add('Acclimate\\Container\\Test\\', __DIR__);

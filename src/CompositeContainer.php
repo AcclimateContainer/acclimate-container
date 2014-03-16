@@ -2,8 +2,8 @@
 
 namespace Acclimate\Container;
 
-use Acclimate\Api\Container\ContainerInterface;
-use Acclimate\Api\Container\NotFoundException;
+use Interop\Container\ContainerInterface;
+use Acclimate\Container\Exception\NotFoundException;
 
 /**
  * A composite container that acts as a normal container, but delegates to one or more internal containers
@@ -42,35 +42,35 @@ class CompositeContainer implements ContainerInterface
     /**
      * Gets an item from the container by delegating the get call to a FIFO queue of internal containers
      *
-     * @param string $identifier The name of the item in the container(s)
+     * @param string $id The name of the item in the container(s)
      *
      * @return mixed
-     * @throws NotFoundException if none of the internal containers have the item
+     * @throws NotFoundException if none of the internal containers contain the entry
      */
-    public function get($identifier)
+    public function get($id)
     {
         /** @var ContainerInterface $container */
         foreach ($this->containers as $container) {
-            if ($container->has($identifier)) {
-                return $container->get($identifier);
+            if ($container->has($id)) {
+                return $container->get($id);
             }
         }
 
-        throw new NotFoundException("There is no item in the container for the identifier \"{$identifier}\".");
+        throw NotFoundException::fromPrevious($id);
     }
 
     /**
      * Checks if an item is in at least one of the internal containers
      *
-     * @param string $identifier The name of the item to check for in the internal containers
+     * @param string $id The name of the item to check for in the internal containers
      *
      * @return bool
      */
-    public function has($identifier)
+    public function has($id)
     {
         /** @var ContainerInterface $container */
         foreach ($this->containers as $container) {
-            if ($container->has($identifier)) {
+            if ($container->has($id)) {
                 return true;
             }
         }

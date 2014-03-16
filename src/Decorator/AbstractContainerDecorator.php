@@ -2,7 +2,7 @@
 
 namespace Acclimate\Container\Decorator;
 
-use Acclimate\Api\Container\ContainerInterface;
+use Interop\Container\ContainerInterface;
 
 /**
  * An abstract ContainerDecorator that allows you to decorate a container and proxy to the decorated container

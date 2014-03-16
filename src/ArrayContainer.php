@@ -2,8 +2,8 @@
 
 namespace Acclimate\Container;
 
-use Acclimate\Api\Container\ContainerInterface;
-use Acclimate\Api\Container\NotFoundException;
+use Interop\Container\ContainerInterface;
+use Acclimate\Container\Exception\NotFoundException;
 
 /**
  * The Array Container is a simple container that follows both the `ContainerInterface` and `ArrayAccess` interface.
@@ -13,12 +13,12 @@ use Acclimate\Api\Container\NotFoundException;
 class ArrayContainer implements ContainerInterface, \ArrayAccess
 {
     /**
-     * @var array|\ArrayAccess The Container data
+     * @var array|\ArrayAccess The container data
      */
     protected $data;
 
     /**
-     * @param array $data Container data
+     * @param array|\ArrayAccess|\Traversable $data Data for the container
      *
      * @throws \InvalidArgumentException if the provided data is not an array or array-like object
      */
@@ -33,12 +33,15 @@ class ArrayContainer implements ContainerInterface, \ArrayAccess
         }
     }
 
-    public function get($identifier)
+    public function get($id)
     {
-        if (isset($this->data[$identifier])) {
-            return $this[$identifier];
+        if (isset($this->data[$id])) {
+            if ($this->data[$id] instanceof \Closure) {
+                $this->data[$id] = call_user_func($this->data[$id], $this);
+            }
+            return $this->data[$id];
         } else {
-            throw new NotFoundException("There is no item in the container for identifier \"{$identifier}\".");
+            throw NotFoundException::fromPrevious($id);
         }
     }
 
@@ -54,11 +57,7 @@ class ArrayContainer implements ContainerInterface, \ArrayAccess
 
     public function offsetGet($offset)
     {
-        if ($this->data[$offset] instanceof \Closure) {
-            $this->data[$offset] = call_user_func($this->data[$offset], $this);
-        }
-
-        return $this->data[$offset];
+       return $this->get($offset);
     }
 
     public function offsetSet($offset, $value)
