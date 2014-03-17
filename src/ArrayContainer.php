@@ -3,6 +3,7 @@
 namespace Acclimate\Container;
 
 use Interop\Container\ContainerInterface;
+use Acclimate\Container\Exception\ContainerException;
 use Acclimate\Container\Exception\NotFoundException;
 
 /**
@@ -36,8 +37,12 @@ class ArrayContainer implements ContainerInterface, \ArrayAccess
     public function get($id)
     {
         if (isset($this->data[$id])) {
-            if ($this->data[$id] instanceof \Closure) {
-                $this->data[$id] = call_user_func($this->data[$id], $this);
+            try {
+                if ($this->data[$id] instanceof \Closure) {
+                    $this->data[$id] = call_user_func($this->data[$id], $this);
+                }
+            } catch (\Exception $prev) {
+                throw ContainerException::fromPrevious($id, $prev);
             }
             return $this->data[$id];
         } else {

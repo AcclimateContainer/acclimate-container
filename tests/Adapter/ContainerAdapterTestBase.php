@@ -16,5 +16,5 @@ abstract class ContainerAdapterTestBase extends \PHPUnit_Framework_TestCase
     /**
      * @return \Interop\Container\ContainerInterface
      */
-    abstract protected function createAdapter();
+    abstract protected function createContainer();
 }

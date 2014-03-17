@@ -12,7 +12,7 @@ use Pimple;
  */
 class CompositeContainerTest extends \PHPUnit_Framework_TestCase
 {
-    public function testContainerSupportsContainerInterface()
+    public function testSupportsContainerInterface()
     {
         $container = new CompositeContainer(array(
             new ArrayContainer(array('array_iterator' => new \ArrayIterator(range(1, 5))))
@@ -23,7 +23,7 @@ class CompositeContainerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(1, 2, 3, 4, 5), iterator_to_array($arrayIterator));
     }
 
-    public function testContainerThrowsExceptionOnNonExistentItem()
+    public function testThrowsExceptionOnNonExistentItem()
     {
         $container = new CompositeContainer();
         $container->addContainer(new ArrayContainer);
@@ -32,7 +32,7 @@ class CompositeContainerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($container->has('foo'));
 
-        $this->setExpectedException('Acclimate\Api\Container\NotFoundException');
+        $this->setExpectedException('Interop\Container\Exception\NotFoundException');
         $container->get('foo');
     }
 }

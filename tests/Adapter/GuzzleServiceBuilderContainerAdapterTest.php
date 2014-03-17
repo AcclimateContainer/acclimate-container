@@ -8,9 +8,9 @@ use Acclimate\Container\Adapter\GuzzleContainerAdapter;
 /**
  * @covers \Acclimate\Container\Adapter\GuzzleContainerAdapter
  */
-class GuzzleContainerAdapterTest extends \PHPUnit_Framework_TestCase
+class GuzzleContainerAdapterTest extends ContainerAdapterTestBase
 {
-    protected function createAdapter()
+    protected function createContainer()
     {
         $container = new ServiceBuilder(array(
             'test_service' => array(
@@ -28,28 +28,28 @@ class GuzzleContainerAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testSupportsContainerInterface()
     {
-        $adapter = $this->createAdapter();
+        $container = $this->createContainer();
 
-        $this->assertTrue($adapter->has('test_service'));
-        $service = $adapter->get('test_service');
+        $this->assertTrue($container->has('test_service'));
+        $service = $container->get('test_service');
         $this->assertInstanceOf('Acclimate\Container\Test\Adapter\Fixture\MockService', $service);
     }
 
     public function testThrowsExceptionOnNonExistentItem()
     {
-        $adapter = $this->createAdapter();
+        $container = $this->createContainer();
 
-        $this->assertFalse($adapter->has('foo'));
+        $this->assertFalse($container->has('foo'));
 
         $this->setExpectedException(self::NOT_FOUND_EXCEPTION);
-        $adapter->get('foo');
+        $container->get('foo');
     }
 
     public function testAdapterWrapsOtherExceptions()
     {
-        $adapter = $this->createAdapter();
+        $container = $this->createContainer();
 
         $this->setExpectedException(self::CONTAINER_EXCEPTION);
-        $adapter->get('error');
+        $container->get('error');
     }
 }

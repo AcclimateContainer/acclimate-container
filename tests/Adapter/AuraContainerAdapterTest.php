@@ -10,9 +10,9 @@ use Aura\Di\Container;
 /**
  * @covers \Acclimate\Container\Adapter\AuraContainerAdapter
  */
-class AuraContainerAdapterTest extends \PHPUnit_Framework_TestCase
+class AuraContainerAdapterTest extends ContainerAdapterTestBase
 {
-    protected function createAdapter()
+    protected function createContainer()
     {
         $container = new Container(new Forge(new Config()));
         $container->set('array_iterator', new \ArrayIterator(range(1, 5)));
@@ -25,28 +25,28 @@ class AuraContainerAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testSupportsContainerInterface()
     {
-        $adapter = $this->createAdapter();
+        $container = $this->createContainer();
 
-        $this->assertTrue($adapter->has('array_iterator'));
-        $arrayIterator = $adapter->get('array_iterator');
+        $this->assertTrue($container->has('array_iterator'));
+        $arrayIterator = $container->get('array_iterator');
         $this->assertEquals(array(1, 2, 3, 4, 5), iterator_to_array($arrayIterator));
     }
 
     public function testThrowsExceptionOnNonExistentItem()
     {
-        $adapter = $this->createAdapter();
+        $container = $this->createContainer();
 
-        $this->assertFalse($adapter->has('foo'));
+        $this->assertFalse($container->has('foo'));
 
         $this->setExpectedException(self::NOT_FOUND_EXCEPTION);
-        $adapter->get('foo');
+        $container->get('foo');
     }
 
     public function testAdapterWrapsOtherExceptions()
     {
-        $adapter = $this->createAdapter();
+        $container = $this->createContainer();
 
         $this->setExpectedException(self::CONTAINER_EXCEPTION);
-        $adapter->get('error');
+        $container->get('error');
     }
 }

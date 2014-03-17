@@ -3,12 +3,21 @@
 namespace Acclimate\Container\Test;
 
 use Acclimate\Container\ArrayContainer;
+use Acclimate\Container\Test\Adapter\ContainerAdapterTestBase;
 
 /**
  * @covers \Acclimate\Container\ArrayContainer
  */
-class ArrayContainerTest extends \PHPUnit_Framework_TestCase
+class ArrayContainerTest extends ContainerAdapterTestBase
 {
+    /**
+     * @return ArrayContainer
+     */
+    protected function createContainer()
+    {
+        return new ArrayContainer();
+    }
+
     public function testCanInstantiateWithArrayOrArrayLikeObject()
     {
         $a1 = array('foo' => 'bar');
@@ -24,7 +33,7 @@ class ArrayContainerTest extends \PHPUnit_Framework_TestCase
         new ArrayContainer($a4);
     }
 
-    public function testContainerSupportsContainerInterface()
+    public function testSupportsContainerInterface()
     {
         $container = new ArrayContainer(array('array_iterator' => new \ArrayIterator(range(1, 5))));
 
@@ -33,19 +42,30 @@ class ArrayContainerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(1, 2, 3, 4, 5), iterator_to_array($arrayIterator));
     }
 
-    public function testContainerThrowsExceptionOnNonExistentItem()
+    public function testThrowsExceptionOnNonExistentItem()
     {
-        $container = new ArrayContainer();
+        $container = $this->createContainer();
 
         $this->assertFalse($container->has('foo'));
 
-        $this->setExpectedException('Acclimate\Api\Container\NotFoundException');
+        $this->setExpectedException(self::NOT_FOUND_EXCEPTION);
         $container->get('foo');
+    }
+
+    public function testAdapterWrapsOtherExceptions()
+    {
+        $container = $this->createContainer();
+        $container['error'] = function ($c) {
+            throw new \RuntimeException;
+        };
+
+        $this->setExpectedException(self::CONTAINER_EXCEPTION);
+        $container->get('error');
     }
 
     public function testContainerSupportsArrayAccessInterface()
     {
-        $container = new ArrayContainer();
+        $container = $this->createContainer();
         $this->assertFalse(isset($container['queue']));
         $container['queue'] = new \SplQueue();
         $this->assertTrue(isset($container['queue']));
@@ -57,7 +77,7 @@ class ArrayContainerTest extends \PHPUnit_Framework_TestCase
 
     public function testClosuresAreExecutedOnGet()
     {
-        $container = new ArrayContainer();
+        $container = $this->createContainer();
         $container['foo'] = 'bar';
         $container['baz'] = function ($c) {
             $obj = new \stdClass;
