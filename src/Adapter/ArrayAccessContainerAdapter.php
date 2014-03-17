@@ -26,14 +26,14 @@ class ArrayAccessContainerAdapter implements AcclimateContainerInterface
 
     public function get($id)
     {
-        try {
-            if (isset($this->container[$id])) {
+        if (isset($this->container[$id])) {
+            try {
                 return $this->container[$id];
-            } else {
-                throw AcclimateNotFoundException::fromPrevious($id, null);
+            } catch (\Exception $prev) {
+                throw AcclimateContainerException::fromPrevious($id, $prev);
             }
-        } catch (\Exception $prev) {
-            throw AcclimateContainerException::fromPrevious($id, $prev);
+        } else {
+            throw AcclimateNotFoundException::fromPrevious($id, null);
         }
     }
 

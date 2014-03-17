@@ -7,4 +7,4 @@ if (PHP_VERSION_ID < 50400) {
 
 // Include Composer autoloader
 $loader = require __DIR__ . '/../vendor/autoload.php';
-$loader->add('Acclimate\\Container\\Test\\', __DIR__);
+$loader->addPsr4('Acclimate\\Container\\Test\\', __DIR__);

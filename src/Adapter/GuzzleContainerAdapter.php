@@ -2,10 +2,11 @@
 
 namespace Acclimate\Container\Adapter;
 
-use Guzzle\Service\Builder\ServiceBuilderInterface;
-use Guzzle\Service\Exception\ServiceNotFoundException;
-use Acclimate\Api\Container\ContainerInterface as AcclimateContainerInterface;
-use Acclimate\Api\Container\NotFoundException as AcclimateException;
+use Acclimate\Container\Exception\ContainerException as AcclimateContainerException;
+use Acclimate\Container\Exception\NotFoundException as AcclimateNotFoundException;
+use Guzzle\Service\Builder\ServiceBuilderInterface as GuzzleContainerInterface;
+use Guzzle\Service\Exception\ServiceNotFoundException as GuzzleNotFoundException;
+use Interop\Container\ContainerInterface as AcclimateContainerInterface;
 
 /**
  * An adapter from a Guzzle ServiceBuilder to the standardized ContainerInterface
@@ -13,29 +14,31 @@ use Acclimate\Api\Container\NotFoundException as AcclimateException;
 class GuzzleContainerAdapter implements AcclimateContainerInterface
 {
     /**
-     * @var ServiceBuilderInterface A Guzzle ServiceBuilder
+     * @var GuzzleContainerInterface A Guzzle ServiceBuilder
      */
     private $container;
 
     /**
-     * @param ServiceBuilderInterface $container A Guzzle ServiceBuilder
+     * @param GuzzleContainerInterface $container A Guzzle ServiceBuilder
      */
-    public function __construct(ServiceBuilderInterface $container)
+    public function __construct(GuzzleContainerInterface $container)
     {
         $this->container = $container;
     }
 
-    public function get($identifier)
+    public function get($id)
     {
         try {
-            return $this->container->get($identifier);
-        } catch (ServiceNotFoundException $prev) {
-            throw new AcclimateException("There is no item in the container for \"{$identifier}\".", 0, $prev);
+            return $this->container->get($id);
+        } catch (GuzzleNotFoundException $prev) {
+            throw AcclimateNotFoundException::fromPrevious($id, $prev);
+        } catch (\Exception $prev) {
+            throw AcclimateContainerException::fromPrevious($id, $prev);
         }
     }
 
-    public function has($identifier)
+    public function has($id)
     {
-        return isset($this->container[$identifier]);
+        return isset($this->container[$id]);
     }
 }

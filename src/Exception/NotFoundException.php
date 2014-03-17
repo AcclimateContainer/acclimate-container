@@ -6,6 +6,8 @@ use Interop\Container\Exception\NotFoundException as InteropNotFoundException;
 
 /**
  * No entry was found in the container.
+ *
+ * @method static NotFoundException fromPrevious($id, \Exception $prev = null)
  */
 class NotFoundException extends ContainerException implements InteropNotFoundException
 {

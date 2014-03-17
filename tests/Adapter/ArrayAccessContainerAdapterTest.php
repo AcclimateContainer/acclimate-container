@@ -2,25 +2,23 @@
 
 namespace Acclimate\Container\Test\Adapter;
 
-use Aura\Di\Config;
-use Aura\Di\Forge;
-use Acclimate\Container\Adapter\AuraContainerAdapter;
-use Aura\Di\Container;
+use Acclimate\Container\Adapter\ArrayAccessContainerAdapter;
+use Acclimate\Container\ArrayContainer;
 
 /**
- * @covers \Acclimate\Container\Adapter\AuraContainerAdapter
+ * @covers \Acclimate\Container\Adapter\ArrayAccessContainerAdapter
  */
-class AuraContainerAdapterTest extends \PHPUnit_Framework_TestCase
+class ArrayAccessContainerAdapterTest extends \PHPUnit_Framework_TestCase
 {
     protected function createAdapter()
     {
-        $container = new Container(new Forge(new Config()));
-        $container->set('array_iterator', new \ArrayIterator(range(1, 5)));
-        $container->set('error', function() {
+        $container = new ArrayContainer();
+        $container['array_iterator'] = new \ArrayIterator(range(1, 5));
+        $container['error'] = function() {
             throw new \RuntimeException;
-        });
+        };
 
-        return new AuraContainerAdapter($container);
+        return new ArrayAccessContainerAdapter($container);
     }
 
     public function testSupportsContainerInterface()
@@ -48,5 +46,13 @@ class AuraContainerAdapterTest extends \PHPUnit_Framework_TestCase
 
         $this->setExpectedException(self::CONTAINER_EXCEPTION);
         $adapter->get('error');
+    }
+
+    public function testAdapterWrapsOtherExceptionsDuringGet()
+    {
+        $this->setExpectedException('PHPUnit_Framework_Error');
+
+        // This should trigger an error
+        $adapter = new ArrayAccessContainerAdapter('not-a-container');
     }
 }

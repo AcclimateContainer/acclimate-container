@@ -2,11 +2,11 @@
 
 namespace Acclimate\Container\Adapter;
 
+use Acclimate\Container\Exception\ContainerException as AcclimateContainerException;
+use Acclimate\Container\Exception\NotFoundException as AcclimateNotFoundException;
 use Aura\Di\ContainerInterface as AuraContainerInterface;
 use Aura\Di\Exception\ServiceNotFound as AuraNotFoundException;
 use Interop\Container\ContainerInterface as AcclimateContainerInterface;
-use Acclimate\Container\Exception\NotFoundException as AcclimateNotFoundException;
-use Acclimate\Container\Exception\ContainerException as AcclimateContainerException;
 
 /**
  * An adapter from an Aura DIC to the standardized ContainerInterface
