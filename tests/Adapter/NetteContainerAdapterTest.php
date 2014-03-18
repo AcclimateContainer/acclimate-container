@@ -13,10 +13,10 @@ class NetteContainerAdapterTest extends AbstractContainerAdapterTest
     protected function createContainer()
     {
         $container = new Container();
-        $container->addService('array_iterator', new \ArrayIterator(range(1, 5)));
-        $container->addService('error', function () {
+        $container->array_iterator = new \ArrayIterator(range(1, 5));
+        $container->error = function () {
             throw new \RuntimeException;
-        });
+        };
 
         return new NetteContainerAdapter($container);
     }
