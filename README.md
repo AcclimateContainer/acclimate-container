@@ -4,8 +4,6 @@
 
 by [Jeremy Lindblom](https://twitter.com/jeremeamia)
 
-Version 0.3.0
-
 ## Introduction
 
 It seems like every framework has its own container object. They come in many shapes and sizes (service locator, service
