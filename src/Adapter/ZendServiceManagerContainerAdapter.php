@@ -2,9 +2,10 @@
 
 namespace Acclimate\Container\Adapter;
 
-use Acclimate\Api\Container\ContainerInterface as AcclimateContainerInterface;
-use Acclimate\Api\Container\NotFoundException as AcclimateException;
-use Zend\ServiceManager\Exception\ServiceNotFoundException;
+use Acclimate\Container\Exception\ContainerException as AcclimateContainerException;
+use Acclimate\Container\Exception\NotFoundException as AcclimateNotFoundException;
+use Interop\Container\ContainerInterface as AcclimateContainerInterface;
+use Zend\ServiceManager\Exception\ServiceNotFoundException as ZendNotFoundException;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
@@ -25,17 +26,19 @@ class ZendServiceManagerContainerAdapter implements AcclimateContainerInterface
         $this->container = $container;
     }
 
-    public function get($identifier)
+    public function get($id)
     {
         try {
-            return $this->container->get($identifier);
-        } catch (ServiceNotFoundException $prev) {
-            throw new AcclimateException("There is no item in the container for \"{$identifier}\".", 0, $prev);
+            return $this->container->get($id);
+        } catch (ZendNotFoundException $prev) {
+            throw AcclimateNotFoundException::fromPrevious($id, $prev);
+        } catch (\Exception $prev) {
+            throw AcclimateContainerException::fromPrevious($id, $prev);
         }
     }
 
-    public function has($identifier)
+    public function has($id)
     {
-        return $this->container->has($identifier);
+        return $this->container->has($id);
     }
 }

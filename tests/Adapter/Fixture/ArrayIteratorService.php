@@ -2,10 +2,10 @@
 
 namespace Acclimate\Container\Test\Adapter\Fixture;
 
-class MockService
+class ArrayIteratorService
 {
     public static function factory($config = array())
     {
-        return new self;
+        return new \ArrayIterator($config['data']);
     }
 }

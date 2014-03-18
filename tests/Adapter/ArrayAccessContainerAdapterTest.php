@@ -21,33 +21,6 @@ class ArrayAccessContainerAdapterTest extends ContainerAdapterTestBase
         return new ArrayAccessContainerAdapter($container);
     }
 
-    public function testSupportsContainerInterface()
-    {
-        $container = $this->createContainer();
-
-        $this->assertTrue($container->has('array_iterator'));
-        $arrayIterator = $container->get('array_iterator');
-        $this->assertEquals(array(1, 2, 3, 4, 5), iterator_to_array($arrayIterator));
-    }
-
-    public function testThrowsExceptionOnNonExistentItem()
-    {
-        $container = $this->createContainer();
-
-        $this->assertFalse($container->has('foo'));
-
-        $this->setExpectedException(self::NOT_FOUND_EXCEPTION);
-        $container->get('foo');
-    }
-
-    public function testAdapterWrapsOtherExceptions()
-    {
-        $container = $this->createContainer();
-
-        $this->setExpectedException(self::CONTAINER_EXCEPTION);
-        $container->get('error');
-    }
-
     public function testAdapterWrapsOtherExceptionsDuringGet()
     {
         $this->setExpectedException('PHPUnit_Framework_Error');

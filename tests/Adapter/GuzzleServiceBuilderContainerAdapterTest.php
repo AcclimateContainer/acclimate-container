@@ -13,43 +13,18 @@ class GuzzleContainerAdapterTest extends ContainerAdapterTestBase
     protected function createContainer()
     {
         $container = new ServiceBuilder(array(
-            'test_service' => array(
-                'class'  => __NAMESPACE__ . '\Fixture\MockService',
-                'params' => array()
+            'array_iterator' => array(
+                'class'  => __NAMESPACE__ . '\Fixture\ArrayIteratorService',
+                'params' => array(
+                    'data' => range(1, 5),
+                ),
             ),
-            'broken_service' => array(
-                'class'  => __NAMESPACE__ . '\Fixture\MockBrokenService',
-                'params' => array()
+            'error' => array(
+                'class'  => __NAMESPACE__ . '\Fixture\BrokenService',
+                'params' => array(),
             )
         ));
 
         return new GuzzleContainerAdapter($container);
-    }
-
-    public function testSupportsContainerInterface()
-    {
-        $container = $this->createContainer();
-
-        $this->assertTrue($container->has('test_service'));
-        $service = $container->get('test_service');
-        $this->assertInstanceOf('Acclimate\Container\Test\Adapter\Fixture\MockService', $service);
-    }
-
-    public function testThrowsExceptionOnNonExistentItem()
-    {
-        $container = $this->createContainer();
-
-        $this->assertFalse($container->has('foo'));
-
-        $this->setExpectedException(self::NOT_FOUND_EXCEPTION);
-        $container->get('foo');
-    }
-
-    public function testAdapterWrapsOtherExceptions()
-    {
-        $container = $this->createContainer();
-
-        $this->setExpectedException(self::CONTAINER_EXCEPTION);
-        $container->get('error');
     }
 }

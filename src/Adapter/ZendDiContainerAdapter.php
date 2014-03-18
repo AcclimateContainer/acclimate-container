@@ -2,8 +2,9 @@
 
 namespace Acclimate\Container\Adapter;
 
-use Acclimate\Api\Container\ContainerInterface as AcclimateContainerInterface;
-use Acclimate\Api\Container\NotFoundException as AcclimateException;
+use Acclimate\Container\Exception\ContainerException as AcclimateContainerException;
+use Acclimate\Container\Exception\NotFoundException as AcclimateNotFoundException;
+use Interop\Container\ContainerInterface as AcclimateContainerInterface;
 use Zend\Di\LocatorInterface;
 
 /**
@@ -24,24 +25,23 @@ class ZendDiContainerAdapter implements AcclimateContainerInterface
         $this->container = $container;
     }
 
-    public function get($identifier)
+    public function get($id)
     {
         try {
-            $result = $this->container->get($identifier);
-            if ($result === null) {
-                $prev = null;
-            } else {
-                return $result;
-            }
+            $result = $this->container->get($id);
         } catch (\Exception $prev) {
-            // Do nothing, and allow the AcclimateException to be thrown
+            throw AcclimateContainerException::fromPrevious($id, $prev);
         }
 
-        throw new AcclimateException("There is no item in the container for \"{$identifier}\".", 0, $prev);
+        if ($result === null) {
+            throw AcclimateNotFoundException::fromPrevious($id, null);
+        }
+
+        return $result;
     }
 
-    public function has($identifier)
+    public function has($id)
     {
-        return ($this->container->get($identifier) !== null);
+        return ($this->container->get($id) !== null);
     }
 }

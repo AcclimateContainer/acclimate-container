@@ -2,10 +2,11 @@
 
 namespace Acclimate\Container\Adapter;
 
-use DI\Container;
-use DI\NotFoundException;
-use Acclimate\Api\Container\ContainerInterface as AcclimateContainerInterface;
-use Acclimate\Api\Container\NotFoundException as AcclimateException;
+use Acclimate\Container\Exception\ContainerException as AcclimateContainerException;
+use Acclimate\Container\Exception\NotFoundException as AcclimateNotFoundException;
+use DI\Container as PhpDiContainerInterface;
+use DI\NotFoundException as PhpDiNotFoundException;
+use Interop\Container\ContainerInterface as AcclimateContainerInterface;
 
 /**
  * An adapter from a PHP-DI Container to the standardized ContainerInterface
@@ -13,33 +14,35 @@ use Acclimate\Api\Container\NotFoundException as AcclimateException;
 class PHPDIContainerAdapter implements AcclimateContainerInterface
 {
     /**
-     * @var Container A PHP-DI Container
+     * @var PhpDiContainerInterface A PHP-DI Container
      */
     private $container;
 
     /**
-     * @param Container $container A PHP-DI Container
+     * @param PhpDiContainerInterface $container A PHP-DI Container
      */
-    public function __construct(Container $container)
+    public function __construct(PhpDiContainerInterface $container)
     {
         $this->container = $container;
     }
 
-    public function get($identifier)
+    public function get($id)
     {
         try {
-            return $this->container->get($identifier);
-        } catch (NotFoundException $prev) {
-            throw new AcclimateException("There is no item in the container for \"{$identifier}\".", 0, $prev);
+            return $this->container->get($id);
+        } catch (PhpDiNotFoundException $prev) {
+            throw AcclimateNotFoundException::fromPrevious($id, $prev);
+        } catch (\Exception $prev) {
+            throw AcclimateContainerException::fromPrevious($id, $prev);
         }
     }
 
-    public function has($identifier)
+    public function has($id)
     {
         try {
-            $this->container->get($identifier);
+            $this->container->get($id);
             return true;
-        } catch (NotFoundException $prev) {
+        } catch (PhpDiNotFoundException $e) {
             return false;
         }
     }

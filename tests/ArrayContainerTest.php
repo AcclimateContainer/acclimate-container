@@ -8,16 +8,8 @@ use Acclimate\Container\Test\Adapter\ContainerAdapterTestBase;
 /**
  * @covers \Acclimate\Container\ArrayContainer
  */
-class ArrayContainerTest extends ContainerAdapterTestBase
+class ArrayContainerTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @return ArrayContainer
-     */
-    protected function createContainer()
-    {
-        return new ArrayContainer();
-    }
-
     public function testCanInstantiateWithArrayOrArrayLikeObject()
     {
         $a1 = array('foo' => 'bar');
@@ -44,28 +36,28 @@ class ArrayContainerTest extends ContainerAdapterTestBase
 
     public function testThrowsExceptionOnNonExistentItem()
     {
-        $container = $this->createContainer();
+        $container = new ArrayContainer();
 
         $this->assertFalse($container->has('foo'));
 
-        $this->setExpectedException(self::NOT_FOUND_EXCEPTION);
+        $this->setExpectedException('Interop\Container\Exception\NotFoundException');
         $container->get('foo');
     }
 
     public function testAdapterWrapsOtherExceptions()
     {
-        $container = $this->createContainer();
+        $container = new ArrayContainer();
         $container['error'] = function ($c) {
             throw new \RuntimeException;
         };
 
-        $this->setExpectedException(self::CONTAINER_EXCEPTION);
+        $this->setExpectedException('Interop\Container\Exception\ContainerException');
         $container->get('error');
     }
 
     public function testContainerSupportsArrayAccessInterface()
     {
-        $container = $this->createContainer();
+        $container = new ArrayContainer();
         $this->assertFalse(isset($container['queue']));
         $container['queue'] = new \SplQueue();
         $this->assertTrue(isset($container['queue']));
@@ -77,7 +69,7 @@ class ArrayContainerTest extends ContainerAdapterTestBase
 
     public function testClosuresAreExecutedOnGet()
     {
-        $container = $this->createContainer();
+        $container = new ArrayContainer();
         $container['foo'] = 'bar';
         $container['baz'] = function ($c) {
             $obj = new \stdClass;

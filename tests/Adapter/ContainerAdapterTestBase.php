@@ -2,16 +2,36 @@
 
 namespace Acclimate\Container\Test\Adapter;
 
+use Acclimate\Container\Exception\ContainerException as Err;
+
 abstract class ContainerAdapterTestBase extends \PHPUnit_Framework_TestCase
 {
-    const CONTAINER_EXCEPTION = 'Interop\Container\Exception\ContainerException';
-    const NOT_FOUND_EXCEPTION = 'Interop\Container\Exception\NotFoundException';
+    public function testSupportsContainerInterface()
+    {
+        $container = $this->createContainer();
 
-    abstract public function testSupportsContainerInterface();
+        $this->assertTrue($container->has('array_iterator'));
+        $arrayIterator = $container->get('array_iterator');
+        $this->assertEquals(array(1, 2, 3, 4, 5), iterator_to_array($arrayIterator));
+    }
 
-    abstract public function testThrowsExceptionOnNonExistentItem();
+    public function testThrowsExceptionOnNonExistentItem()
+    {
+        $container = $this->createContainer();
 
-    abstract public function testAdapterWrapsOtherExceptions();
+        $this->assertFalse($container->has('foo'));
+
+        $this->setExpectedException('Interop\Container\Exception\NotFoundException', '', Err::NOT_FOUND_ERROR);
+        $container->get('foo');
+    }
+
+    public function testAdapterWrapsOtherExceptions()
+    {
+        $container = $this->createContainer();
+
+        $this->setExpectedException('Interop\Container\Exception\ContainerException', '', Err::GENERIC_ERROR);
+        $container->get('error');
+    }
 
     /**
      * @return \Interop\Container\ContainerInterface
