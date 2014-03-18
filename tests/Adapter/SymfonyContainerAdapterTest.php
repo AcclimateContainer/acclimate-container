@@ -3,6 +3,7 @@
 namespace Acclimate\Container\Test\Adapter;
 
 use Acclimate\Container\Adapter\SymfonyContainerAdapter;
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
@@ -23,5 +24,13 @@ class SymfonyContainerAdapterTest extends AbstractContainerAdapterTest
         $container->setDefinition('error', $definition);
 
         return new SymfonyContainerAdapter($container);
+    }
+
+    public function testHandlesNotFoundExceptionOnNonExistentItem()
+    {
+        $container = new SymfonyContainerAdapter(new Container());
+
+        $this->setExpectedException('Interop\Container\Exception\NotFoundException');
+        $container->get('foo');
     }
 }

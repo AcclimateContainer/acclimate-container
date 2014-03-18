@@ -12,8 +12,8 @@ class ArrayContainerTest extends \PHPUnit_Framework_TestCase
 {
     public function testCanInstantiateWithArrayOrArrayLikeObject()
     {
-        $a1 = array('foo' => 'bar');
-        $a2 = new \ArrayObject(array('foo' => 'bar'));
+        $a1 = ['foo' => 'bar'];
+        $a2 = new \ArrayObject(['foo' => 'bar']);
         $a3 = new \LimitIterator(new \ArrayIterator($a1), 0, 1);
         $a4 = 'foo';
 
@@ -27,11 +27,11 @@ class ArrayContainerTest extends \PHPUnit_Framework_TestCase
 
     public function testSupportsContainerInterface()
     {
-        $container = new ArrayContainer(array('array_iterator' => new \ArrayIterator(range(1, 5))));
+        $container = new ArrayContainer(['array_iterator' => new \ArrayIterator(range(1, 5))]);
 
         $this->assertTrue($container->has('array_iterator'));
         $arrayIterator = $container->get('array_iterator');
-        $this->assertEquals(array(1, 2, 3, 4, 5), iterator_to_array($arrayIterator));
+        $this->assertEquals([1, 2, 3, 4, 5], iterator_to_array($arrayIterator));
     }
 
     public function testThrowsExceptionOnNonExistentItem()

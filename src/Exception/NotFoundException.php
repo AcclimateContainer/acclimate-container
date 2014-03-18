@@ -12,5 +12,4 @@ use Interop\Container\Exception\NotFoundException as InteropNotFoundException;
 class NotFoundException extends ContainerException implements InteropNotFoundException
 {
     protected static $template = 'There is no entry found in the container for the identifier "{id}".';
-    protected static $errCode = self::NOT_FOUND_ERROR;
 }

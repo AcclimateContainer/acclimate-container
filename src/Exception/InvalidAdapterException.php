@@ -16,6 +16,6 @@ class InvalidAdapterException extends \UnexpectedValueException
     {
         $type = is_object($adaptee) ? get_class($adaptee) . ' objects' : gettype($adaptee) . ' variables';
 
-        return new self("There is no container adapter registered to handle \"{$type}\".");
+        return new self("There is no container adapter registered to handle {$type}.");
     }
 }

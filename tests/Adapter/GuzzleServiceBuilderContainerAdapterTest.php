@@ -12,18 +12,16 @@ class GuzzleContainerAdapterTest extends AbstractContainerAdapterTest
 {
     protected function createContainer()
     {
-        $container = new ServiceBuilder(array(
-            'array_iterator' => array(
+        $container = new ServiceBuilder([
+            'array_iterator' => [
                 'class'  => __NAMESPACE__ . '\Fixture\ArrayIteratorService',
-                'params' => array(
-                    'data' => range(1, 5),
-                ),
-            ),
-            'error' => array(
+                'params' => ['data' => range(1, 5)],
+            ],
+            'error' => [
                 'class'  => __NAMESPACE__ . '\Fixture\BrokenService',
-                'params' => array(),
-            )
-        ));
+                'params' => [],
+            ]
+        ]);
 
         return new GuzzleContainerAdapter($container);
     }
