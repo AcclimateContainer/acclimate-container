@@ -1,5 +1,7 @@
 # Acclimate: Container
 
+[![Build Status](https://travis-ci.org/jeremeamia/acclimate-container.png)](https://travis-ci.org/jeremeamia/acclimate-container) [![Latest Stable Version](https://poser.pugx.org/acclimate/container/v/stable.png)](https://packagist.org/packages/acclimate/container) [![License](https://poser.pugx.org/acclimate/container/license.png)](https://packagist.org/packages/acclimate/container) [![Total Downloads](https://poser.pugx.org/acclimate/container/downloads.png)](https://packagist.org/packages/acclimate/container)
+
 **Get Acclimated!** Use third-party containers (e.g., service locators) in your code by adapting them to a common interface.
 
 by [Jeremy Lindblom](https://twitter.com/jeremeamia)
