@@ -3,7 +3,7 @@
 namespace Acclimate\Container\Test;
 
 use Acclimate\Container\ArrayContainer;
-use Acclimate\Container\Test\Adapter\ContainerAdapterTestBase;
+use Acclimate\Container\Test\Adapter\AbstractContainerAdapterTest;
 
 /**
  * @covers \Acclimate\Container\ArrayContainer

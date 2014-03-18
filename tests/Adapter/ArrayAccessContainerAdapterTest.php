@@ -8,7 +8,7 @@ use Acclimate\Container\ArrayContainer;
 /**
  * @covers \Acclimate\Container\Adapter\ArrayAccessContainerAdapter
  */
-class ArrayAccessContainerAdapterTest extends ContainerAdapterTestBase
+class ArrayAccessContainerAdapterTest extends AbstractContainerAdapterTest
 {
     protected function createContainer()
     {

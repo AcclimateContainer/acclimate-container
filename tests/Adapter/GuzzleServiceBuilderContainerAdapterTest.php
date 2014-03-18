@@ -8,7 +8,7 @@ use Acclimate\Container\Adapter\GuzzleContainerAdapter;
 /**
  * @covers \Acclimate\Container\Adapter\GuzzleContainerAdapter
  */
-class GuzzleContainerAdapterTest extends ContainerAdapterTestBase
+class GuzzleContainerAdapterTest extends AbstractContainerAdapterTest
 {
     protected function createContainer()
     {

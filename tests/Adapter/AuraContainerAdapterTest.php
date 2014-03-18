@@ -10,7 +10,7 @@ use Aura\Di\Container;
 /**
  * @covers \Acclimate\Container\Adapter\AuraContainerAdapter
  */
-class AuraContainerAdapterTest extends ContainerAdapterTestBase
+class AuraContainerAdapterTest extends AbstractContainerAdapterTest
 {
     protected function createContainer()
     {

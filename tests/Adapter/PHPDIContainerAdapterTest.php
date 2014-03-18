@@ -8,7 +8,7 @@ use Acclimate\Container\Adapter\PHPDIContainerAdapter;
 /**
  * @covers \Acclimate\Container\Adapter\PHPDIContainerAdapter
  */
-class PHPDIContainerAdapterTest extends ContainerAdapterTestBase
+class PHPDIContainerAdapterTest extends AbstractContainerAdapterTest
 {
     protected function createContainer()
     {

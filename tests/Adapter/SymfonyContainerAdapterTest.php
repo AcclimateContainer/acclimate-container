@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\Reference;
 /**
  * @covers \Acclimate\Container\Adapter\SymfonyContainerAdapter
  */
-class SymfonyContainerAdapterTest extends ContainerAdapterTestBase
+class SymfonyContainerAdapterTest extends AbstractContainerAdapterTest
 {
     protected function createContainer()
     {

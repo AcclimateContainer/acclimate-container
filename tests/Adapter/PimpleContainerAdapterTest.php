@@ -9,7 +9,7 @@ use Zend\Di\Exception\RuntimeException;
 /**
  * @covers \Acclimate\Container\Adapter\PimpleContainerAdapter
  */
-class PimpleContainerAdapterTest extends ContainerAdapterTestBase
+class PimpleContainerAdapterTest extends AbstractContainerAdapterTest
 {
     protected function createContainer()
     {

@@ -8,7 +8,7 @@ use Nette\DI\Container;
 /**
  * @covers \Acclimate\Container\Adapter\NetteContainerAdapter
  */
-class NetteContainerAdapterTest extends ContainerAdapterTestBase
+class NetteContainerAdapterTest extends AbstractContainerAdapterTest
 {
     protected function createContainer()
     {

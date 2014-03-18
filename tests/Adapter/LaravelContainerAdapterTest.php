@@ -8,7 +8,7 @@ use Illuminate\Container\Container;
 /**
  * @covers \Acclimate\Container\Adapter\LaravelContainerAdapter
  */
-class LaravelContainerAdapterTest extends ContainerAdapterTestBase
+class LaravelContainerAdapterTest extends AbstractContainerAdapterTest
 {
     protected function createContainer()
     {

@@ -9,7 +9,7 @@ use Zend\Di\ServiceLocator;
 /**
  * @covers \Acclimate\Container\Adapter\ZendDiContainerAdapter
  */
-class ZendDiContainerAdapterTest extends ContainerAdapterTestBase
+class ZendDiContainerAdapterTest extends AbstractContainerAdapterTest
 {
     protected function createContainer()
     {
