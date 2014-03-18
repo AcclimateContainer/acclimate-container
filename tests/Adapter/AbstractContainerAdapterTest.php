@@ -2,8 +2,6 @@
 
 namespace Acclimate\Container\Test\Adapter;
 
-use Acclimate\Container\Exception\ContainerException as Err;
-
 abstract class AbstractContainerAdapterTest extends \PHPUnit_Framework_TestCase
 {
     public function testSupportsContainerInterface()

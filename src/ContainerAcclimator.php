@@ -6,13 +6,15 @@ use Acclimate\Container\Exception\InvalidAdapterException;
 use Interop\Container\ContainerInterface;
 
 /**
- * This Acclimator class is used to acclimate a container object to the common ContainerInterface. It is essentially a
- * factory class for the container adapters in the Acclimate package.
+ * This class is used to "acclimate", or adapt, a container object (e.g., DIC, SL) to a common ContainerInterface. In
+ * terms of design patterns, it's essentially a `factory` for `adapter`s
  */
 class ContainerAcclimator
 {
     /**
-     * @var array Default map of container classes to container adapter classes
+     * @var array Default map of container classes to container adapter classes. These are in order of perceived
+     *            popularity. `ArrayAccess` is last in the list since it is used as a fallback if there is no adapter
+     *            that is more specific
      */
     private static $predefinedAdapterMap = array(
         'Symfony\Component\DependencyInjection\ContainerInterface' => 'Acclimate\Container\Adapter\SymfonyContainerAdapter',

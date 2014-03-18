@@ -6,7 +6,7 @@ use Interop\Container\ContainerInterface;
 use Acclimate\Container\Exception\NotFoundException;
 
 /**
- * A composite container that acts as a normal container, but delegates to one or more internal containers
+ * A composite container that acts as a normal container, but delegates method calls to one or more internal containers
  */
 class CompositeContainer implements ContainerInterface
 {
@@ -40,12 +40,9 @@ class CompositeContainer implements ContainerInterface
     }
 
     /**
-     * Gets an item from the container by delegating the get call to a FIFO queue of internal containers
+     * Finds an entry of the container by delegating the get call to a FIFO queue of internal containers
      *
-     * @param string $id The name of the item in the container(s)
-     *
-     * @return mixed
-     * @throws NotFoundException if none of the internal containers contain the entry
+     * {@inheritDoc}
      */
     public function get($id)
     {
@@ -60,11 +57,10 @@ class CompositeContainer implements ContainerInterface
     }
 
     /**
-     * Checks if an item is in at least one of the internal containers
+     * Returns true if the at least one of the internal containers can return an entry for the given identifier
+     * Returns false otherwise.
      *
-     * @param string $id The name of the item to check for in the internal containers
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function has($id)
     {

@@ -8,6 +8,8 @@ namespace Acclimate\Container\Exception;
 class InvalidAdapterException extends \UnexpectedValueException
 {
     /**
+     * Creates an InvalidAdapterException using information about the object/value being adapted
+     *
      * @param mixed $adaptee
      *
      * @return InvalidAdapterException
