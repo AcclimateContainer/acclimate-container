@@ -1,11 +1,9 @@
-# Acclimate: Container
+# Acclimate - Container Adapters
 
 [![Build Status](https://travis-ci.org/jeremeamia/acclimate-container.png)](https://travis-ci.org/jeremeamia/acclimate-container) [![Code Coverage](https://scrutinizer-ci.com/g/jeremeamia/acclimate-container/badges/coverage.png?s=fe11762e3c76d92ffbd4a7220e6b72c958d62b41)](https://scrutinizer-ci.com/g/jeremeamia/acclimate-container/) [![Latest Stable Version](https://poser.pugx.org/acclimate/container/v/stable.png)](https://packagist.org/packages/acclimate/container) [![License](https://poser.pugx.org/acclimate/container/license.png)](https://packagist.org/packages/acclimate/container) [![Total Downloads](https://poser.pugx.org/acclimate/container/downloads.png)](https://packagist.org/packages/acclimate/container) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jeremeamia/acclimate-container/badges/quality-score.png?s=30cc017c8a53f50fec5b5becd7aa648930b9a1c0)](https://scrutinizer-ci.com/g/jeremeamia/acclimate-container/)
 
 **Get Acclimated!** Use any third-party dependency injection containers and service locators in your code by adapting
-them to a common container interface.
-
-Created by [Jeremy Lindblom](https://twitter.com/jeremeamia)
+them to a common container interface. Acclimate was created by [Jeremy Lindblom](https://twitter.com/jeremeamia).
 
 ## Introduction
 
@@ -26,7 +24,7 @@ container implementations. This allows you to adapt, _or "acclimate"_, instances
 normalized, and **interoperable** interface. Using Acclimate allows your framework, library, or application to retrieve
 items from the container objects of third-party libraries. That's interoperability!
 
-## The container interface
+## The Container Interface
 
 The `ContainerInterface` used by Acclimate comes from the
 [`container-interop/container-interop`](https://github.com/container-interop/container-interop) project. It attempts
@@ -66,7 +64,7 @@ Install the `acclimate/container` package using Composer. This will also also in
 (e.g., ZF, Symfony, Laravel, etc.). These packages are *required for testing only* to ensure that all of the adapter
 classes work correctly. They are not included when you run Composer with `--no-dev`.
 
-## Basic usage
+## Basic Usage
 
 **Acclimate: Container** provides a `ContainerAcclimator` object that is used to adapt a container object to a
 normalized `ContainerInterface`. In terms of design patterns, it's essentially a factory for adapters.
@@ -101,7 +99,7 @@ echo $queue->dequeue(); // Look! The queue object still works!
 
 Now you can use the container from your favorite framework and acclimate it into your other code. :-)
 
-## Container decorators
+## Container Decorators
 
 The default behavior of a container implementing the `ContainerInterface` is to throw a
 `Interop\Container\Exception\NotFoundException` when using `get()` to retrieve an entry that does not actually exist in
@@ -140,7 +138,7 @@ var_dump($item);
 #> NULL
 ```
 
-## Composite container
+## Composite Container
 
 You can create composite containers if your use case requires that you need to fetch data from two or more different
 container objects. For the sake of the following example, we will say the you have a Symfony `Container` stored in the
@@ -166,7 +164,7 @@ $exists = $container->has('foo');
 This is essentially a way to support container chaining, but uses the Composite design pattern instead of the Chain of
 Command design pattern. You can also use the `FailoverOnMissContainer` decorator to support chaining.
 
-## Supported containers
+## Supported Containers
 
 * [Aura.Di Container](https://github.com/auraphp/Aura.Di/blob/develop/src/Aura/Di/ContainerInterface.php)
 * [Guzzle Service Builder](https://github.com/guzzle/service/blob/master/Builder/ServiceBuilderInterface.php)
@@ -180,7 +178,7 @@ Command design pattern. You can also use the `FailoverOnMissContainer` decorator
 * [ZF2 Dependency Injection](https://github.com/zendframework/zf2/blob/master/library/Zend/Di/ServiceLocatorInterface.php)
 * Any other container-like object that implements `ArrayAccess` (see [`ArrayAccess` in the PHP Manual](http://php.net/manual/en/class.arrayaccess.php))
 
-## What if the Container I use is not supported?
+### What if the Container I use is not supported?
 
 *Please consider submitting a Pull Request with an adapter for your container and a corresponding test.*
 
@@ -208,6 +206,6 @@ $adaptedContainer = $acclimator->acclimate($container);
 * [Container Interop project](https://github.com/container-interop/container-interop)
 * [Service container usage comparison](https://gist.github.com/mnapoli/6159681)
 
-## Projects using `ContainerInterface`
+## Projects Using `ContainerInterface`
 
 * [XStatic](https://github.com/jeremeamia/xstatic) (jeremeamia/xstatic) - *Static interfaces without the static pitfalls*
