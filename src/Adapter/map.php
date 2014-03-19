@@ -1,8 +1,10 @@
 <?php
 
+// @codeCoverageIgnoreStart
 /**
- * Default map of container classes to container adapter classes. These are in order of perceived popularity.
- * `ArrayAccess` is last in the list since it is used as a fallback, if there is no adapter that is more specific.
+ * Default map of container classes to container adapter classes. These are in order of perceived popularity to serve
+ * as a minor optimization. `ArrayAccess` is last in the list, since it is used as a fallback if there is no adapter
+ * that is a more specific match.
  */
 return array(
     'Symfony\Component\DependencyInjection\ContainerInterface' => 'Acclimate\Container\Adapter\SymfonyContainerAdapter',
@@ -16,3 +18,4 @@ return array(
     'Nette\DI\Container' => 'Acclimate\Container\Adapter\NetteContainerAdapter',
     'ArrayAccess' => 'Acclimate\Container\Adapter\ArrayAccessContainerAdapter',
 );
+// @codeCoverageIgnoreEnd

@@ -2,7 +2,10 @@
 
 namespace Acclimate\Container\Test\Adapter\Fixture;
 
-class ArrayIteratorService
+/**
+ * A valid service that can be retrieved by a Guzzle service builder
+ */
+class GuzzleValidService
 {
     public static function factory($config = [])
     {

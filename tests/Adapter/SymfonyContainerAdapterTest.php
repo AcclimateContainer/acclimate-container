@@ -19,7 +19,7 @@ class SymfonyContainerAdapterTest extends AbstractContainerAdapterTest
         $container->set('array_iterator', new \ArrayIterator(range(1, 5)));
 
         $definition = new Definition();
-        $definition->setClass(__NAMESPACE__ . '\\Fixture\\Circular');
+        $definition->setClass(__NAMESPACE__ . '\\Fixture\\SymfonyRecursiveObject');
         $definition->addArgument(new Reference('error'));
         $container->setDefinition('error', $definition);
 

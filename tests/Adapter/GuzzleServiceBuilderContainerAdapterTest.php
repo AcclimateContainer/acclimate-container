@@ -14,11 +14,11 @@ class GuzzleContainerAdapterTest extends AbstractContainerAdapterTest
     {
         $container = new ServiceBuilder([
             'array_iterator' => [
-                'class'  => __NAMESPACE__ . '\Fixture\ArrayIteratorService',
+                'class'  => __NAMESPACE__ . '\Fixture\GuzzleValidService',
                 'params' => ['data' => range(1, 5)],
             ],
             'error' => [
-                'class'  => __NAMESPACE__ . '\Fixture\BrokenService',
+                'class'  => __NAMESPACE__ . '\Fixture\GuzzleBrokenService',
                 'params' => [],
             ]
         ]);

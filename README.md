@@ -2,9 +2,10 @@
 
 [![Build Status](https://travis-ci.org/jeremeamia/acclimate-container.png)](https://travis-ci.org/jeremeamia/acclimate-container) [![Code Coverage](https://scrutinizer-ci.com/g/jeremeamia/acclimate-container/badges/coverage.png?s=fe11762e3c76d92ffbd4a7220e6b72c958d62b41)](https://scrutinizer-ci.com/g/jeremeamia/acclimate-container/) [![Latest Stable Version](https://poser.pugx.org/acclimate/container/v/stable.png)](https://packagist.org/packages/acclimate/container) [![License](https://poser.pugx.org/acclimate/container/license.png)](https://packagist.org/packages/acclimate/container) [![Total Downloads](https://poser.pugx.org/acclimate/container/downloads.png)](https://packagist.org/packages/acclimate/container) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jeremeamia/acclimate-container/badges/quality-score.png?s=30cc017c8a53f50fec5b5becd7aa648930b9a1c0)](https://scrutinizer-ci.com/g/jeremeamia/acclimate-container/)
 
-**Get Acclimated!** Use third-party containers (e.g., service locators) in your code by adapting them to a common interface.
+**Get Acclimated!** Use any third-party dependency injection containers and service locators in your code by adapting
+them to a common container interface.
 
-by [Jeremy Lindblom](https://twitter.com/jeremeamia)
+Created by [Jeremy Lindblom](https://twitter.com/jeremeamia)
 
 ## Introduction
 
@@ -12,11 +13,12 @@ It seems like every framework has its own container object. They come in many sh
 manager, service container, dependency injection (DI) container, registry, etc.), but are all generally used in a
 similar way.
 
-Unfortunately, this makes it hard for other frameworks, framework-agnostic libraries, or some applications to get the
-benefits of using an inversion of control (IoC) system, because they either need to:
+The wide variety of implementations makes it hard for other frameworks, framework-agnostic libraries, or some
+applications to get the full benefits of using an inversion of control (IoC) system, because they either need to:
 
 1. Write their own container implementation (NIH Syndrome)
-2. Depend (and force their users to depend) on a particular, third-party container implementation
+2. Have a long-term dependency on a particular, third-party container implementation (and force that dependency on
+   their users, which may already be using a different container implementation)
 3. Implement an abstraction layer to support one or more third-party containers
 
 **Acclimate: Container** is a library that does \#3 for you. It provides a set of adapters for the most popular
@@ -55,10 +57,19 @@ interface ContainerInterface
 }
 ```
 
+## Installation
+
+Install the `acclimate/container` package using Composer. This will also also install
+`container-interop/container-interop`, which provides the `ContainerInterface`.
+
+**Warning:** If you install Acclimate with dev dependencies, you will get A LOT of packages from various frameworks
+(e.g., ZF, Symfony, Laravel, etc.). These packages are *required for testing only* to ensure that all of the adapter
+classes work correctly. They are not included when you run Composer with `--no-dev`.
+
 ## Basic usage
 
-**Acclimate: Container** provides a `ContainerAcclimator` object that is used to adapt a container object to the
-normalized Acclimate `ContainerInterface`. In terms of design patterns, it's essentially a factory for adapters.
+**Acclimate: Container** provides a `ContainerAcclimator` object that is used to adapt a container object to a
+normalized `ContainerInterface`. In terms of design patterns, it's essentially a factory for adapters.
 
 Here is an example of how to use the `ContainerAcclimator`:
 
@@ -153,7 +164,7 @@ $exists = $container->has('foo');
 ```
 
 This is essentially a way to support container chaining, but uses the Composite design pattern instead of the Chain of
-Command design pattern. You call also use the `FailoverOnMissContainer` decorator to support chaining.
+Command design pattern. You can also use the `FailoverOnMissContainer` decorator to support chaining.
 
 ## Supported containers
 
