@@ -12,24 +12,6 @@ use Interop\Container\ContainerInterface;
 class ContainerAcclimator
 {
     /**
-     * @var array Default map of container classes to container adapter classes. These are in order of perceived
-     *            popularity. `ArrayAccess` is last in the list since it is used as a fallback if there is no adapter
-     *            that is more specific
-     */
-    private static $predefinedAdapterMap = array(
-        'Symfony\Component\DependencyInjection\ContainerInterface' => 'Acclimate\Container\Adapter\SymfonyContainerAdapter',
-        'Pimple' => 'Acclimate\Container\Adapter\PimpleContainerAdapter',
-        'Zend\ServiceManager\ServiceLocatorInterface' => 'Acclimate\Container\Adapter\ZendServiceManagerContainerAdapter',
-        'Zend\Di\LocatorInterface' => 'Acclimate\Container\Adapter\ZendDiContainerAdapter',
-        'Illuminate\Container\Container' => 'Acclimate\Container\Adapter\LaravelContainerAdapter',
-        'Aura\Di\ContainerInterface' => 'Acclimate\Container\Adapter\AuraContainerAdapter',
-        'Guzzle\Service\Builder\ServiceBuilderInterface' => 'Acclimate\Container\Adapter\GuzzleContainerAdapter',
-        'DI\Container' => 'Acclimate\Container\Adapter\PHPDIContainerAdapter',
-        'Nette\DI\Container' => 'Acclimate\Container\Adapter\NetteContainerAdapter',
-        'ArrayAccess' => 'Acclimate\Container\Adapter\ArrayAccessContainerAdapter'
-    );
-
-    /**
      * @var array Map of container classes to container adapter classes
      */
     private $adapterMap;
@@ -39,7 +21,7 @@ class ContainerAcclimator
      */
     public function __construct(array $customAdapterMap = null)
     {
-        $this->adapterMap = is_array($customAdapterMap) ? $customAdapterMap : self::$predefinedAdapterMap;
+        $this->adapterMap = is_array($customAdapterMap) ? $customAdapterMap : include 'Adapter/map.php';
     }
 
     /**
