@@ -13,4 +13,3 @@ tools:
         test_command: vendor/bin/phpunit
         config_path: phpunit.xml
     php_loc: true
-    php_hhvm: true
