@@ -1,0 +1,16 @@
+filter:
+    paths:
+        - src/
+
+before_commands:
+    - 'composer install --no-interaction --prefer-source --dev'
+
+tools:
+    php_code_sniffer:
+        config:
+            standard: PSR2
+    php_code_coverage:
+        test_command: vendor/bin/phpunit
+        config_path: phpunit.xml
+    php_loc: true
+    php_hhvm: true

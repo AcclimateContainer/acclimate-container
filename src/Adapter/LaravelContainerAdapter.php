@@ -34,7 +34,7 @@ class LaravelContainerAdapter implements AcclimateContainerInterface
                 throw AcclimateContainerException::fromPrevious($id, $prev);
             }
         } else {
-            throw AcclimateNotFoundException::fromPrevious($id, null);
+            throw AcclimateNotFoundException::fromPrevious($id);
         }
     }
 

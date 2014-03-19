@@ -34,7 +34,7 @@ class ZendDiContainerAdapter implements AcclimateContainerInterface
         }
 
         if ($result === null) {
-            throw AcclimateNotFoundException::fromPrevious($id, null);
+            throw AcclimateNotFoundException::fromPrevious($id);
         }
 
         return $result;
