@@ -19,7 +19,7 @@ applications to get the full benefits of using an inversion of control (IoC) sys
    their users, which may already be using a different container implementation)
 3. Implement an abstraction layer to support one or more third-party containers
 
-**Acclimate: Container** is a library that does \#3 for you. It provides a set of adapters for the most popular
+**Acclimate** is a library that does \#3 for you. It provides a set of adapters for the most popular
 container implementations. This allows you to adapt, _or "acclimate"_, instances of these containers to a common,
 normalized, and **interoperable** interface. Using Acclimate allows your framework, library, or application to retrieve
 items from the container objects of third-party libraries. That's interoperability!
@@ -205,7 +205,3 @@ $adaptedContainer = $acclimator->acclimate($container);
 
 * [Container Interop project](https://github.com/container-interop/container-interop)
 * [Service container usage comparison](https://gist.github.com/mnapoli/6159681)
-
-## Projects Using `ContainerInterface`
-
-* [XStatic](https://github.com/jeremeamia/xstatic) (jeremeamia/xstatic) - *Static interfaces without the static pitfalls*
