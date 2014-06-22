@@ -35,4 +35,14 @@ class CompositeContainerTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('Interop\Container\Exception\NotFoundException');
         $container->get('foo');
     }
+
+    public function testNoSubContainers()
+    {
+        $container = new CompositeContainer();
+
+        $this->assertFalse($container->has('foo'));
+
+        $this->setExpectedException('Interop\Container\Exception\NotFoundException');
+        $container->get('foo');
+    }
 }

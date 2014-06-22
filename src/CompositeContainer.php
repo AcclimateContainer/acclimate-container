@@ -13,7 +13,7 @@ class CompositeContainer implements ContainerInterface
     /**
      * @var array Containers that are contained within this composite container
      */
-    protected $containers;
+    protected $containers = array();
 
     /**
      * @param array $containers Containers to add to this composite container
