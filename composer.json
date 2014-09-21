@@ -22,6 +22,7 @@
         "illuminate/container": "4.*",
         "mnapoli/php-di": "3.*",
         "nette/nette": "2.*",
+        "njasm/container": "1.*",        
         "phpunit/phpunit": "3.7.*",
         "pimple/pimple": "1.*",
         "symfony/dependency-injection": "2.*",

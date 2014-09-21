@@ -170,6 +170,7 @@ Command design pattern. You can also use the `FailoverOnMissContainer` decorator
 * [Guzzle Service Builder](https://github.com/guzzle/service/blob/master/Builder/ServiceBuilderInterface.php)
 * [Laravel Container](https://github.com/laravel/framework/blob/master/src/Illuminate/Container/Container.php)
 * [Nette DI Container](https://github.com/nette/nette/blob/master/Nette/DI/Container.php)
+* [Njasm Container](https://github.com/njasm/container/blob/master/src/Container/Container.php)
 * [Pimple](https://github.com/fabpot/Pimple/blob/master/lib/Pimple.php)
 * [PHP-DI Container](https://github.com/mnapoli/PHP-DI/blob/master/src/DI/Container.php)
 * [Silex Application](https://github.com/fabpot/Silex/blob/master/src/Silex/Application.php)
