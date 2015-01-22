@@ -17,13 +17,19 @@ class ArrayContainer implements ContainerInterface, \ArrayAccess
      * @var array|\ArrayAccess The container data
      */
     protected $data;
+    
+    /**
+     * @var ContainerInterface The container that will be used for dependency lookups
+     */
+    protected $delegateLookupContainer;
 
     /**
      * @param array|\ArrayAccess|\Traversable $data Data for the container
+     * @param ContainerInterface $delegateLookupContainer The container that will be used for dependency lookups.
      *
      * @throws \InvalidArgumentException if the provided data is not an array or array-like object
      */
-    public function __construct($data = array())
+    public function __construct($data = array(), $delegateLookupContainer = null)
     {
         if (is_array($data) || $data instanceof \ArrayAccess) {
             $this->data = $data;
@@ -32,6 +38,7 @@ class ArrayContainer implements ContainerInterface, \ArrayAccess
         } else {
             throw new \InvalidArgumentException('The ArrayContainer requires either an array or an array-like object');
         }
+        $this->delegateLookupContainer = $delegateLookupContainer ?: $this;
     }
 
     public function get($id)
@@ -39,7 +46,7 @@ class ArrayContainer implements ContainerInterface, \ArrayAccess
         if (isset($this->data[$id])) {
             try {
                 if ($this->data[$id] instanceof \Closure) {
-                    $this->data[$id] = call_user_func($this->data[$id], $this);
+                    $this->data[$id] = call_user_func($this->data[$id], $this->delegateLookupContainer);
                 }
             } catch (\Exception $prev) {
                 throw ContainerException::fromPrevious($id, $prev);
