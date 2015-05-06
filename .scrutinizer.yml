@@ -11,8 +11,7 @@ tools:
         config:
             standard: PSR2
     php_code_coverage:
-        test_command: vendor/bin/phpunit
-        config_path: phpunit.xml
+        enabled: true
     php_loc: true
     php_analyzer: true
     php_pdepend: true
