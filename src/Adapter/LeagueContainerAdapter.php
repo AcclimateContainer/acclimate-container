@@ -9,7 +9,7 @@ use League\Container\ContainerInterface;
 use League\Container\Exception\ReflectionException;
 
 /**
- * An adapter from a League Container to the standardized ContainerInterface
+ * An adapter from a League Container to the standardized ContainerInterface.
  */
 class LeagueContainerAdapter implements AcclimateContainerInterface
 {
