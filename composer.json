@@ -26,7 +26,8 @@
         "pimple/pimple": "1.*",
         "symfony/dependency-injection": "2.*",
         "zendframework/zend-di": "2.*",
-        "zendframework/zend-servicemanager": "2.*"
+        "zendframework/zend-servicemanager": "2.*",
+        "league/container": "1.*"
     },
     "autoload": {
         "psr-4": {
