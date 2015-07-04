@@ -11,11 +11,12 @@ use RuntimeException;
  */
 class LeagueContainerAdapterTest extends AbstractContainerAdapterTest
 {
-	protected function createContainer()
-	{
-		$container = new Container();
-		$container->add('array_iterator', new \ArrayIterator(range(1, 5)));
-		$container->add('error', new RuntimeException());
-		return new LeagueContainerAdapter($container);
-	}
+    protected function createContainer()
+    {
+        $container = new Container();
+        $container->add('array_iterator', new \ArrayIterator(range(1, 5)));
+        $container->add('error', new RuntimeException());
+
+        return new LeagueContainerAdapter($container);
+    }
 }

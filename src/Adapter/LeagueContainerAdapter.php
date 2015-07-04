@@ -13,37 +13,38 @@ use League\Container\Exception\ReflectionException;
  */
 class LeagueContainerAdapter implements AcclimateContainerInterface
 {
-	/**
-	 * @var ContainerInterface A League Container
-	 */
-	private $container;
+    /**
+     * @var ContainerInterface A League Container
+     */
+    private $container;
 
-	/**
-	 * @param ContainerInterface $container A League Container
-	 */
-	public function __construct(ContainerInterface $container)
-	{
-		$this->container = $container;
-	}
+    /**
+     * @param ContainerInterface $container A League Container
+     */
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
 
-	public function get($id)
-	{
-		try {
-			return $this->container->get($id);
-		} catch (\ReflectionException $prev) {
-			throw AcclimateNotFoundException::fromPrevious($id, $prev);
-		} catch (\Exception $prev) {
-			throw AcclimateContainerException::fromPrevious($id, $prev);
-		}
-	}
+    public function get($id)
+    {
+        try {
+            return $this->container->get($id);
+        } catch (\ReflectionException $prev) {
+            throw AcclimateNotFoundException::fromPrevious($id, $prev);
+        } catch (\Exception $prev) {
+            throw AcclimateContainerException::fromPrevious($id, $prev);
+        }
+    }
 
-	public function has($id)
-	{
-		try {
-			$this->container->get($id);
-			return true;
-		} catch (ReflectionException $e) {
-			return false;
-		}
-	}
+    public function has($id)
+    {
+        try {
+            $this->container->get($id);
+
+            return true;
+        } catch (ReflectionException $e) {
+            return false;
+        }
+    }
 }
