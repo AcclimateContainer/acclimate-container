@@ -168,6 +168,7 @@ Command design pattern. You can also use the `FailoverOnMissContainer` decorator
 
 * [Aura.Di Container](https://github.com/auraphp/Aura.Di/blob/develop/src/Aura/Di/ContainerInterface.php)
 * [Guzzle Service Builder](https://github.com/guzzle/service/blob/master/Builder/ServiceBuilderInterface.php)
+* [League Container](https://github.com/thephpleague/container/blob/master/src/ContainerInterface.php)
 * [Laravel Container](https://github.com/laravel/framework/blob/master/src/Illuminate/Container/Container.php)
 * [Nette DI Container](https://github.com/nette/nette/blob/master/Nette/DI/Container.php)
 * [Pimple](https://github.com/fabpot/Pimple/blob/master/lib/Pimple.php)
