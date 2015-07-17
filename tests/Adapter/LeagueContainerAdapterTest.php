@@ -7,7 +7,7 @@ use League\Container\Container;
 use RuntimeException;
 
 /**
- * @covers \Acclimate\Container\Adapter\PimpleContainerAdapter
+ * @covers \Acclimate\Container\Adapter\LeagueContainerAdapter
  */
 class LeagueContainerAdapterTest extends AbstractContainerAdapterTest
 {
