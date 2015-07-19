@@ -17,5 +17,6 @@ return array(
     'DI\Container' => 'Acclimate\Container\Adapter\PHPDIContainerAdapter',
     'Nette\DI\Container' => 'Acclimate\Container\Adapter\NetteContainerAdapter',
     'ArrayAccess' => 'Acclimate\Container\Adapter\ArrayAccessContainerAdapter',
+    'Phalcon\DiInterface' => 'Acclimate\Container\Adapter\PhalconDIContainerAdapter'
 );
 // @codeCoverageIgnoreEnd
