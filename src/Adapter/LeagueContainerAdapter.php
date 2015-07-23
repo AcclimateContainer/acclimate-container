@@ -41,10 +41,10 @@ class LeagueContainerAdapter implements AcclimateContainerInterface
     {
         try {
             $this->container->get($id);
-
-            return true;
         } catch (ReflectionException $e) {
             return false;
         }
+
+        return true;
     }
 }
