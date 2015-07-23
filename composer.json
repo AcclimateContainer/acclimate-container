@@ -20,14 +20,14 @@
         "aura/di": "1.*",
         "guzzle/service": "3.*",
         "illuminate/container": "4.*",
+        "league/container": "1.*",
         "mnapoli/php-di": "3.*",
         "nette/nette": "2.*",
         "phpunit/phpunit": "3.7.*",
         "pimple/pimple": "1.*",
         "symfony/dependency-injection": "2.*",
         "zendframework/zend-di": "2.*",
-        "zendframework/zend-servicemanager": "2.*",
-        "league/container": "1.*"
+        "zendframework/zend-servicemanager": "2.*"
     },
     "autoload": {
         "psr-4": {
