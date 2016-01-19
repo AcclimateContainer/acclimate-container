@@ -170,12 +170,12 @@ Command design pattern. You can also use the `FailoverOnMissContainer` decorator
 * [Guzzle Service Builder](https://github.com/guzzle/service/blob/master/Builder/ServiceBuilderInterface.php)
 * [Laravel Container](https://github.com/laravel/framework/blob/master/src/Illuminate/Container/Container.php)
 * [Nette DI Container](https://github.com/nette/nette/blob/master/Nette/DI/Container.php)
-* [Pimple](https://github.com/fabpot/Pimple/blob/master/lib/Pimple.php)
 * [PHP-DI Container](https://github.com/mnapoli/PHP-DI/blob/master/src/DI/Container.php)
+* [Pimple](https://github.com/fabpot/Pimple/blob/master/lib/Pimple.php)
 * [Silex Application](https://github.com/fabpot/Silex/blob/master/src/Silex/Application.php)
 * [Symfony Dependency Injection Container](https://github.com/symfony/symfony/blob/master/src/Symfony/Component/DependencyInjection/ContainerInterface.php)
-* [ZF2 Service Manager](https://github.com/zendframework/zf2/blob/master/library/Zend/ServiceManager/ServiceLocatorInterface.php)
 * [ZF2 Dependency Injection](https://github.com/zendframework/zf2/blob/master/library/Zend/Di/ServiceLocatorInterface.php)
+* [ZF2 Service Manager](https://github.com/zendframework/zf2/blob/master/library/Zend/ServiceManager/ServiceLocatorInterface.php)
 * Any other container-like object that implements `ArrayAccess` (see [`ArrayAccess` in the PHP Manual](http://php.net/manual/en/class.arrayaccess.php))
 
 ### What if the Container I use is not supported?
