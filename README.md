@@ -30,7 +30,7 @@ The `ContainerInterface` used by Acclimate comes from the
 [`container-interop/container-interop`](https://github.com/container-interop/container-interop) project. It attempts
 to normalize the various implementations of container interfaces (whether they be for service locators, dependency
 injection containers, or something else similar) to a simple, readonly interface, that allows users to retrieve
-entries from from any third-party container in a consistent way.
+entries from any third-party container in a consistent way.
 
 The `ContainerInterface` looks like this:
 
