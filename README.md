@@ -64,6 +64,8 @@ Install the `acclimate/container` package using Composer. This will also also in
 (e.g., ZF, Symfony, Laravel, etc.). These packages are *required for testing only* to ensure that all of the adapter
 classes work correctly. They are not included when you run Composer with `--no-dev`.
 
+**Note:** We recommend using Composer and Composer's autoloader to load this library. If you are not using Composer's autoloader, be sure to use a PSR-4 compliant autoloader and map the namespace prefix `Acclimate\Container\` to the `src/` directory in order to correct autoload the classes.
+
 ## Basic Usage
 
 **Acclimate: Container** provides a `ContainerAcclimator` object that is used to adapt a container object to a
