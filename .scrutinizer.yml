@@ -3,7 +3,7 @@ filter:
         - src/
 
 before_commands:
-    - 'composer install --no-interaction --prefer-source --dev'
+    - 'composer install --no-interaction --prefer-source'
     - 'cp phpunit.xml.dist phpunit.xml'
 
 tools:
@@ -15,3 +15,12 @@ tools:
     php_loc: true
     php_analyzer: true
     php_pdepend: true
+
+build:
+    tests:
+        override:
+            -
+                command: 'phpunit --coverage-clover=tests/coverage.xml'
+                coverage:
+                    file: 'tests/coverage.xml'
+                    format: 'php-clover'
