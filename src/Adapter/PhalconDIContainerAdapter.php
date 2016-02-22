@@ -5,7 +5,6 @@ namespace Acclimate\Container\Adapter;
 use Interop\Container\ContainerInterface as AcclimateContainerInterface;
 use Acclimate\Container\Exception\NotFoundException as AcclimateNotFoundException;
 use Acclimate\Container\Exception\ContainerException as AcclimateContainerException;
-
 use Phalcon\DiInterface as PhalconDI;
 use Phalcon\DI\Exception as PhalconDIException;
 
@@ -31,7 +30,7 @@ class PhalconDIContainerAdapter implements AcclimateContainerInterface
     {
         try {
             return $this->container->get($id);
-        } catch(PhalconDIException $prev) {
+        } catch (PhalconDIException $prev) {
             throw AcclimateNotFoundException::fromPrevious($id);
         } catch (\Exception $prev) {
             throw AcclimateContainerException::fromPrevious($id, $prev);
