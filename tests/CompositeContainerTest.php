@@ -5,7 +5,7 @@ namespace Acclimate\Container\Test;
 use Acclimate\Container\Adapter\PimpleContainerAdapter;
 use Acclimate\Container\ArrayContainer;
 use Acclimate\Container\CompositeContainer;
-use Pimple;
+use Pimple\Container as Pimple;
 
 /**
  * @covers \Acclimate\Container\CompositeContainer

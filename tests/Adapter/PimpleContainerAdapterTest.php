@@ -3,7 +3,7 @@
 namespace Acclimate\Container\Test\Adapter;
 
 use Acclimate\Container\Adapter\PimpleContainerAdapter;
-use Pimple;
+use Pimple\Container as Pimple;
 use Zend\Di\Exception\RuntimeException;
 
 /**
