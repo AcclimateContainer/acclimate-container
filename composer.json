@@ -19,7 +19,7 @@
         "php": ">=5.4.0",
         "aura/di": "1.*",
         "guzzle/service": "3.*",
-        "illuminate/container": "4.*",
+        "illuminate/container": ">=4.0.0 <6.0.0",
         "mnapoli/php-di": "3.*",
         "nette/nette": "2.*",
         "phpunit/phpunit": "3.7.*",
