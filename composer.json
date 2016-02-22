@@ -23,7 +23,7 @@
         "mnapoli/php-di": "3.*",
         "nette/nette": "2.*",
         "phpunit/phpunit": "3.7.*",
-        "pimple/pimple": "1.*",
+        "pimple/pimple": "3.*",
         "symfony/dependency-injection": "2.*",
         "zendframework/zend-di": "2.*",
         "zendframework/zend-servicemanager": "2.*"
