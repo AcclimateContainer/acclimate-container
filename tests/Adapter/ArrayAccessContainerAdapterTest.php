@@ -14,7 +14,7 @@ class ArrayAccessContainerAdapterTest extends AbstractContainerAdapterTest
     {
         $container = new ArrayContainer();
         $container['array_iterator'] = new \ArrayIterator(range(1, 5));
-        $container['error'] = function() {
+        $container['error'] = function () {
             throw new \RuntimeException;
         };
 

@@ -4,7 +4,7 @@ namespace Acclimate\Container\Test;
 
 use Acclimate\Container\ArrayContainer;
 use Acclimate\Container\Test\Adapter\AbstractContainerAdapterTest;
-use Interop\Container\ContainerInterface; 
+use Interop\Container\ContainerInterface;
 
 /**
  * @covers \Acclimate\Container\ArrayContainer
@@ -84,16 +84,17 @@ class ArrayContainerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($baz, $container['baz']);
     }
     
-    public function testDelegateLookupFeature() {
-    	$container1 = new ArrayContainer([
-    			'foo' => 'bar'
-    	]);
-    	$container2 = new ArrayContainer([
-    			'baz' => function(ContainerInterface $container) {
-    				return $container->get('foo');
-    			}
-    	], $container1);
-    	
-    	$this->assertEquals('bar', $container2->get('baz'));
+    public function testDelegateLookupFeature()
+    {
+        $container1 = new ArrayContainer([
+                'foo' => 'bar'
+        ]);
+        $container2 = new ArrayContainer([
+                'baz' => function (ContainerInterface $container) {
+                    return $container->get('foo');
+                }
+        ], $container1);
+        
+        $this->assertEquals('bar', $container2->get('baz'));
     }
 }
