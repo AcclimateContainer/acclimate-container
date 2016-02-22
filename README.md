@@ -178,6 +178,9 @@ Command design pattern. You can also use the `FailoverOnMissContainer` decorator
 * [ZF2 Service Manager](https://github.com/zendframework/zf2/blob/master/library/Zend/ServiceManager/ServiceLocatorInterface.php)
 * Any other container-like object that implements `ArrayAccess` (see [`ArrayAccess` in the PHP Manual](http://php.net/manual/en/class.arrayaccess.php))
 
+Also, the [Silex Application](https://github.com/fabpot/Silex/blob/master/src/Silex/Application.php) and other projects
+descending from Pimple can be used with Acclimate as well.
+
 ### What if the Container I use is not supported?
 
 *Please consider submitting a Pull Request with an adapter for your container and a corresponding test.*
