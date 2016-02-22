@@ -18,3 +18,4 @@ return array(
     'ArrayAccess' => 'Acclimate\Container\Adapter\ArrayAccessContainerAdapter',
 );
 // @codeCoverageIgnoreEnd
+

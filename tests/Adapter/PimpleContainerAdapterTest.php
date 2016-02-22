@@ -14,10 +14,10 @@ class PimpleContainerAdapterTest extends AbstractContainerAdapterTest
     protected function createContainer()
     {
         $container = new Pimple();
-        $container['array_iterator'] = function() {
+        $container['array_iterator'] = function () {
             return new \ArrayIterator(range(1, 5));
         };
-        $container['error'] = function($c) {
+        $container['error'] = function ($c) {
             throw new RuntimeException;
         };
 

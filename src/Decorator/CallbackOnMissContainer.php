@@ -24,7 +24,7 @@ class CallbackOnMissContainer extends AbstractContainerDecorator
      */
     public function __construct(ContainerInterface $container, $callback)
     {
-        $this->container = $container;
+        parent::__construct($container);
         if (is_callable($callback)) {
             $this->callback = $callback;
         } else {

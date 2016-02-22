@@ -7,7 +7,13 @@ use Acclimate\Container\Exception\ContainerException;
 /**
  * Test fixture that implements toString behavior
  */
-class Dummy {public function __toString() {return 'dummy';}}
+class Dummy
+{
+    public function __toString()
+    {
+        return 'dummy';
+    }
+}
 
 /**
  * @covers \Acclimate\Container\Exception\ContainerException

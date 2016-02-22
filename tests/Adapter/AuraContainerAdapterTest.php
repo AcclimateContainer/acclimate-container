@@ -16,7 +16,7 @@ class AuraContainerAdapterTest extends AbstractContainerAdapterTest
     {
         $container = new Container(new Forge(new Config()));
         $container->set('array_iterator', new \ArrayIterator(range(1, 5)));
-        $container->set('error', function() {
+        $container->set('error', function () {
             throw new \RuntimeException;
         });
 

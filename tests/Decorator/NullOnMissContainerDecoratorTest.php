@@ -8,7 +8,7 @@ use Acclimate\Container\ArrayContainer;
 /**
  * @covers \Acclimate\Container\Decorator\NullOnMissContainer
  */
-class NullOnMissContainerTest extends \PHPUnit_Framework_TestCase
+class NullOnMissContainerDecoratorTest extends \PHPUnit_Framework_TestCase
 {
     public function testDecoratorReturnsNullForMissingItems()
     {

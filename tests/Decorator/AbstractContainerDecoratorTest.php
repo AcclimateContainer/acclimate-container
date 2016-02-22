@@ -5,7 +5,9 @@ namespace Acclimate\Container\Test\Decorator;
 use Acclimate\Container\Decorator\AbstractContainerDecorator;
 use Acclimate\Container\ArrayContainer;
 
-class EnhancedContainer extends AbstractContainerDecorator {}
+class EnhancedContainer extends AbstractContainerDecorator
+{
+}
 
 /**
  * @covers \Acclimate\Container\Decorator\AbstractContainerDecorator
