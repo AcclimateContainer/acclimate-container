@@ -21,7 +21,7 @@ class ContainerAcclimatorTest extends \PHPUnit_Framework_TestCase
     public function testAdaptsContainersToContainerInterface()
     {
         $acclimator = new ContainerAcclimator();
-        $container = $acclimator->acclimate($this->getMock('\Pimple\Container'));
+        $container = $acclimator->acclimate($this->getMock('Pimple\Container'));
         $this->assertInstanceOf('Interop\Container\ContainerInterface', $container);
     }
 
