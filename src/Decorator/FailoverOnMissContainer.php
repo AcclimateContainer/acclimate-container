@@ -22,7 +22,7 @@ class FailoverOnMissContainer extends AbstractContainerDecorator
      */
     public function __construct(ContainerInterface $container, ContainerInterface $failoverContainer)
     {
-        $this->container = $container;
+        parent::__construct($container);
         $this->failoverContainer = $failoverContainer;
     }
 
