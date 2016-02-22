@@ -173,7 +173,6 @@ Command design pattern. You can also use the `FailoverOnMissContainer` decorator
 * [Nette DI Container](https://github.com/nette/nette/blob/master/Nette/DI/Container.php)
 * [PHP-DI Container](https://github.com/mnapoli/PHP-DI/blob/master/src/DI/Container.php)
 * [Pimple](https://github.com/fabpot/Pimple/blob/master/lib/Pimple.php)
-* [Silex Application](https://github.com/fabpot/Silex/blob/master/src/Silex/Application.php)
 * [Symfony Dependency Injection Container](https://github.com/symfony/symfony/blob/master/src/Symfony/Component/DependencyInjection/ContainerInterface.php)
 * [ZF2 Dependency Injection](https://github.com/zendframework/zf2/blob/master/library/Zend/Di/ServiceLocatorInterface.php)
 * [ZF2 Service Manager](https://github.com/zendframework/zf2/blob/master/library/Zend/ServiceManager/ServiceLocatorInterface.php)
