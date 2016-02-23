@@ -13,19 +13,19 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "container-interop/container-interop": "~1.0"
+        "container-interop/container-interop": "^1.0"
     },
     "require-dev": {
         "php": ">=5.4.0",
-        "aura/di": "1.*",
-        "illuminate/container": ">=4.0.0 <6.0.0",
-        "mnapoli/php-di": "3.*",
-        "nette/nette": "2.*",
-        "phpunit/phpunit": "3.7.*",
-        "pimple/pimple": "3.*",
-        "symfony/dependency-injection": "2.*",
-        "zendframework/zend-di": "2.*",
-        "zendframework/zend-servicemanager": "2.*"
+        "aura/di": "^1.0",
+        "illuminate/container": "^4.0 || ^5.0",
+        "mnapoli/php-di": "^3.0",
+        "nette/nette": "^2.0",
+        "phpunit/phpunit": "^4.0 || ^5.0",
+        "pimple/pimple": "^3.0",
+        "symfony/dependency-injection": "^2.0",
+        "zendframework/zend-di": "^2.0",
+        "zendframework/zend-servicemanager": "^2.0"
     },
     "autoload": {
         "psr-4": {
