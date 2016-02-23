@@ -20,10 +20,10 @@
         "aura/di": "1.*",
         "illuminate/container": ">=4.0.0 <6.0.0",
         "mnapoli/php-di": "3.*",
-        "nette/nette": "2.*",
+        "nette/nette": "^2.1.0",
         "phpunit/phpunit": "3.7.*",
         "pimple/pimple": "3.*",
-        "symfony/dependency-injection": "2.*",
+        "symfony/dependency-injection": "^2.1.0",
         "zendframework/zend-di": "2.*",
         "zendframework/zend-servicemanager": "2.*"
     },
@@ -31,5 +31,10 @@
         "psr-4": {
             "Acclimate\\Container\\": "src/"
         }
+    },
+    "conflict": {
+        "nette/nette": "<2.1.0",
+        "pimple/pimple": "<3.0.0",
+        "symfony/dependency-injection": "<2.1.0"
     }
 }
