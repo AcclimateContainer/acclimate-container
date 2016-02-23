@@ -23,7 +23,7 @@
         "nette/nette": "2.*",
         "phpunit/phpunit": "3.7.*",
         "pimple/pimple": "3.*",
-        "symfony/dependency-injection": "2.*",
+        "symfony/dependency-injection": ">=2.0.0 <4.0.0",
         "zendframework/zend-di": "2.*",
         "zendframework/zend-servicemanager": "2.*"
     },
