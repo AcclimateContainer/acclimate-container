@@ -21,7 +21,7 @@
         "illuminate/container": ">=4.0.0 <6.0.0",
         "mnapoli/php-di": "3.*",
         "nette/nette": "2.*",
-        "phpunit/phpunit": "3.7.*",
+        "phpunit/phpunit": ">4.0.0",
         "pimple/pimple": "3.*",
         "symfony/dependency-injection": "2.*",
         "zendframework/zend-di": "2.*",
