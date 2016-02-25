@@ -206,7 +206,7 @@ $adaptedContainer = $acclimator->acclimate($container);
 
 Plans for Acclimate 1.1 include the following:
 
-- Adding support of the latest versions of all relevant containers.  This includes Laravel, Zend, Pimple and Symfony.
+- Adding support of the latest versions of all relevant containers.  This includes Laravel, Pimple and Symfony.
 - Deprecating support for Guzzle.  (Version 3 is out-of-date.  Guzzle v6 does not come with a dependency injection
   container).
 - Deprecating support for PHP-DI.  (More recent versions are Container-Interop compliant.)
