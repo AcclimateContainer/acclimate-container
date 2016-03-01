@@ -13,7 +13,6 @@ return array(
     'Zend\Di\LocatorInterface' => 'Acclimate\Container\Adapter\ZendDiContainerAdapter',
     'Illuminate\Container\Container' => 'Acclimate\Container\Adapter\LaravelContainerAdapter',
     'Aura\Di\ContainerInterface' => 'Acclimate\Container\Adapter\AuraContainerAdapter',
-    'Guzzle\Service\Builder\ServiceBuilderInterface' => 'Acclimate\Container\Adapter\GuzzleContainerAdapter',
     'DI\Container' => 'Acclimate\Container\Adapter\PHPDIContainerAdapter',
     'Nette\DI\Container' => 'Acclimate\Container\Adapter\NetteContainerAdapter',
     'ArrayAccess' => 'Acclimate\Container\Adapter\ArrayAccessContainerAdapter',
