@@ -9,6 +9,7 @@ use Guzzle\Service\Exception\ServiceNotFoundException as GuzzleNotFoundException
 use Interop\Container\ContainerInterface as AcclimateContainerInterface;
 
 /**
+ * @deprecated in v1.1
  * An adapter from a Guzzle ServiceBuilder to the standardized ContainerInterface
  */
 class GuzzleContainerAdapter implements AcclimateContainerInterface
