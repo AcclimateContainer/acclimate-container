@@ -212,6 +212,22 @@ $acclimator->registerAdapter('Your\Favorite\ContainerAdapter', 'Your\Favorite\Co
 $adaptedContainer = $acclimator->acclimate($container);
 ```
 
+## Roadmap
+
+Plans for Acclimate 1.1 include the following:
+
+- Adding support of the latest versions of all relevant containers.  This includes Laravel, Pimple and Symfony.
+- Deprecating support for Guzzle.  (Version 3 is out-of-date.  Guzzle v6 does not come with a dependency injection
+  container).
+- Deprecating support for PHP-DI.  (More recent versions are Container-Interop compliant.)
+- Support for Phalcon's DI container.
+- Dropping support for versions of PHP not receiving basic security support (<5.5).
+
+Plans for Acclimate 2.0 include the following:
+
+- Dropping support for Guzzle.
+- Dropping support for PHP-DI.
+
 ## Resources
 
 * [Container Interop project](https://github.com/container-interop/container-interop)
