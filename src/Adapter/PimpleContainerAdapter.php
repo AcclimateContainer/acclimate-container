@@ -4,13 +4,13 @@ namespace Acclimate\Container\Adapter;
 
 use Acclimate\Container\Exception\ContainerException as AcclimateContainerException;
 use Acclimate\Container\Exception\NotFoundException as AcclimateNotFoundException;
-use Interop\Container\ContainerInterface as AcclimateContainerInterface;
+use Psr\Container\ContainerInterface;
 use Pimple\Container as Pimple;
 
 /**
  * An adapter from a Pimple Container to the standardized ContainerInterface
  */
-class PimpleContainerAdapter implements AcclimateContainerInterface
+class PimpleContainerAdapter implements ContainerInterface
 {
     /**
      * @var Pimple A Pimple Container

@@ -2,7 +2,7 @@
 
 namespace Acclimate\Container\Adapter;
 
-use Interop\Container\ContainerInterface as AcclimateContainerInterface;
+use Psr\Container\ContainerInterface as AcclimateContainerInterface;
 use Acclimate\Container\Exception\NotFoundException as AcclimateNotFoundException;
 use Acclimate\Container\Exception\ContainerException as AcclimateContainerException;
 

@@ -2,12 +2,12 @@
 
 namespace Acclimate\Container\Exception;
 
-use Interop\Container\Exception\ContainerException as InteropContainerException;
+use Psr\Container\ContainerExceptionInterface;
 
 /**
  * An error occurred when trying to retrieve an entry from the container
  */
-class ContainerException extends \RuntimeException implements InteropContainerException
+class ContainerException extends \RuntimeException implements ContainerExceptionInterface
 {
     /**
      * @var string The message template. Allowed variables are {error} and {id}

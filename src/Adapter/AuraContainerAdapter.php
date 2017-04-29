@@ -6,7 +6,7 @@ use Acclimate\Container\Exception\ContainerException as AcclimateContainerExcept
 use Acclimate\Container\Exception\NotFoundException as AcclimateNotFoundException;
 use Aura\Di\ContainerInterface as AuraContainerInterface;
 use Aura\Di\Exception\ServiceNotFound as AuraNotFoundException;
-use Interop\Container\ContainerInterface as AcclimateContainerInterface;
+use Psr\Container\ContainerInterface as AcclimateContainerInterface;
 
 /**
  * An adapter from an Aura DIC to the standardized ContainerInterface
