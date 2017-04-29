@@ -4,11 +4,12 @@ namespace Acclimate\Container\Test\Decorator;
 
 use Acclimate\Container\Decorator\CallbackOnMissContainer;
 use Acclimate\Container\ArrayContainer;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Acclimate\Container\Decorator\CallbackOnMissContainer
  */
-class CallbackOnMissContainerTest extends \PHPUnit_Framework_TestCase
+class CallbackOnMissContainerTest extends TestCase
 {
     public function testDecoratorExecutesCallbackForMissingItems()
     {
@@ -21,7 +22,7 @@ class CallbackOnMissContainerTest extends \PHPUnit_Framework_TestCase
 
     public function testDecoratorThrowsExceptionIfCallbackIsInvalid()
     {
-        $this->setExpectedException('InvalidArgumentException');
+        $this->expectException('InvalidArgumentException');
         $container = new CallbackOnMissContainer(new ArrayContainer, 'foo');
     }
 }

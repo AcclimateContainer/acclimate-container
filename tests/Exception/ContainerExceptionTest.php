@@ -3,6 +3,7 @@
 namespace Acclimate\Container\Test\Exception;
 
 use Acclimate\Container\Exception\ContainerException;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test fixture that implements toString behavior
@@ -18,7 +19,7 @@ class Dummy
 /**
  * @covers \Acclimate\Container\Exception\ContainerException
  */
-class ContainerExceptionTest extends \PHPUnit_Framework_TestCase
+class ContainerExceptionTest extends TestCase
 {
     public function getDataForFactoryTest()
     {

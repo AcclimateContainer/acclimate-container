@@ -4,11 +4,13 @@ namespace Acclimate\Container\Test;
 
 use Acclimate\Container\ContainerAcclimator;
 use Acclimate\Container\ArrayContainer;
+use PHPUnit\Framework\TestCase;
+use Pimple\Container as Pimple;
 
 /**
  * @covers \Acclimate\Container\ContainerAcclimator
  */
-class ContainerAcclimatorTest extends \PHPUnit_Framework_TestCase
+class ContainerAcclimatorTest extends TestCase
 {
     public function testDoesNotAdaptContainerInterface()
     {
@@ -21,7 +23,8 @@ class ContainerAcclimatorTest extends \PHPUnit_Framework_TestCase
     public function testAdaptsContainersToContainerInterface()
     {
         $acclimator = new ContainerAcclimator();
-        $container = $acclimator->acclimate($this->getMock('Pimple\Container'));
+        $pimpleContainer = $this->getMockBuilder(Pimple::class)->getMock();
+        $container = $acclimator->acclimate($pimpleContainer);
         $this->assertInstanceOf('Interop\Container\ContainerInterface', $container);
     }
 
@@ -44,7 +47,7 @@ class ContainerAcclimatorTest extends \PHPUnit_Framework_TestCase
     public function testThrowsExceptionOnContainersThatCannotBeAdpated()
     {
         $acclimator = new ContainerAcclimator();
-        $this->setExpectedException('Acclimate\Container\Exception\InvalidAdapterException');
+        $this->expectException('Acclimate\Container\Exception\InvalidAdapterException');
         $container = $acclimator->acclimate('foo');
     }
 }

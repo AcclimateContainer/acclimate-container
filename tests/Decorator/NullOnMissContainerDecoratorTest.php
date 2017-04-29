@@ -4,11 +4,12 @@ namespace Acclimate\Container\Test\Decorator;
 
 use Acclimate\Container\Decorator\NullOnMissContainer;
 use Acclimate\Container\ArrayContainer;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Acclimate\Container\Decorator\NullOnMissContainer
  */
-class NullOnMissContainerDecoratorTest extends \PHPUnit_Framework_TestCase
+class NullOnMissContainerDecoratorTest extends TestCase
 {
     public function testDecoratorReturnsNullForMissingItems()
     {

@@ -5,12 +5,13 @@ namespace Acclimate\Container\Test;
 use Acclimate\Container\Adapter\PimpleContainerAdapter;
 use Acclimate\Container\ArrayContainer;
 use Acclimate\Container\CompositeContainer;
+use PHPUnit\Framework\TestCase;
 use Pimple\Container as Pimple;
 
 /**
  * @covers \Acclimate\Container\CompositeContainer
  */
-class CompositeContainerTest extends \PHPUnit_Framework_TestCase
+class CompositeContainerTest extends TestCase
 {
     public function testSupportsContainerInterface()
     {
@@ -32,7 +33,7 @@ class CompositeContainerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($container->has('foo'));
 
-        $this->setExpectedException('Interop\Container\Exception\NotFoundException');
+        $this->expectException('Interop\Container\Exception\NotFoundException');
         $container->get('foo');
     }
 
@@ -42,7 +43,7 @@ class CompositeContainerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($container->has('foo'));
 
-        $this->setExpectedException('Interop\Container\Exception\NotFoundException');
+        $this->expectException('Interop\Container\Exception\NotFoundException');
         $container->get('foo');
     }
 }
