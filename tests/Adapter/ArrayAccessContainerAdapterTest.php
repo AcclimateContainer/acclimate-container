@@ -32,7 +32,7 @@ class ArrayAccessContainerAdapterTest extends AbstractContainerAdapterTest
 
     private function doConstructionTestInPhp5()
     {
-        $this->setExpectedException('PHPUnit_Framework_Error');
+        $this->expectException('PHPUnit_Framework_Error');
 
         // This should trigger an error
         $container = new ArrayAccessContainerAdapter('not-a-container');

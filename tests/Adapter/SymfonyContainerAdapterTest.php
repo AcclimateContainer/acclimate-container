@@ -30,7 +30,7 @@ class SymfonyContainerAdapterTest extends AbstractContainerAdapterTest
     {
         $container = new SymfonyContainerAdapter(new Container());
 
-        $this->setExpectedException('Interop\Container\Exception\NotFoundException');
+        $this->expectException('Interop\Container\Exception\NotFoundException');
         $container->get('foo');
     }
 }

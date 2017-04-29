@@ -2,7 +2,9 @@
 
 namespace Acclimate\Container\Test\Adapter;
 
-abstract class AbstractContainerAdapterTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+abstract class AbstractContainerAdapterTest extends TestCase
 {
     public function testSupportsContainerInterface()
     {
@@ -19,7 +21,7 @@ abstract class AbstractContainerAdapterTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($container->has('foo'));
 
-        $this->setExpectedException('Interop\Container\Exception\NotFoundException');
+        $this->expectException('Interop\Container\Exception\NotFoundException');
         $container->get('foo');
     }
 

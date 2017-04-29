@@ -4,11 +4,12 @@ namespace Acclimate\Container\Test;
 
 use Acclimate\Container\ArrayContainer;
 use Interop\Container\ContainerInterface;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Acclimate\Container\ArrayContainer
  */
-class ArrayContainerTest extends \PHPUnit_Framework_TestCase
+class ArrayContainerTest extends TestCase
 {
     public function testCanInstantiateWithArrayOrArrayLikeObject()
     {
@@ -21,7 +22,7 @@ class ArrayContainerTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Acclimate\Container\ArrayContainer', new ArrayContainer($a2));
         $this->assertInstanceOf('Acclimate\Container\ArrayContainer', new ArrayContainer($a3));
 
-        $this->setExpectedException('InvalidArgumentException');
+        $this->expectException('InvalidArgumentException');
         new ArrayContainer($a4);
     }
 
@@ -40,7 +41,7 @@ class ArrayContainerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($container->has('foo'));
 
-        $this->setExpectedException('Interop\Container\Exception\NotFoundException');
+        $this->expectException('Interop\Container\Exception\NotFoundException');
         $container->get('foo');
     }
 
@@ -51,7 +52,7 @@ class ArrayContainerTest extends \PHPUnit_Framework_TestCase
             throw new \RuntimeException;
         };
 
-        $this->setExpectedException('Interop\Container\Exception\ContainerException');
+        $this->expectException('Interop\Container\Exception\ContainerException');
         $container->get('error');
     }
 

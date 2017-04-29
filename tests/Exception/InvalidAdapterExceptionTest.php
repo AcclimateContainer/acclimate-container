@@ -3,11 +3,12 @@
 namespace Acclimate\Container\Test\Exception;
 
 use Acclimate\Container\Exception\InvalidAdapterException;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Acclimate\Container\Exception\InvalidAdapterException
  */
-class InvalidAdapterExceptionTest extends \PHPUnit_Framework_TestCase
+class InvalidAdapterExceptionTest extends TestCase
 {
     public function getDataForFactoryTest()
     {
