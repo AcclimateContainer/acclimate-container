@@ -3,8 +3,10 @@
 namespace Acclimate\Container\Test;
 
 use Acclimate\Container\ArrayContainer;
-use Interop\Container\ContainerInterface;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\ContainerInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 /**
  * @covers \Acclimate\Container\ArrayContainer
@@ -41,7 +43,7 @@ class ArrayContainerTest extends TestCase
 
         $this->assertFalse($container->has('foo'));
 
-        $this->expectException('Interop\Container\Exception\NotFoundException');
+        $this->expectException(NotFoundExceptionInterface::class);
         $container->get('foo');
     }
 
@@ -52,7 +54,7 @@ class ArrayContainerTest extends TestCase
             throw new \RuntimeException;
         };
 
-        $this->expectException('Interop\Container\Exception\ContainerException');
+        $this->expectException(ContainerExceptionInterface::class);
         $container->get('error');
     }
 

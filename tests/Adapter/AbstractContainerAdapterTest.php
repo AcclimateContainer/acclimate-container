@@ -2,6 +2,10 @@
 
 namespace Acclimate\Container\Test\Adapter;
 
+use Acclimate\Container\Exception\ContainerException;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\ContainerInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use PHPUnit\Framework\TestCase;
 
 abstract class AbstractContainerAdapterTest extends TestCase
@@ -21,7 +25,7 @@ abstract class AbstractContainerAdapterTest extends TestCase
 
         $this->assertFalse($container->has('foo'));
 
-        $this->expectException('Interop\Container\Exception\NotFoundException');
+        $this->expectException(NotFoundExceptionInterface::class);
         $container->get('foo');
     }
 
@@ -32,13 +36,13 @@ abstract class AbstractContainerAdapterTest extends TestCase
         try {
             $container->get('error');
         } catch (\Exception $e) {
-            $this->assertInstanceOf('Interop\Container\Exception\ContainerException', $e);
-            $this->assertEquals('Acclimate\Container\Exception\ContainerException', get_class($e));
+            $this->assertInstanceOf(ContainerExceptionInterface::class, $e);
+            $this->assertEquals(ContainerException::class, get_class($e));
         }
     }
 
     /**
-     * @return \Interop\Container\ContainerInterface
+     * @return ContainerInterface
      */
     abstract protected function createContainer();
 }

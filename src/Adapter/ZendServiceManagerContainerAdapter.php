@@ -4,14 +4,14 @@ namespace Acclimate\Container\Adapter;
 
 use Acclimate\Container\Exception\ContainerException as AcclimateContainerException;
 use Acclimate\Container\Exception\NotFoundException as AcclimateNotFoundException;
-use Interop\Container\ContainerInterface as AcclimateContainerInterface;
+use Psr\Container\ContainerInterface;
 use Zend\ServiceManager\Exception\ServiceNotFoundException as ZendNotFoundException;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * An adapter from a Zend ServiceManager/ServiceLocator to the standardized ContainerInterface
  */
-class ZendServiceManagerContainerAdapter implements AcclimateContainerInterface
+class ZendServiceManagerContainerAdapter implements ContainerInterface
 {
     /**
      * @var ServiceLocatorInterface A Zend ServiceManager/ServiceLocator

@@ -4,7 +4,7 @@ namespace Acclimate\Container\Adapter;
 
 use Acclimate\Container\Exception\ContainerException as AcclimateContainerException;
 use Acclimate\Container\Exception\NotFoundException as AcclimateNotFoundException;
-use Interop\Container\ContainerInterface as AcclimateContainerInterface;
+use Psr\Container\ContainerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface as SymfonyContainerInterface;
 use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException as SymfonyInvalidArgumentException;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException as SymfonyNotFoundException;
@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException as 
 /**
  * An adapter from a Symfony Container to the standardized ContainerInterface
  */
-class SymfonyContainerAdapter implements AcclimateContainerInterface
+class SymfonyContainerAdapter implements ContainerInterface
 {
     /**
      * @var SymfonyContainerInterface A Symfony Container

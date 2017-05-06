@@ -27,15 +27,18 @@ items from the container objects of third-party libraries. That's interoperabili
 ## The Container Interface
 
 The `ContainerInterface` used by Acclimate comes from the
-[`container-interop/container-interop`](https://github.com/container-interop/container-interop) project. It attempts
+[`psr/container`](https://github.com/php-fig/container) project. It attempts
 to normalize the various implementations of container interfaces (whether they be for service locators, dependency
 injection containers, or something else similar) to a simple, readonly interface, that allows users to retrieve
 entries from any third-party container in a consistent way.
 
+Acclimate v1 and previous use the similar
+[`container-interop/container-interop`](https://github.com/container-interop/container-interop) standard
+
 The `ContainerInterface` looks like this:
 
 ```php
-namespace Interop\Container;
+namespace Psr\Container;
 
 interface ContainerInterface
 {
@@ -58,7 +61,7 @@ interface ContainerInterface
 ## Installation
 
 Install the `acclimate/container` package using Composer. This will also also install
-`container-interop/container-interop`, which provides the `ContainerInterface`.
+`psr/container`, which provides the `ContainerInterface`.
 
 **Warning:** If you install Acclimate with dev dependencies, you will get A LOT of packages from various frameworks
 (e.g., ZF, Symfony, Laravel, etc.). These packages are *required for testing only* to ensure that all of the adapter
@@ -104,7 +107,7 @@ Now you can use the container from your favorite framework and acclimate it into
 ## Container Decorators
 
 The default behavior of a container implementing the `ContainerInterface` is to throw a
-`Interop\Container\Exception\NotFoundException` when using `get()` to retrieve an entry that does not actually exist in
+`Psr\Container\NotFoundExceptionInterface` when using `get()` to retrieve an entry that does not actually exist in
 the container. In some cases, you may want to change this default behavior to do something else instead (e.g., return
 `null`). Container decorators allow you to easily modify the behavior of a container. `acclimate\container` ships with
 3 decorators (`NullOnMissContainer`, `CallbackOnMissContainer`, and `FailoverOnMissContainer`), but allows you to easily
@@ -120,7 +123,7 @@ require 'vendor/autoload.php';
 
 use Acclimate\Container\ArrayContainer;
 use Acclimate\Container\Decorator\NullOnMissContainer;
-use Interop\Container\Exception\NotFoundException;
+use Psr\Container\NotFoundExceptionInterface;
 
 // Create an empty, basic container following the `ContainerInterface`
 $container = new ArrayContainer();
@@ -128,7 +131,7 @@ $container = new ArrayContainer();
 // Normally, this container will throw an exception on missing items
 try {
     $item = $container->get('foo');
-} catch (NotFoundException $e) {
+} catch (NotFoundExceptionInterface $e) {
     echo $e->getMessage() . "\n";
 }
 # There is no entry found in the container for the identifier "foo".
@@ -214,5 +217,6 @@ $adaptedContainer = $acclimator->acclimate($container);
 
 ## Resources
 
+* [PSR-11 project](https://github.com/php-fig/container)
 * [Container Interop project](https://github.com/container-interop/container-interop)
 * [Service container usage comparison](https://gist.github.com/mnapoli/6159681)

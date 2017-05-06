@@ -7,6 +7,7 @@ use Acclimate\Container\ArrayContainer;
 use Acclimate\Container\CompositeContainer;
 use PHPUnit\Framework\TestCase;
 use Pimple\Container as Pimple;
+use Psr\Container\NotFoundExceptionInterface;
 
 /**
  * @covers \Acclimate\Container\CompositeContainer
@@ -33,7 +34,7 @@ class CompositeContainerTest extends TestCase
 
         $this->assertFalse($container->has('foo'));
 
-        $this->expectException('Interop\Container\Exception\NotFoundException');
+        $this->expectException(NotFoundExceptionInterface::class);
         $container->get('foo');
     }
 
@@ -43,7 +44,7 @@ class CompositeContainerTest extends TestCase
 
         $this->assertFalse($container->has('foo'));
 
-        $this->expectException('Interop\Container\Exception\NotFoundException');
+        $this->expectException(NotFoundExceptionInterface::class);
         $container->get('foo');
     }
 }

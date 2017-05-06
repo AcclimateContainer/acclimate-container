@@ -6,6 +6,7 @@ use Acclimate\Container\ContainerAcclimator;
 use Acclimate\Container\ArrayContainer;
 use PHPUnit\Framework\TestCase;
 use Pimple\Container as Pimple;
+use Psr\Container\ContainerInterface;
 
 /**
  * @covers \Acclimate\Container\ContainerAcclimator
@@ -25,7 +26,7 @@ class ContainerAcclimatorTest extends TestCase
         $acclimator = new ContainerAcclimator();
         $pimpleContainer = $this->getMockBuilder(Pimple::class)->getMock();
         $container = $acclimator->acclimate($pimpleContainer);
-        $this->assertInstanceOf('Interop\Container\ContainerInterface', $container);
+        $this->assertInstanceOf(ContainerInterface::class, $container);
     }
 
     public function testCanRegisterOtherAdapters()
@@ -41,7 +42,7 @@ class ContainerAcclimatorTest extends TestCase
     {
         $acclimator = new ContainerAcclimator();
         $container = $acclimator->acclimate(new \ArrayObject);
-        $this->assertInstanceOf('Interop\Container\ContainerInterface', $container);
+        $this->assertInstanceOf(ContainerInterface::class, $container);
     }
 
     public function testThrowsExceptionOnContainersThatCannotBeAdpated()

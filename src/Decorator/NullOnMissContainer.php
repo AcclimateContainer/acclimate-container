@@ -2,7 +2,7 @@
 
 namespace Acclimate\Container\Decorator;
 
-use Interop\Container\Exception\NotFoundException;
+use Psr\Container\NotFoundExceptionInterface;
 
 /**
  * A container decorator that changes the default behavior of throwing an exception when an item doesn't exist in the
@@ -14,7 +14,7 @@ class NullOnMissContainer extends AbstractContainerDecorator
     {
         try {
             return $this->container->get($id);
-        } catch (NotFoundException $e) {
+        } catch (NotFoundExceptionInterface $e) {
             return null;
         }
     }

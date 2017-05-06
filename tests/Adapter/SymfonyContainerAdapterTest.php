@@ -3,6 +3,7 @@
 namespace Acclimate\Container\Test\Adapter;
 
 use Acclimate\Container\Adapter\SymfonyContainerAdapter;
+use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -30,7 +31,7 @@ class SymfonyContainerAdapterTest extends AbstractContainerAdapterTest
     {
         $container = new SymfonyContainerAdapter(new Container());
 
-        $this->expectException('Interop\Container\Exception\NotFoundException');
+        $this->expectException(NotFoundExceptionInterface::class);
         $container->get('foo');
     }
 }

@@ -5,12 +5,12 @@ namespace Acclimate\Container\Adapter;
 use Acclimate\Container\Exception\ContainerException as AcclimateContainerException;
 use Acclimate\Container\Exception\NotFoundException as AcclimateNotFoundException;
 use Illuminate\Container\Container as LaravelContainerInterface;
-use Interop\Container\ContainerInterface as AcclimateContainerInterface;
+use Psr\Container\ContainerInterface;
 
 /**
  * An adapter from a Laravel Container to the standardized ContainerInterface
  */
-class LaravelContainerAdapter implements AcclimateContainerInterface
+class LaravelContainerAdapter implements ContainerInterface
 {
     /**
      * @var LaravelContainerInterface A Laravel Container

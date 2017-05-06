@@ -2,16 +2,16 @@
 
 namespace Acclimate\Container\Adapter;
 
-use Interop\Container\ContainerInterface as AcclimateContainerInterface;
 use Acclimate\Container\Exception\NotFoundException as AcclimateNotFoundException;
 use Acclimate\Container\Exception\ContainerException as AcclimateContainerException;
 use Phalcon\DiInterface as PhalconDI;
 use Phalcon\DI\Exception as PhalconDIException;
+use Psr\Container\ContainerInterface;
 
 /**
  * An adapter from an object implementing Phalcon\DiInterface to the standardized ContainerInterface
  */
-class PhalconDIContainerAdapter implements AcclimateContainerInterface
+class PhalconDIContainerAdapter implements ContainerInterface
 {
     /**
      * @var \Phalcon\DiInterface Phalcons DI container object

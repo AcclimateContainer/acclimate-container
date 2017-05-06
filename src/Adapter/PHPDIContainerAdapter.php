@@ -6,12 +6,12 @@ use Acclimate\Container\Exception\ContainerException as AcclimateContainerExcept
 use Acclimate\Container\Exception\NotFoundException as AcclimateNotFoundException;
 use DI\Container as PhpDiContainerInterface;
 use DI\NotFoundException as PhpDiNotFoundException;
-use Interop\Container\ContainerInterface as AcclimateContainerInterface;
+use Psr\Container\ContainerInterface;
 
 /**
  * An adapter from a PHP-DI Container to the standardized ContainerInterface
  */
-class PHPDIContainerAdapter implements AcclimateContainerInterface
+class PHPDIContainerAdapter implements ContainerInterface
 {
     /**
      * @var PhpDiContainerInterface A PHP-DI Container

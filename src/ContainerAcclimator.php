@@ -3,7 +3,7 @@
 namespace Acclimate\Container;
 
 use Acclimate\Container\Exception\InvalidAdapterException;
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 
 /**
  * This class is used to "acclimate", or adapt, a container object (e.g., DIC, SL) to a common ContainerInterface. In

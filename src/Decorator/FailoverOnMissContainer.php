@@ -2,8 +2,8 @@
 
 namespace Acclimate\Container\Decorator;
 
-use Interop\Container\ContainerInterface;
-use Interop\Container\Exception\NotFoundException;
+use Psr\Container\ContainerInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 /**
  * A container decorator that delegates to a designated failover container if the decorated container does not contain
@@ -30,7 +30,7 @@ class FailoverOnMissContainer extends AbstractContainerDecorator
     {
         try {
             return $this->container->get($id);
-        } catch (NotFoundException $e) {
+        } catch (NotFoundExceptionInterface $e) {
             return $this->failoverContainer->get($id);
         }
     }
