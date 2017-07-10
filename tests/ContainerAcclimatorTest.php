@@ -50,7 +50,6 @@ class ContainerAcclimatorTest extends TestCase
         $pimpleContainer = $this->getMockBuilder(Pimple::class)->getMock();
         $container = ContainerAcclimator::acclimateContainer($pimpleContainer);
         $this->assertInstanceOf(ContainerInterface::class, $container);
-
     }
 
     public function testThrowsExceptionOnContainersThatCannotBeAdpated()
