@@ -17,6 +17,20 @@ class ContainerAcclimator
     private $adapterMap;
 
     /**
+     * Create an adaptor statically for a particular container.
+     *
+     * @param mixed $container A third-party object to be acclimated
+     * @param array|null $customAdapterMap An optional adapter map to pass to the acclimator
+     * @return ContainerInterface
+     */
+    public static function acclimateContainer($container, array $customAdapterMap = null)
+    {
+        $acclimator = new self($customAdapterMap);
+
+        return $acclimator->acclimate($container);
+    }
+
+    /**
      * @param array $customAdapterMap Overwrite the predefined adapter map
      */
     public function __construct(array $customAdapterMap = null)
