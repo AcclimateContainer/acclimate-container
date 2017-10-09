@@ -20,6 +20,7 @@
         "aura/di": "^1.0",
         "illuminate/container": "^4.0 || ^5.0",
         "guzzle/service": "^3.0",
+        "league/container": "^1.0",
         "mnapoli/php-di": "^3.0",
         "nette/nette": "^2.1",
         "phpunit/phpunit": "^4.0 || ^5.0",
