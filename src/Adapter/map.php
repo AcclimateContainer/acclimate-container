@@ -8,7 +8,7 @@
  */
 return array(
     'Symfony\Component\DependencyInjection\ContainerInterface' => 'Acclimate\Container\Adapter\SymfonyContainerAdapter',
-    'Pimple\Container' => 'Acclimate\Container\Adapter\PimpleContainerAdapter',
+    'Pimple\Container' => 'Pimple\Psr11\Container',
     'Zend\ServiceManager\ServiceLocatorInterface' => 'Acclimate\Container\Adapter\ZendServiceManagerContainerAdapter',
     'Zend\Di\LocatorInterface' => 'Acclimate\Container\Adapter\ZendDiContainerAdapter',
     'Illuminate\Container\Container' => 'Acclimate\Container\Adapter\LaravelContainerAdapter',
@@ -20,4 +20,3 @@ return array(
     'Phalcon\DiInterface' => 'Acclimate\Container\Adapter\PhalconDIContainerAdapter'
 );
 // @codeCoverageIgnoreEnd
-
