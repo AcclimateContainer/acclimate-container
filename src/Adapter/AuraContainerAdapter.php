@@ -37,7 +37,7 @@ class AuraContainerAdapter implements AcclimateContainerInterface
         }
     }
 
-    public function has($id)
+    public function has($id): bool
     {
         return $this->container->has($id);
     }

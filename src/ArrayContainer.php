@@ -17,7 +17,7 @@ class ArrayContainer implements ContainerInterface, \ArrayAccess
      * @var array|\ArrayAccess The container data
      */
     protected $data;
-    
+
     /**
      * @var ContainerInterface The container that will be used for dependency lookups
      */
@@ -57,7 +57,7 @@ class ArrayContainer implements ContainerInterface, \ArrayAccess
         }
     }
 
-    public function has($identifier)
+    public function has($identifier): bool
     {
         return isset($this->data[$identifier]);
     }

@@ -40,7 +40,7 @@ class SymfonyContainerAdapter implements ContainerInterface
         }
     }
 
-    public function has($id)
+    public function has($id): bool
     {
         return $this->container->has($id);
     }

@@ -37,7 +37,7 @@ class NetteContainerAdapter implements ContainerInterface
         }
     }
 
-    public function has($id)
+    public function has($id): bool
     {
         return $this->container->hasService($id);
     }
