@@ -40,7 +40,7 @@ class ZendDiContainerAdapter implements ContainerInterface
         return $result;
     }
 
-    public function has($id)
+    public function has($id): bool
     {
         return ($this->container->get($id) !== null);
     }

@@ -27,7 +27,7 @@ abstract class AbstractContainerDecorator implements ContainerInterface
         return $this->container->get($name);
     }
 
-    public function has($name)
+    public function has($name): bool
     {
         return $this->container->has($name);
     }

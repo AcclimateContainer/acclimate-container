@@ -62,7 +62,7 @@ class CompositeContainer implements ContainerInterface
      *
      * {@inheritDoc}
      */
-    public function has($id)
+    public function has($id): bool
     {
         /** @var ContainerInterface $container */
         foreach ($this->containers as $container) {

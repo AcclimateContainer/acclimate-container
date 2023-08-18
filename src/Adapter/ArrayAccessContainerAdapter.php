@@ -37,7 +37,7 @@ class ArrayAccessContainerAdapter implements AcclimateContainerInterface
         }
     }
 
-    public function has($id)
+    public function has($id): bool
     {
         return isset($this->container[$id]);
     }

@@ -37,7 +37,7 @@ class PHPDIContainerAdapter implements ContainerInterface
         }
     }
 
-    public function has($id)
+    public function has($id): bool
     {
         try {
             $this->container->get($id);

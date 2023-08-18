@@ -36,7 +36,7 @@ class PimpleContainerAdapter implements ContainerInterface
         }
     }
 
-    public function has($id)
+    public function has($id): bool
     {
         return isset($this->container[$id]);
     }
